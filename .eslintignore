@@ -1,4 +1,5 @@
-examples
+**/examples
+**/codemods
 **/flow-typed
 **/lib
 **/tests

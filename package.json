@@ -17,6 +17,7 @@
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
     "babel-jest": "^23.0.1",
+    "babel-literal-to-ast": "^2.0.0",
     "babel-plugin-transform-builtin-extend": "^1.1.2",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
@@ -49,6 +50,7 @@
     "lint-staged": "^6.0.1",
     "pre-commit": "^1.2.2",
     "prettier": "^1.10.2",
+    "react-testing-library": "^4.0.1",
     "rimraf": "^2.6.2",
     "serverless-plugin-cloudfront-lambda-edge": "^2.0.0",
     "source-map-support": "^0.5.0",
@@ -97,6 +99,7 @@
     ],
     "setupTestFrameworkScriptFile": "jest-extended",
     "testMatch": [
+      "<rootDir>/packages/**/__tests__/**/*.test.js",
       "<rootDir>/packages/**/tests/**/*.test.js"
     ]
   }
