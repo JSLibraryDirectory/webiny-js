@@ -9,21 +9,27 @@ type Props = {
     flat?: boolean,
     /* Make button smaller */
     small?: boolean,
+    /* onClick handler */
+    onClick: Function,
     /* Label and optionally an icon (via Button.Icon component) */
     children: React.Node
 };
 
 const Default = (props: Props) => {
-    const { children, small } = props;
-    return <R.Button dense={small}>{children}</R.Button>;
+    const { onClick, children, small } = props;
+    return (
+        <R.Button dense={small} onClick={onClick}>
+            {children}
+        </R.Button>
+    );
 };
 
 Default.displayName = "Button.Default";
 
 const Primary = (props: Props) => {
-    const { children, small = false, flat = false } = props;
+    const { onClick, children, small = false, flat = false } = props;
     return (
-        <R.Button raised={!flat} dense={small} unelevated={flat}>
+        <R.Button raised={!flat} dense={small} unelevated={flat} onClick={onClick}>
             {children}
         </R.Button>
     );
@@ -32,10 +38,10 @@ const Primary = (props: Props) => {
 Primary.displayName = "Button.Primary";
 
 const Secondary = (props: Props) => {
-    const { children, small = false } = props;
+    const { onClick, children, small = false } = props;
 
     return (
-        <R.Button outlined dense={small}>
+        <R.Button outlined dense={small} onClick={onClick}>
             {children}
         </R.Button>
     );
@@ -44,8 +50,12 @@ const Secondary = (props: Props) => {
 Secondary.displayName = "Button.Secondary";
 
 const Floating = (props: Props) => {
-    const { children, small = false } = props;
-    return <Fab mini={small}>{children}</Fab>;
+    const { onClick, children, small = false } = props;
+    return (
+        <Fab mini={small} onClick={onClick}>
+            {children}
+        </Fab>
+    );
 };
 
 Floating.displayName = "Button.Floating";

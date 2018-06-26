@@ -1,112 +1,244 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { Grid, GridCell } from "rmwc/Grid";
+import Story from "webiny-storybook-utils/lib/Story";
+import { withKnobs, boolean } from "@storybook/addon-knobs";
+import readme from "./../Input/README.md";
+
 import { Form } from "webiny-form";
-import Input from "./index";
+import Input, { PropsType } from "./Input";
 
 const story = storiesOf("Components/Input", module);
+story.addDecorator(withKnobs);
 
-const bindProps = {
-    name: "name",
-    validators: ["required", "minLength:3"],
-    validationMessages: { minLength: "Please enter more characters" }
-};
+story.add("all inputs", () => {
+    const bindProps = {
+        name: "name",
+        validators: ["required", "minLength:3"],
+        validationMessages: { minLength: "Please enter more characters" }
+    };
 
-story.add("label only", () => (
-    <Form model={{ name: "" }}>
-        {({ Bind }) => (
-            <Grid>
-                <GridCell span={12}>
-                    <Bind {...bindProps}>
-                        <Input label={"Your name"} />
-                    </Bind>
-                </GridCell>
-            </Grid>
-        )}
-    </Form>
-));
+    const disabled = boolean("Disabled", false);
 
-story.add("placeholder only", () => (
-    <Form model={{ name: "" }}>
-        {({ Bind }) => (
-            <Grid>
-                <GridCell span={12}>
-                    <Bind {...bindProps}>
-                        <Input placeholder={"Enter a name"} />
-                    </Bind>
-                </GridCell>
-            </Grid>
-        )}
-    </Form>
-));
-
-story.add("with description", () => (
-    <Form model={{ name: "" }}>
-        {({ Bind }) => (
-            <Grid>
-                <GridCell span={12}>
-                    <Bind {...bindProps}>
-                        <Input label={"Your name"} description={"This is your profile name"} />
-                    </Bind>
-                </GridCell>
-            </Grid>
-        )}
-    </Form>
-));
-
-story.add("disabled", () => (
-    <Form model={{ name: "" }}>
-        {({ Bind }) => (
-            <Grid>
-                <GridCell span={12}>
-                    <Bind {...bindProps}>
-                        <Input label={"Your name"} disabled />
-                    </Bind>
-                </GridCell>
-            </Grid>
-        )}
-    </Form>
-));
-
-story.add("full width", () => (
-    <Form model={{ name: "" }}>
-        {({ Bind }) => (
-            <Grid>
-                <GridCell span={12}>
-                    <Bind {...bindProps}>
-                        <Input
-                            fullWidth
-                            placeholder="Enter your name..."
-                            description={"This is your profile name"}
-                        />
-                    </Bind>
-                </GridCell>
-            </Grid>
-        )}
-    </Form>
-));
-
-story.add("with icon", () => (
-    <Form model={{ name: "0038567394023" }}>
-        {({ Bind }) => (
-            <Grid>
-                <GridCell span={12}>
-                    <Bind {...bindProps}>
-                        <Input
-                            leadingIcon={<Input.Icon icon={"phone-volume"} />}
-                            label={"Your phone number"}
-                            description={"Please enter a real number"}
-                        />
-                    </Bind>
-                    <Bind {...bindProps}>
-                        <Input
-                            trailingIcon={<Input.Icon icon={"mobile-alt"} />}
-                            label={"Your mobile number"}
-                            description={"An SMS will be sent to this number"}
-                        />
-                    </Bind>
-                </GridCell>
-            </Grid>
-        )}
-    </Form>
-));
+    return (
+        <Story>
+            <Story.Readme>{readme}</Story.Readme>
+            <Story.Props>{PropsType}</Story.Props>
+            <Story.Sandbox>
+                <Story.Sandbox.Example title={"Label, description and validation"}>
+                    <Form>
+                        {({ Bind }) => (
+                            <Bind {...bindProps}>
+                                <Input
+                                    label={"Your name"}
+                                    disabled={disabled}
+                                    description={"This is your profile name"}
+                                />
+                            </Bind>
+                        )}
+                    </Form>
+                </Story.Sandbox.Example>
+                <Story.Sandbox.Code>
+                    {`
+                    <Form>
+                        {({ Bind }) => (
+                            <Bind
+                                name="name"
+                                validators={["required", "minLength:3"]}
+                                validationMessages={{ minLength: "Please enter more characters" }}>
+                                <Input label={"Your name"} disabled={${disabled}} description={"This is your profile name"}/>
+                            </Bind>
+                        )}
+                    </Form>
+                    `}
+                </Story.Sandbox.Code>
+            </Story.Sandbox>
+            <Story.Sandbox>
+                <Story.Sandbox.Example title={"With icon (box)"}>
+                    <Form>
+                        {({ Bind }) => (
+                            <React.Fragment>
+                                <Bind name="phone">
+                                    <Input
+                                        leadingIcon={<Input.Icon icon={"phone-volume"} />}
+                                        label={"Your phone number"}
+                                        description={"Please enter a real number"}
+                                        disabled={disabled}
+                                    />
+                                </Bind>
+                                <Bind name="mobile">
+                                    <Input
+                                        trailingIcon={<Input.Icon icon={"mobile-alt"} />}
+                                        label={"Your mobile number"}
+                                        description={"An SMS will be sent to this number"}
+                                        disabled={disabled}
+                                    />
+                                </Bind>
+                            </React.Fragment>
+                        )}
+                    </Form>
+                </Story.Sandbox.Example>
+                <Story.Sandbox.Code>
+                    {`
+                    <Form>
+                        {({ Bind }) => (
+                            <React.Fragment>
+                                <Bind name="phone">
+                                    <Input
+                                        leadingIcon={<Input.Icon icon={"phone-volume"} />}
+                                        label={"Your phone number"}
+                                        description={"Please enter a real number"}
+                                        disabled={${disabled}}
+                                    />
+                                </Bind>
+                                <Bind name="mobile">
+                                    <Input
+                                        trailingIcon={<Input.Icon icon={"mobile-alt"} />}
+                                        label={"Your mobile number"}
+                                        description={"An SMS will be sent to this number"}
+                                        disabled={${disabled}}
+                                    />
+                                </Bind>
+                            </React.Fragment>
+                        )}
+                    </Form>
+                    `}
+                </Story.Sandbox.Code>
+            </Story.Sandbox>
+            <Story.Sandbox>
+                <Story.Sandbox.Example title={"With icon (outlined)"}>
+                    <Form>
+                        {({ Bind }) => (
+                            <React.Fragment>
+                                <Bind name="phone">
+                                    <Input
+                                        outlined
+                                        leadingIcon={<Input.Icon icon={"phone-volume"} />}
+                                        label={"Your phone number"}
+                                        description={"Please enter a real number"}
+                                        disabled={disabled}
+                                    />
+                                </Bind>
+                                <Bind name="mobile">
+                                    <Input
+                                        outlined
+                                        trailingIcon={<Input.Icon icon={"mobile-alt"} />}
+                                        label={"Your mobile number"}
+                                        description={"An SMS will be sent to this number"}
+                                        disabled={disabled}
+                                    />
+                                </Bind>
+                            </React.Fragment>
+                        )}
+                    </Form>
+                </Story.Sandbox.Example>
+                <Story.Sandbox.Code>
+                    {`
+                    <Form>
+                        {({ Bind }) => (
+                            <React.Fragment>
+                                <Bind name="phone">
+                                    <Input
+                                        outlined
+                                        leadingIcon={<Input.Icon icon={"phone-volume"} />}
+                                        label={"Your phone number"}
+                                        description={"Please enter a real number"}
+                                        disabled={${disabled}}
+                                    />
+                                </Bind>
+                                <Bind name="mobile">
+                                    <Input
+                                        outlined
+                                        trailingIcon={<Input.Icon icon={"mobile-alt"} />}
+                                        label={"Your mobile number"}
+                                        description={"An SMS will be sent to this number"}
+                                        disabled={${disabled}}
+                                    />
+                                </Bind>
+                            </React.Fragment>
+                        )}
+                    </Form>
+                    `}
+                </Story.Sandbox.Code>
+            </Story.Sandbox>
+            <Story.Sandbox>
+                <Story.Sandbox.Example title={"Full width"}>
+                    <Form>
+                        {({ Bind }) => (
+                            <Bind {...bindProps}>
+                                <Input placeholder={"Your name"} fullWidth disabled={disabled} />
+                            </Bind>
+                        )}
+                    </Form>
+                </Story.Sandbox.Example>
+                <Story.Sandbox.Code>
+                    {`
+                    <Form>
+                        {({ Bind }) => (
+                            <Bind
+                                name="name"
+                                validators={["required", "minLength:3"]}
+                                validationMessages={{ minLength: "Please enter more characters" }}>
+                                <Input placeholder={"Your name"} fullWidth disabled={${disabled}}/>
+                            </Bind>
+                        )}
+                    </Form>
+                    `}
+                </Story.Sandbox.Code>
+            </Story.Sandbox>
+            <Story.Sandbox>
+                <Story.Sandbox.Example title={"Textarea"}>
+                    <Form>
+                        {({ Bind }) => (
+                            <React.Fragment>
+                                <Bind name="info">
+                                    <Input
+                                        rows={6}
+                                        placeholder={"Tell us something..."}
+                                        description={"Just a little bit about yourself."}
+                                        disabled={disabled}
+                                    />
+                                </Bind>
+                                <Bind name="description">
+                                    <Input
+                                        fullWidth
+                                        rows={6}
+                                        placeholder={"How's the weather today?"}
+                                        description={"We actually need to know."}
+                                        disabled={disabled}
+                                    />
+                                </Bind>
+                            </React.Fragment>
+                        )}
+                    </Form>
+                </Story.Sandbox.Example>
+                <Story.Sandbox.Code>
+                    {`
+                    <Form>
+                        {({ Bind }) => (
+                            <React.Fragment>
+                                <Bind name="info">
+                                    <Input
+                                        rows={6}
+                                        placeholder={"Tell us something..."}
+                                        description={"Just a little bit about yourself."}
+                                        disabled={${disabled}}
+                                    />
+                                </Bind>
+                                <Bind name="description">
+                                    <Input
+                                        fullWidth
+                                        rows={6}
+                                        placeholder={"How's the weather today?"}
+                                        description={"We actually need to know."}
+                                        disabled={${disabled}}
+                                    />
+                                </Bind>
+                            </React.Fragment>
+                        )}
+                    </Form>
+                    `}
+                </Story.Sandbox.Code>
+            </Story.Sandbox>
+        </Story>
+    );
+});

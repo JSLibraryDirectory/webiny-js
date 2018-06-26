@@ -1,14 +1,9 @@
 import React from "react";
 import Highlight from "react-highlight.js";
-import reactElementToJSXString from "react-element-to-jsx-string";
 import copy from "copy-to-clipboard";
-
-const elementToString = element => {
-    return reactElementToJSXString(element, {
-        showDefaultProps: false,
-        showFunctions: false
-    });
-};
+import elementToString from "react-element-to-jsx-string";
+import prettier from "prettier/standalone";
+import babylon from "prettier/parser-babylon";
 
 class CodeBlock extends React.Component {
     state = { copied: false };
@@ -24,7 +19,12 @@ class CodeBlock extends React.Component {
 
     render() {
         const { children } = this.props;
-        const source = typeof children === "string" ? children : elementToString(children);
+
+        let source = children;
+        if (typeof children !== "string") {
+            source = elementToString(source, { showDefaultProps: false, showFunctions: true });
+        }
+
         return (
             <div>
                 {this.props.copy && (
@@ -32,7 +32,11 @@ class CodeBlock extends React.Component {
                         {this.state.copied ? "Copied!" : "Copy to clipboard"}
                     </a>
                 )}
-                <Highlight language={this.props.lang || "html"}>{source}</Highlight>
+                <Highlight language={this.props.lang || "html"}>
+                    {prettier
+                        .format(source, { parser: "babylon", plugins: [babylon] })
+                        .replace(">;", ">")}
+                </Highlight>
             </div>
         );
     }

@@ -12,18 +12,19 @@ class Story extends React.Component {
         </React.Fragment>
     );
 
-    static Sandbox = ({ children }) => (
-        <div style={{ display: "flex" }}>
-            <div style={{ width: "50%", marginRight: 15 }}>
-                <h2>Example</h2>
-                {children}
+    static Sandbox = props => {
+        const children = React.Children.toArray(props.children);
+        if (children.length === 2) {
+            return <div style={{ display: "flex" }}>{props.children}</div>;
+        }
+
+        return (
+            <div style={{ display: "flex" }}>
+                <Story.Sandbox.Example title={props.title}>{props.children}</Story.Sandbox.Example>
+                <Story.Sandbox.Code>{props.children}</Story.Sandbox.Code>
             </div>
-            <div style={{ width: "50%" }}>
-                <h2>Code</h2>
-                <CodeBlock copy={true}>{children}</CodeBlock>
-            </div>
-        </div>
-    );
+        );
+    };
 
     render() {
         return (
@@ -33,5 +34,25 @@ class Story extends React.Component {
         );
     }
 }
+
+// eslint-disable-next-line
+Story.Sandbox.Example = ({ children, title = "Example" }) => (
+    <div style={{ width: "50%", marginRight: 15 }}>
+        <h2>{title}</h2>
+        {children}
+    </div>
+);
+
+Story.Sandbox.Example.displayName = "Story.Sandbox.Example";
+
+// eslint-disable-next-line
+Story.Sandbox.Code = ({ children }) => (
+    <div style={{ width: "50%" }}>
+        <h2>Code</h2>
+        <CodeBlock copy={true}>{children}</CodeBlock>
+    </div>
+);
+
+Story.Sandbox.Code.displayName = "Story.Sandbox.Code";
 
 export default Story;
