@@ -84,7 +84,7 @@ export default class Input extends React.Component<Props> {
                     fullwidth={fullWidth}
                     placeholder={placeholder}
                     disabled={disabled}
-                    value={value}
+                    value={value || ""}
                     onChange={this.onChange}
                     onBlur={this.onBlur}
                     label={!placeholder && label}
