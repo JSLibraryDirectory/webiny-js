@@ -51,38 +51,6 @@ story.add("all checkboxes", () => {
                 </Story.Sandbox.Code>
             </Story.Sandbox>
 
-            <Story.Sandbox>
-                <Story.Sandbox.Example title={"A checkbox with an additional onChange callback."}>
-                    <Form>
-                        {({ Bind }) => (
-                            <Bind name="rememberMe">
-                                <Checkbox
-                                    onChange={value => {
-                                        console.log(value);
-                                    }}
-                                    label={"Send me newsletter"}
-                                />
-                            </Bind>
-                        )}
-                    </Form>
-                </Story.Sandbox.Example>
-                <Story.Sandbox.Code>
-                    {`
-                    <Form>
-                        {({ Bind }) => (
-                            <Bind name="rememberMe">
-                                  <Checkbox
-                                    label={"Remember me"}
-                                    disabled={disabled}
-                                    description={"You won't be logged out after you leave the app."}
-                                />
-                            </Bind>
-                        )}
-                    </Form>
-                    `}
-                </Story.Sandbox.Code>
-            </Story.Sandbox>
-
             {/* TODO: CheckboxGroup */}
         </Story>
     );
