@@ -1,3 +1,4 @@
+// @flow
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import Story from "webiny-storybook-utils/lib/Story";
@@ -5,6 +6,8 @@ import { withKnobs, boolean } from "@storybook/addon-knobs";
 import readme from "./README.md";
 
 import { Form } from "webiny-form";
+
+// $FlowFixMe
 import Checkbox, { PropsType } from "./Checkbox";
 
 const story = storiesOf("Components/Checkbox", module);
@@ -79,6 +82,8 @@ story.add("all checkboxes", () => {
                     `}
                 </Story.Sandbox.Code>
             </Story.Sandbox>
+
+            {/* TODO: CheckboxGroup */}
         </Story>
     );
 });

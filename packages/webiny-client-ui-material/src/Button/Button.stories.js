@@ -1,9 +1,11 @@
+// @flow
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 import Story from "webiny-storybook-utils/lib/Story";
 import readme from "./../Button/README.md";
 
+// $FlowFixMe
 import Button, { PropsType } from "./Button";
 
 const story = storiesOf("Components/Button", module);

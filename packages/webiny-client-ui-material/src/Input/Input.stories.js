@@ -1,3 +1,4 @@
+// @flow
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import Story from "webiny-storybook-utils/lib/Story";
@@ -5,6 +6,8 @@ import { withKnobs, boolean } from "@storybook/addon-knobs";
 import readme from "./../Input/README.md";
 
 import { Form } from "webiny-form";
+
+// $FlowFixMe
 import Input, { PropsType } from "./Input";
 
 const story = storiesOf("Components/Input", module);

@@ -19,7 +19,7 @@ type Props = {
     /* Stretches the input to fit available width. */
     fullWidth?: boolean,
     /* A ref for the native input. */
-    inputRef: React.Ref<any>,
+    inputRef?: React.Ref<any>,
     /* Provided by <Form> component. */
     validation?: {
         /* Is input value valid? */
@@ -36,9 +36,9 @@ type Props = {
     /* Provided by <Form> component to perform validation when value has changed. */
     validate?: () => Promise<mixed>,
     /* Input value. */
-    value: string,
+    value?: string,
     /* A callback that is executed each time a value is changed. */
-    onChange: (value: mixed) => any,
+    onChange?: (value: mixed) => any,
     /* A callback that is executed when input focus is lost. */
     onBlur?: (value: mixed) => any
 };

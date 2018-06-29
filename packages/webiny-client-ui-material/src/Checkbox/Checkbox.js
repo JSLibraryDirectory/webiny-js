@@ -22,9 +22,9 @@ type Props = {
     /* Provided by <Form> component to perform validation when value has changed. */
     validate?: () => Promise<mixed>,
     /* Input value. */
-    value: string,
+    value?: string,
     /* A callback that is executed each time a value is changed. */
-    onChange: (value: mixed) => any
+    onChange?: (value: mixed) => any
 };
 
 export default class Input extends React.Component<Props> {

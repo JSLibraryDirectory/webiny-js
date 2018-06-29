@@ -10,7 +10,7 @@ type Props = {
     /* Make button smaller */
     small?: boolean,
     /* onClick handler */
-    onClick: Function,
+    onClick?: Function,
     /* Label and optionally an icon (via Button.Icon component) */
     children: React.Node
 };
