@@ -47,7 +47,7 @@ export default class Input extends React.Component<Props> {
     static Icon = (props: Object) => <FontAwesomeIcon style={{ fontSize: 22 }} {...props} />;
 
     onChange = (e: SyntheticInputEvent<HTMLInputElement>) => {
-        this.props.onChange(e.target.value);
+        this.props.onChange && this.props.onChange(e.target.value);
     };
 
     onBlur = () => {
