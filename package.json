@@ -73,7 +73,7 @@
     "release-private": "yarn build && node scripts/private --branch=development --require=babel-register",
     "release-private:dry": "node scripts/private --preview --branch=development --require=babel-register",
     "test": "jest",
-    "webiny-client-ui-material-build-storybook": "build-storybook -c packages/webiny-client-ui-material/.storybook/ -o netlify-static"
+    "webiny-client-ui-material-build-storybook": "yarn build && build-storybook -c packages/webiny-client-ui-material/.storybook/ -o netlify-static"
 
   },
   "pre-commit": [
