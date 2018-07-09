@@ -6,11 +6,10 @@ import {
     authenticationMiddleware,
     Router
 } from "webiny-client";
-import { app as adminApp, Menu } from "webiny-client-admin";
+import { app as adminApp, Menu } from "webiny-client-admin-material";
 import { app as cmsAdminApp } from "webiny-client-cms/admin";
 import userIdentity from "./userIdentity";
 import apiConfig from "./../apiConfig";
-import "./app.scss";
 import { hot } from "react-hot-loader";
 
 if (!app.initialized) {
