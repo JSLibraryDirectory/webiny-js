@@ -66,10 +66,41 @@ const Footer = props => <DialogFooter {...props} />;
  */
 const FooterButton = props => <DialogFooterButton {...props} />;
 
+/**
+ * Use this to close the dialog without taking any additional action.
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
+const DialogCancel = props => {
+    return (
+        <Dialog.Footer.Button {...props} cancel>
+            {props.children}
+        </Dialog.Footer.Button>
+    );
+};
+
+/**
+ * Use this to close the dialog without taking any additional action.
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
+const DialogAccept = props => {
+    return (
+        <Dialog.Footer.Button {...props} accept>
+            {props.children}
+        </Dialog.Footer.Button>
+    );
+};
+
 Dialog.Header = Header;
 Dialog.Header.Title = HeaderTitle;
 Dialog.Body = DialogBody;
 Dialog.Footer = Footer;
 Dialog.Footer.Button = FooterButton;
+
+Dialog.Accept = DialogAccept;
+Dialog.Cancel = DialogCancel;
 
 export default Dialog;

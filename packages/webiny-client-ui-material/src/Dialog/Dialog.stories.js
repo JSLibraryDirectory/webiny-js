@@ -21,6 +21,12 @@ story.add("usage", () => {
             <Story.Sandbox title={"dialog"}>
                 <Story.Sandbox.Example title={"A list with all possible options"}>
                     Toggle <code>open</code> prop via the bottom knobs.
+                    <br />
+                    <br />
+                    Note that instead of using <code>Dialog.Footer.Button</code> with{" "}
+                    <code>accept</code> or <code>cancel</code> prop, you can use a shorter{" "}
+                    <code>Dialog.Accept</code> and <code>Dialog.Cancel</code> components
+                    respectively.
                     <Dialog open={open}>
                         <Dialog.Header>
                             <Dialog.Header.Title>Delete confirmation</Dialog.Header.Title>
