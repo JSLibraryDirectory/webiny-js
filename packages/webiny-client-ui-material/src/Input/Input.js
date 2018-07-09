@@ -17,7 +17,7 @@ type Props = FormComponentProps & {
     // Placeholder is used with `fullWidth` prop instead of a `label`. `label` and `placeholder` are always mutually exclusive.
     placeholder?: string,
 
-    // Type of input (eg. "password")
+    // Type of input ()
     type?: string,
 
     // Converts input into a text area with given number of rows.
