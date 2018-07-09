@@ -15,7 +15,14 @@ type State = {
 
 MenuItem.displayName = "Menu.Item";
 
+/**
+ * Use Menu component to display a list of choices, once the handler is triggered.
+ */
 class Menu extends React.Component<Props, State> {
+    /**
+     * Each menu item must be a Menu.Item component (its content can by anything).
+     * @type {React.ComponentType<any>}
+     */
     static Item = MenuItem;
 
     static defaultProps = {
@@ -25,6 +32,7 @@ class Menu extends React.Component<Props, State> {
     state = {
         menuIsOpen: false
     };
+
     render() {
         return (
             <MenuAnchor>

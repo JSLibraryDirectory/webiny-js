@@ -11,6 +11,12 @@ type Props = {
     children: React.ChildrenArray<React.Element<typeof List.Item>>
 };
 
+/**
+ * Use List component to display data and offer additional actions if needed.
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 const List = (props: Props) => {
     return <RmwcList>{props.children}</RmwcList>;
 };

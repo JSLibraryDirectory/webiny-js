@@ -19,6 +19,12 @@ type Props = FormComponentProps & {
     children: React.Node
 };
 
+/**
+ * Shows a default button, used typically when action is not of high priority.
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 const Default = (props: Props) => {
     const { onClick, children, small } = props;
     return (
@@ -30,6 +36,12 @@ const Default = (props: Props) => {
 
 Default.displayName = "Button.Default";
 
+/**
+ * Shows primary button, eg. for submitting forms.
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 const Primary = (props: Props) => {
     const { onClick, children, small = false, flat = false } = props;
     return (
@@ -41,6 +53,12 @@ const Primary = (props: Props) => {
 
 Primary.displayName = "Button.Primary";
 
+/**
+ * Shows a secondary button - eg. for doing a reset on a form.
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 const Secondary = (props: Props) => {
     const { onClick, children, small = false } = props;
 
@@ -53,6 +71,12 @@ const Secondary = (props: Props) => {
 
 Secondary.displayName = "Button.Secondary";
 
+/**
+ * A floating button, shown on the side of the screen, typically used for creating new content or accessing settings.
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 const Floating = (props: Props) => {
     const { onClick, children, small = false } = props;
     return (
@@ -64,6 +88,12 @@ const Floating = (props: Props) => {
 
 Floating.displayName = "Button.Floating";
 
+/**
+ * Shows an icon, suitable to be shown inside of a button.
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 const Icon = (props: any) => <FontAwesomeIcon {...props} className={"mdc-button__icon"} />;
 
 Icon.displayName = "Button.Icon";

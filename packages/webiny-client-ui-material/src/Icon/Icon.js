@@ -8,6 +8,12 @@ type Props = {
     name: string
 };
 
+/**
+ * Use Icon component to display an icon.
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 const Icon = (props: Props) => {
     return (
         <RmwcIcon

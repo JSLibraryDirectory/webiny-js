@@ -16,6 +16,12 @@ type Props = FormComponentProps & {
     description?: string
 };
 
+/**
+ * Single Checkbox component can be used to store simple boolean values.
+ *
+ * Grouping multiple Checkbox components with Checkbox.Group will allow to store an array of selected values.
+ * In that case, each Checkbox component must receive value and onChange callback via props.
+ */
 class Checkbox extends React.Component<Props> {
     static Group: Checkbox.Group = CheckboxGroup;
 

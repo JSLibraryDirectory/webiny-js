@@ -1,6 +1,6 @@
 # Menu
 
-Use Menu component to display a list of choices, once the handler is triggered.
+Use `Menu` component to display a list of choices, once the handler is triggered.
 
 ## Import
 ```js

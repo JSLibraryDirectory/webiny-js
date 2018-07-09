@@ -15,6 +15,9 @@ type Props = FormComponentProps & {
     description?: string
 };
 
+/**
+ * Switch component can be used to store simple boolean values.
+ */
 class Switch extends React.Component<Props> {
     onChange = (e: SyntheticInputEvent<HTMLInputElement>) => {
         this.props.onChange && this.props.onChange(e.target.checked);

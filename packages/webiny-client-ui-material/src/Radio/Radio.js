@@ -16,7 +16,15 @@ type Props = FormComponentProps & {
     description?: string
 };
 
+/**
+ * Wrap Radio components with Radio.Group to create a set of options.
+ * Each Radio component must receive value and onChange callback via props.
+ */
 class Radio extends React.Component<Props> {
+    /**
+     * Radio.Group component - must wrap base Radio components.
+     * @type {RadioGroup}
+     */
     static Group: Radio.Group = RadioGroup;
 
     onChange = (e: SyntheticInputEvent<HTMLInputElement>) => {

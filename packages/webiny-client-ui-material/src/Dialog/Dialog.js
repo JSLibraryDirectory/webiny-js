@@ -18,6 +18,12 @@ type Props = {
     open?: boolean
 };
 
+/**
+ * Use Dialog component to display an informative or alert message and allow users to act upon it.
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 const Dialog = (props: Props) => {
     // Let's pass "permanent" / "persistent" / "temporary" flags as "mode" prop instead.
     return (
@@ -28,9 +34,36 @@ const Dialog = (props: Props) => {
     );
 };
 
+/**
+ * Dialog's header, which can accept Dialog.Header.Title component or any other set of components.
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 const Header = props => <DialogHeader {...props} />;
+
+/**
+ * A simple component for showing dialog's title.
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 const HeaderTitle = props => <DialogHeaderTitle {...props} />;
+
+/**
+ * Can be used to show accept and cancel buttons.
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 const Footer = props => <DialogFooter {...props} />;
+
+/**
+ * Use this to show a simple button.
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 const FooterButton = props => <DialogFooterButton {...props} />;
 
 Dialog.Header = Header;

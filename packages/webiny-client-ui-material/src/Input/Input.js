@@ -39,7 +39,17 @@ type Props = FormComponentProps & {
     onBlur?: (value: mixed) => any
 };
 
-export default class Input extends React.Component<Props> {
+/**
+ * Use Input component to store short string values, like first name, last name, e-mail etc.
+ * Additionally, with rows prop, it can also be turned into a text area, to store longer strings.
+ */
+class Input extends React.Component<Props> {
+    /**
+     * An icon that can be shown inside the input.
+     * @param props
+     * @returns {*}
+     * @constructor
+     */
     static Icon = (props: Object) => <FontAwesomeIcon style={{ fontSize: 22 }} {...props} />;
 
     onChange = (e: SyntheticInputEvent<HTMLInputElement>) => {
@@ -100,3 +110,5 @@ export default class Input extends React.Component<Props> {
         );
     }
 }
+
+export default Input;

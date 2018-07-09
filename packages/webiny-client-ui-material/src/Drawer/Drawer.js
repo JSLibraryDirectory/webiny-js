@@ -18,13 +18,32 @@ type Props = {
     mode?: "permanent" | "persistent" | "temporary"
 };
 
+/**
+ * Use Drawer component to display navigation for the whole app or just a small section of it.
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 const Drawer = (props: Props) => {
     // Let's pass "permanent" / "persistent" / "temporary" flags as "mode" prop instead.
     const mode = props.mode || "permanent";
     return <RmwcDrawer {...{ [mode]: true }} {...props} />;
 };
 
+/**
+ * Shows header of the drawer.
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 const Header = props => <DrawerHeader {...props} />;
+
+/**
+ * Shows drawer content. It can be anything, but commonly a List component would suffice here.
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 const Content = props => <DrawerContent {...props} />;
 
 Drawer.Header = Header;
