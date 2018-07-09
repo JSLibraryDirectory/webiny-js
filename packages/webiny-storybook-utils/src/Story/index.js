@@ -6,9 +6,9 @@ import Markdown from "../Markdown";
 class Story extends React.Component<Object> {
     static Readme = ({ children }: { children: React.Node }) => <Markdown source={children} />;
 
-    static Props = ({ children }: { children: React.Node }) => (
+    static Props = ({ title, children }: { title?: string, children: React.Node }) => (
         <React.Fragment>
-            <h2>Props</h2>
+            <h3>{title || "Props"}</h3>
             <CodeBlock lang={"js"}>{children}</CodeBlock>
         </React.Fragment>
     );
