@@ -1,5 +1,5 @@
 # Switch
-Stores simple `true` or `false` value into the form model.
+`Switch` component can be used to store simple boolean values.
 
 ## Import
 ```js
