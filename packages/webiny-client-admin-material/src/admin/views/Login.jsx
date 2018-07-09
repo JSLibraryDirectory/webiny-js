@@ -1,3 +1,4 @@
+// @flow
 import React from "react";
 import classSet from "classnames";
 import invariant from "invariant";

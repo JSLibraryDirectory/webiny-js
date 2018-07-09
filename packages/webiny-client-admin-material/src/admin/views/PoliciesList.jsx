@@ -1,3 +1,4 @@
+// @flow
 import React, { Fragment } from "react";
 import ExportPolicyModal from "./PoliciesList/ExportPolicyModal";
 import ImportPolicyModal from "./PoliciesList/ImportPolicyModal";

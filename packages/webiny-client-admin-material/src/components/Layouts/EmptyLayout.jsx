@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import { inject } from 'webiny-client';
 

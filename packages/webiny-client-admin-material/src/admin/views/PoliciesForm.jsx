@@ -1,3 +1,4 @@
+// @flow
 import React from "react";
 import { app, i18n, inject } from "webiny-client";
 import EntitiesList from "./PoliciesForm/EntitiesList";

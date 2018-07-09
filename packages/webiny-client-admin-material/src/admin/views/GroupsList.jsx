@@ -1,3 +1,4 @@
+// @flow
 import React, { Fragment } from "react";
 
 import { i18n, inject } from "webiny-client";

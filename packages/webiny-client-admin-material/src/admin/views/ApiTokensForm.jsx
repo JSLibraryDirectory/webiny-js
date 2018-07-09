@@ -1,3 +1,4 @@
+// @flow
 import React from "react";
 import { app, i18n, inject } from "webiny-client";
 const t = i18n.namespace("Security.ApiTokensForm");

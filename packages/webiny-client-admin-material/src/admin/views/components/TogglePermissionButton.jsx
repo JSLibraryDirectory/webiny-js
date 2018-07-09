@@ -1,3 +1,4 @@
+// @flow
 import React from "react";
 import styles from "./TogglePermissionButton.module.scss";
 import { inject } from "webiny-client";

@@ -1,3 +1,4 @@
+// @flow
 import React, { Fragment } from "react";
 import TogglePermissionButton from "./../components/TogglePermissionButton";
 import _ from "lodash";
