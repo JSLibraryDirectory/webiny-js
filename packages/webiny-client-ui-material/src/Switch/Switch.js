@@ -1,7 +1,6 @@
 // @flow
 import * as React from "react";
 import { Switch as RmwcSwitch } from "rmwc/Switch";
-import { TextFieldHelperText } from "rmwc/TextField";
 import type { FormComponentProps } from "./../types";
 
 type Props = FormComponentProps & {
@@ -33,14 +32,18 @@ class Switch extends React.Component<Props> {
                     onChange={this.onChange}
                     label={label}
                 />
+
                 {validation.isValid === false && (
-                    <TextFieldHelperText persistent validationMsg>
+                    <div className="mdc-text-field-helper-text mdc-text-field-helper-text--persistent">
                         {validation.message}
-                    </TextFieldHelperText>
+                    </div>
                 )}
+
                 {validation.isValid !== false &&
                     description && (
-                        <TextFieldHelperText persistent>{description}</TextFieldHelperText>
+                        <div className="mdc-text-field-helper-text mdc-text-field-helper-text--persistent">
+                            {description}
+                        </div>
                     )}
             </React.Fragment>
         );
