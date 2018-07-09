@@ -17,6 +17,9 @@ type Props = FormComponentProps & {
     // Placeholder is used with `fullWidth` prop instead of a `label`. `label` and `placeholder` are always mutually exclusive.
     placeholder?: string,
 
+    // Type of input (eg. "password")
+    type?: string,
+
     // Converts input into a text area with given number of rows.
     rows?: number,
 
@@ -77,11 +80,13 @@ class Input extends React.Component<Props> {
             fullWidth,
             validation = { isValid: null },
             leadingIcon,
-            trailingIcon
+            trailingIcon,
+            type
         } = this.props;
         return (
             <React.Fragment>
                 <TextField
+                    type={type}
                     inputRef={inputRef}
                     textarea={Boolean(rows)}
                     rows={rows}
