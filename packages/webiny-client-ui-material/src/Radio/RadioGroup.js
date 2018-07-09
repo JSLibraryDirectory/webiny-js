@@ -25,8 +25,8 @@ class RadioGroup extends React.Component<Props> {
                 {this.props.label}
                 <br />
                 {this.props.children({
-                    onChange: id => {
-                        return () => this.props.onChange(id);
+                    onChange: value => {
+                        return () => this.props.onChange(value);
                     },
                     getValue: id => this.props.value === id
                 })}
