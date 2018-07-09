@@ -1,7 +1,6 @@
 // @flow
 import * as React from "react";
 import { Checkbox as RmwcCheckbox } from "rmwc/Checkbox";
-import { TextFieldHelperText } from "rmwc/TextField";
 import CheckboxGroup from "./CheckboxGroup";
 import type { FormComponentProps } from "./../types";
 
@@ -40,13 +39,15 @@ class Checkbox extends React.Component<Props> {
                     label={label}
                 />
                 {validation.isValid === false && (
-                    <TextFieldHelperText persistent validationMsg>
+                    <div className="mdc-text-field-helper-text mdc-text-field-helper-text--persistent">
                         {validation.message}
-                    </TextFieldHelperText>
+                    </div>
                 )}
                 {validation.isValid !== false &&
                     description && (
-                        <TextFieldHelperText persistent>{description}</TextFieldHelperText>
+                        <div className="mdc-text-field-helper-text mdc-text-field-helper-text--persistent">
+                            {description}
+                        </div>
                     )}
             </React.Fragment>
         );

@@ -18,21 +18,35 @@ type Props = FormComponentProps & {
 
 class RadioGroup extends React.Component<Props> {
     render() {
-        const { description, validation = { isValid: null } } = this.props;
+        const { description, label, validation = { isValid: null } } = this.props;
 
         return (
             <React.Fragment>
-                {this.props.label}
-                <br />
+                {label && (
+                    <div className="mdc-text-field-helper-text mdc-text-field-helper-text--persistent">
+                        {label}
+                    </div>
+                )}
+
                 {this.props.children({
                     onChange: value => {
                         return () => this.props.onChange(value);
                     },
                     getValue: id => this.props.value === id
                 })}
-                {validation.isValid === false && validation.message}
-                <br />
-                {validation.isValid !== false && description}
+
+                {validation.isValid === false && (
+                    <div className="mdc-text-field-helper-text mdc-text-field-helper-text--persistent">
+                        {validation.message}
+                    </div>
+                )}
+
+                {validation.isValid !== false &&
+                    description && (
+                        <div className="mdc-text-field-helper-text mdc-text-field-helper-text--persistent">
+                            {description}
+                        </div>
+                    )}
             </React.Fragment>
         );
     }
