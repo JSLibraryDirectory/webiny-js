@@ -1,8 +1,12 @@
 # Menu
 
+### Design
+<a href="https://material.io/design/components/menus.html" target="_blank">https://material.io/design/components/menus.html</a>
+
+### Description
 Use `Menu` component to display a list of choices, once the handler is triggered.
 
-## Import
+### Import
 ```js
 import `Menu` from "webiny-client-ui-material/Menu";
 ```
