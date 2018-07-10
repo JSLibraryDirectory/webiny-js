@@ -44,7 +44,7 @@ story.add("usage", () => {
                 </Story.Sandbox.Example>
                 <Story.Sandbox.Code>
                     {`
-                    <Dialog open={open}>
+                    <Dialog open={${open}}>
                         <Dialog.Header>
                             <Dialog.Header.Title>Delete confirmation</Dialog.Header.Title>
                         </Dialog.Header>
