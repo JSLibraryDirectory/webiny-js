@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { app } from "webiny-client";
 import App from "./app";
 
-app.setup().then(() => {
+app.setup().then(({ store }) => {
     window.app = app;
-    ReactDOM.render(<App />, document.getElementById("root"));
+    ReactDOM.render(<App store={store} />, document.getElementById("root"));
 });

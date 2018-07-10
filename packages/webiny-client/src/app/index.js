@@ -4,6 +4,7 @@ import debugFactory from "debug";
 import { ServiceManager } from "webiny-service-manager";
 import { Router } from "webiny-react-router";
 import { Security } from "./../security";
+import { redux } from "./../redux";
 
 import registerDefaultModules from "./defaultModules";
 import ModuleLoader from "./ModuleLoader";
@@ -52,6 +53,7 @@ class App {
         await compose(this.configurators)({ app: this });
         this.initialized = true;
         debug("Finished setup");
+        return { store: redux.initStore() };
     }
 }
 

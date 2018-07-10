@@ -5,6 +5,7 @@ import MenuService from "./services/Menu";
 import Menu from "./components/Menu";
 import { i18n } from "webiny-client";
 import React from "react";
+import "./admin/actions";
 
 const t = i18n.namespace("Admin.App");
 

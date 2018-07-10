@@ -11,6 +11,7 @@ import { app as cmsAdminApp } from "webiny-client-cms/admin";
 import userIdentity from "./userIdentity";
 import apiConfig from "./../apiConfig";
 import { hot } from "react-hot-loader";
+import { Provider } from "react-redux";
 
 if (!app.initialized) {
     app.use(adminApp());
@@ -52,8 +53,12 @@ if (!app.initialized) {
     });
 }
 
-const App = () => {
-    return <Router router={app.router} />;
+const App = ({ store }) => {
+    return (
+        <Provider store={store}>
+            <Router router={app.router} />
+        </Provider>
+    );
 };
 
 export default hot(module)(App);

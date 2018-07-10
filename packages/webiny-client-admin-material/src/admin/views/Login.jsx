@@ -5,6 +5,8 @@ import invariant from "invariant";
 import { app, inject, i18n } from "webiny-client";
 import logoOrange from "webiny-client-admin-material/assets/images/logo_orange.png";
 
+import { submitLogin } from "../actions";
+
 import { Elevation } from "rmwc/Elevation";
 import Button from "webiny-client-ui-material/Button";
 import Input from "webiny-client-ui-material/Input";
@@ -87,7 +89,7 @@ class Login extends React.Component {
 
         return (
             <sign-in-form class={classSet("sign-in", this.props.overlay && "overlay")}>
-                <Form onSubmit={model => this.props.onSubmit.call(this, model)}>
+                <Form onSubmit={model => submitLogin({ model })}>
                     {({ form, Bind }) => (
                         <div className="container">
                             <div className="sign-in-holder">

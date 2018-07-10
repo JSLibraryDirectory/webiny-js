@@ -66,6 +66,10 @@ export default () => {
             }
         });
 
+        /*app.redux.addActions({
+            LIST_SECURITY_USERS: () => {}
+        });*/
+
         next();
     };
 };

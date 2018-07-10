@@ -1,30 +1,11 @@
 // @flow
 import React from "react";
 import { app, i18n, inject } from "webiny-client";
+import compose from "recompose/compose";
+import { connect } from "react-redux";
+
 const t = i18n.namespace("Security.ApiTokensForm");
 
-@inject({
-    modules: [
-        "View",
-        "Form",
-        "FormData",
-        "FormError",
-        "Grid",
-        "Input",
-        "Textarea",
-        "Button",
-        "Section",
-        "Loader",
-        "OptionsData",
-        "AutoCompleteList",
-        "Link",
-        "Alert",
-        "Copy",
-        {
-            AdminLayout: "Admin.Layout"
-        }
-    ]
-})
 class ApiTokensForm extends React.Component {
     constructor() {
         super();
@@ -33,24 +14,32 @@ class ApiTokensForm extends React.Component {
         };
     }
 
+    componentDidMount() {
+        if (!this.props.data) {
+            loadApiToken({});
+        }
+    }
+
     render() {
         const {
-            Alert,
-            AdminLayout,
-            Form,
-            FormData,
-            FormError,
-            OptionsData,
-            Section,
-            View,
-            Grid,
-            Input,
-            Button,
-            Textarea,
-            Loader,
-            AutoCompleteList,
-            Copy
-        } = this.props.modules;
+            modules: {
+                Alert,
+                AdminLayout,
+                Form,
+                FormData,
+                FormError,
+                OptionsData,
+                Section,
+                View,
+                Grid,
+                Input,
+                Button,
+                Textarea,
+                Loader,
+                AutoCompleteList,
+                Copy
+            }
+        } = this.props;
 
         const onSubmitSuccess = app.router.getParams().id ? "ApiTokens.List" : null;
 
@@ -65,7 +54,13 @@ class ApiTokensForm extends React.Component {
                     defaultModel={{ groups: [], policies: [] }}
                 >
                     {({ model, onSubmit, loading, invalidFields, error }) => (
-                        <Form model={model} onSubmit={onSubmit} invalidFields={invalidFields}>
+                        <Form
+                            model={model}
+                            onSubmit={model =>
+                                submitEntityForm({ entity: "SecurityApiToken", data: model, onSuccess })
+                            }
+                            invalidFields={invalidFields}
+                        >
                             {({ model, form, Bind }) => {
                                 return (
                                     <View.Form>
@@ -94,7 +89,10 @@ class ApiTokensForm extends React.Component {
                                                     <Section title={t`Info`} />
                                                     <Grid.Row>
                                                         <Grid.Col all={12}>
-                                                            <Bind name="name" validators={["required"]}>
+                                                            <Bind
+                                                                name="name"
+                                                                validators={["required"]}
+                                                            >
                                                                 <Input label={t`Name`} />
                                                             </Bind>
                                                         </Grid.Col>
@@ -102,7 +100,9 @@ class ApiTokensForm extends React.Component {
                                                     <Grid.Row>
                                                         <Grid.Col all={12}>
                                                             <Bind name="description">
-                                                                <Textarea label={t`Short description`} />
+                                                                <Textarea
+                                                                    label={t`Short description`}
+                                                                />
                                                             </Bind>
                                                         </Grid.Col>
                                                     </Grid.Row>
@@ -139,7 +139,8 @@ class ApiTokensForm extends React.Component {
                                                                                                 return state;
                                                                                             }
                                                                                         );
-                                                                                    }} />
+                                                                                    }}
+                                                                                />
                                                                             </Bind>
                                                                         )}
                                                                     </OptionsData>
@@ -173,7 +174,8 @@ class ApiTokensForm extends React.Component {
                                                                                         return state;
                                                                                     }
                                                                                 );
-                                                                            }} />
+                                                                            }}
+                                                                        />
                                                                     </Bind>
                                                                 )}
                                                             </OptionsData>
@@ -186,12 +188,12 @@ class ApiTokensForm extends React.Component {
                                                 <Grid.Col all={12}>
                                                     <Section title={t`API Token`} />
                                                     <Bind name="token">
-
                                                         <Copy.Input
                                                             label={t`Token`}
                                                             placeholder={t`To receive a token, you must save it first.`}
                                                             disabled
-                                                            description={t`Sent via "Authorization" header. Generated automatically and cannot be changed.`} />
+                                                            description={t`Sent via "Authorization" header. Generated automatically and cannot be changed.`}
+                                                        />
                                                     </Bind>
                                                 </Grid.Col>
                                             </Grid.Row>
@@ -222,4 +224,32 @@ class ApiTokensForm extends React.Component {
     }
 }
 
-export default ApiTokensForm;
+const stateToProps = state => ({
+    ...(state.security.apiTokens.form || {})
+});
+
+export default compose(
+    inject({
+        modules: [
+            "View",
+            "Form",
+            "FormData",
+            "FormError",
+            "Grid",
+            "Input",
+            "Textarea",
+            "Button",
+            "Section",
+            "Loader",
+            "OptionsData",
+            "AutoCompleteList",
+            "Link",
+            "Alert",
+            "Copy",
+            {
+                AdminLayout: "Admin.Layout"
+            }
+        ]
+    }),
+    connect(stateToProps)
+)(ApiTokensForm);
