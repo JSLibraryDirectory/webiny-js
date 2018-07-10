@@ -33,7 +33,7 @@ type Props = FormComponentProps & {
  * Slider component can be used to store simple boolean values.
  */
 class Slider extends React.Component<Props> {
-    onChange = (e: SyntheticInputEvent<HTMLInputElement>) => {
+    onChange = (e: { detail: { value: number } }) => {
         this.props.onChange && this.props.onChange(e.detail.value);
     };
 
