@@ -2,15 +2,18 @@
 import React, { Fragment } from "react";
 import _ from "lodash";
 import styled from "react-emotion";
-
-import { Elevation } from "rmwc/Elevation";
-import { Grid, GridCell } from "rmwc/Grid";
-import { Ripple } from "rmwc/Ripple";
+import { connect } from "react-redux";
+import { compose } from "recompose";
+import { listEntities } from "webiny-client/actions";
 
 import List from "webiny-client-ui-material/List";
 import Icon from "webiny-client-ui-material/Icon";
 import Checkbox from "webiny-client-ui-material/Checkbox";
 import Menu from "webiny-client-ui-material/Menu";
+import Ripple from "webiny-client-ui-material/Ripple";
+import Elevation from "webiny-client-ui-material/Elevation";
+import Grid from "webiny-client-ui-material/Grid";
+
 import { i18n, inject } from "webiny-client";
 const t = i18n.namespace("Security.UsersList");
 
@@ -32,26 +35,8 @@ List.Icon = styled("div")`
     text-align: center;
 `;
 
-
-@inject({
-    modules: [
-        { AdminLayout: "Admin.Layout" },
-        "View",
-        "List",
-        "ListData",
-        "Link",
-        "Icon",
-        "Loader",
-        "Input"
-    ]
-})
-class UsersList extends React.Component {
-    constructor(props) {
-        super(props);
-        this.renderFullNameField = this.renderFullNameField.bind(this);
-    }
-
-    renderFullNameField(row) {
+class UsersList extends React.Component  {
+    renderFullNameField = (row) => {
         let fullName = _.trim(`${row.data.firstName} ${row.data.lastName}`);
         fullName = _.isEmpty(fullName) ? row.data.email : fullName;
         return (
@@ -61,133 +46,131 @@ class UsersList extends React.Component {
                 {row.data.id}
             </span>
         );
+    };
+
+    componentDidMount() {
+        listEntities({
+            entity: "SecurityUser",
+            fields: "id enabled firstName lastName email createdOn gravatar"
+        });
     }
 
     render() {
         const { /*List*/ ListData, Link, Input, AdminLayout, Loader } = this.props.modules;
 
+        const loading = false;
+
         return (
             <AdminLayout>
                 <Elevation z={1} style={{ backgroundColor: "white" }}>
-                    <ListData
-                        withRouter
-                        entity="SecurityUser"
-                        fields="id enabled firstName lastName email createdOn gravatar"
-                        search={{ fields: ["firstName", "lastName", "email"] }}
-                    >
-                        {({ loading, list }) => (
-                            <Fragment>
-                                {loading && <Loader />}
-                                <ListHeader>
-                                    <Grid>
-                                        <GridCell span="6">{t`Users`}</GridCell>
-                                        <GridCell span="6" style={{ textAlign: "right" }}>
-                                            Actions
-                                        </GridCell>
-                                    </Grid>
-                                </ListHeader>
-                                <ListHeader>
-                                    <Grid>
-                                        <GridCell span="6">
-                                            <ListHeader.Item>
-                                                <Checkbox />
-                                            </ListHeader.Item>
-                                            <ListHeader.Item>
-                                                <Ripple unbounded>
-                                                    <List.Icon>
-                                                        <Icon name={"sync-alt"} />
-                                                    </List.Icon>
-                                                </Ripple>
-                                            </ListHeader.Item>
+                    {loading && <Loader />}
+                    <ListHeader>
+                        <Grid>
+                            <Grid.Cell span="6">{t`Users`}</Grid.Cell>
+                            <Grid.Cell span="6" style={{ textAlign: "right" }}>
+                                {t`Actions`}
+                            </Grid.Cell>
+                        </Grid>
+                    </ListHeader>
+                    <ListHeader>
+                        <Grid>
+                            <Grid.Cell span="6">
+                                <ListHeader.Item>
+                                    <Checkbox />
+                                </ListHeader.Item>
+                                <ListHeader.Item>
+                                    <Ripple unbounded>
+                                        <List.Icon>
+                                            <Icon name={"sync-alt"} />
+                                        </List.Icon>
+                                    </Ripple>
+                                </ListHeader.Item>
 
-                                            <ListHeader.Item>
-                                                <Menu
-                                                    handle={
-                                                        <Ripple unbounded>
-                                                            <List.Icon>
-                                                                <Icon name={"ellipsis-v"} />
-                                                            </List.Icon>
-                                                        </Ripple>
-                                                    }
-                                                >
-                                                    <Menu.Item
-                                                        onClick={function onClick() {
-                                                            console.log("Apple selected!");
-                                                        }}
-                                                    >
-                                                        Apple
-                                                    </Menu.Item>
-                                                    <Menu.Item>Banana</Menu.Item>
-                                                    <Menu.Item>Watermelon</Menu.Item>
-                                                </Menu>
-                                            </ListHeader.Item>
-                                        </GridCell>
-                                        <GridCell span="6" style={{ textAlign: "right" }}>
-                                            1 - 3 of 3
+                                <ListHeader.Item>
+                                    <Menu
+                                        handle={
                                             <Ripple unbounded>
                                                 <List.Icon>
-                                                    <Icon name={"angle-left"} />
+                                                    <Icon name={"ellipsis-v"} />
                                                 </List.Icon>
                                             </Ripple>
-                                            <Ripple unbounded>
-                                                <List.Icon>
-                                                    <Icon name={"angle-right"} />
-                                                </List.Icon>
-                                            </Ripple>
-                                        </GridCell>
-                                    </Grid>
-                                </ListHeader>
-                                <List>
-                                    {list.map(item => (
-                                        <List.Item key={item.id}>
-                                            <List.Item.Graphic>
-                                                <img
-                                                    src={
-                                                        "//www.gravatar.com/avatar/" +
-                                                        item.gravatar +
-                                                        "?s=48"
-                                                    }
-                                                />
-                                            </List.Item.Graphic>
-                                            <List.Item.Text>
-                                                {item.firstName} {item.lastName}
-                                                <List.Item.Text.Secondary>
-                                                    {item.email}
-                                                </List.Item.Text.Secondary>
-                                            </List.Item.Text>
-                                            <List.Item.Meta>
-                                                <Ripple unbounded>
-                                                    <List.Icon>
-                                                        <Icon name={"edit"} />
-                                                    </List.Icon>
-                                                </Ripple>
-                                                <Ripple unbounded>
-                                                    <List.Icon>
-                                                        <Icon name={"times-circle"} />
-                                                    </List.Icon>
-                                                </Ripple>
+                                        }
+                                    >
+                                        <Menu.Item
+                                            onClick={function onClick() {
+                                                console.log("Apple selected!");
+                                            }}
+                                        >
+                                            Apple
+                                        </Menu.Item>
+                                        <Menu.Item>Banana</Menu.Item>
+                                        <Menu.Item>Watermelon</Menu.Item>
+                                    </Menu>
+                                </ListHeader.Item>
+                            </Grid.Cell>
+                            <Grid.Cell span="6" style={{ textAlign: "right" }}>
+                                1 - 3 of 3
+                                <Ripple unbounded>
+                                    <List.Icon>
+                                        <Icon name={"angle-left"} />
+                                    </List.Icon>
+                                </Ripple>
+                                <Ripple unbounded>
+                                    <List.Icon>
+                                        <Icon name={"angle-right"} />
+                                    </List.Icon>
+                                </Ripple>
+                            </Grid.Cell>
+                        </Grid>
+                    </ListHeader>
+                    <List>
+                        {this.props.list.map(item => (
+                            <List.Item key={item.id}>
+                                <List.Item.Graphic>
+                                    <img
+                                        src={
+                                            "//www.gravatar.com/avatar/" +
+                                            item.gravatar +
+                                            "?s=48"
+                                        }
+                                    />
+                                </List.Item.Graphic>
+                                <List.Item.Text>
+                                    {item.firstName} {item.lastName}
+                                    <List.Item.Text.Secondary>
+                                        {item.email}
+                                    </List.Item.Text.Secondary>
+                                </List.Item.Text>
+                                <List.Item.Meta>
+                                    <Ripple unbounded>
+                                        <List.Icon>
+                                            <Icon name={"edit"} />
+                                        </List.Icon>
+                                    </Ripple>
+                                    <Ripple unbounded>
+                                        <List.Icon>
+                                            <Icon name={"times-circle"} />
+                                        </List.Icon>
+                                    </Ripple>
 
-                                                <List.Icon>
-                                                    <Menu handle={<Icon name={"ellipsis-v"} />}>
-                                                        <Menu.Item
-                                                            onClick={function onClick() {
-                                                                console.log("Apple selected!");
-                                                            }}
-                                                        >
-                                                            Apple
-                                                        </Menu.Item>
-                                                        <Menu.Item>Banana</Menu.Item>
-                                                        <Menu.Item>Watermelon</Menu.Item>
-                                                    </Menu>
-                                                </List.Icon>
+                                    <List.Icon>
+                                        <Menu handle={<Icon name={"ellipsis-v"} />}>
+                                            <Menu.Item
+                                                onClick={function onClick() {
+                                                    console.log("Apple selected!");
+                                                }}
+                                            >
+                                                Apple
+                                            </Menu.Item>
+                                            <Menu.Item>Banana</Menu.Item>
+                                            <Menu.Item>Watermelon</Menu.Item>
+                                        </Menu>
+                                    </List.Icon>
+                                </List.Item.Meta>
+                            </List.Item>
+                        ))}
+                    </List>
 
-                                            </List.Item.Meta>
-                                        </List.Item>
-                                    ))}
-                                </List>
-                            </Fragment>
-                        )}
-                    </ListData>
                 </Elevation>
             </AdminLayout>
         );
@@ -281,4 +264,21 @@ class UsersList extends React.Component {
     }
 }
 
-export default UsersList;
+export default compose(
+    inject({
+        modules: [
+            { AdminLayout: "Admin.Layout" },
+            "View",
+            "List",
+            "ListData",
+            "Link",
+            "Icon",
+            "Loader",
+            "Input"
+        ]
+    }),
+    connect(state => ({
+        list: _.get(state, "entities.SecurityUser.lists.default.data.list", []),
+        meta: _.get(state, "entities.SecurityUser.lists.default.data.meta", {})
+    }))
+)(UsersList);

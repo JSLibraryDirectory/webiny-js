@@ -4,7 +4,7 @@ import invariant from "invariant";
 import { inject, i18n } from "webiny-client";
 import logoOrange from "./../../assets/images/logo_orange.png";
 
-import { submitLogin } from "../actions";
+import { submitAuthenticate } from "../actions";
 import { connect } from "react-redux";
 import { compose } from "recompose";
 import styled from "react-emotion";
@@ -52,7 +52,7 @@ class Login extends React.Component<any, any> {
         const authentication = _.get(this.props, "security.authentication", {});
 
         return (
-            <Form onSubmit={model => submitLogin({ ...model, identity, strategy })}>
+            <Form onSubmit={model => submitAuthenticate({ ...model, identity, strategy })}>
                 {({ form, Bind }) => (
                     <React.Fragment>
                         <LoginContent>

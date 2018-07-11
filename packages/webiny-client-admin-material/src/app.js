@@ -87,7 +87,7 @@ export default () => {
                                 identity={"SecurityUser"}
                                 strategy={"credentials"}
                                 onSuccess={() => {
-                                    app.router.goToRoute("Dashboard");
+                                    app.router.goToRoute("Users.List");
                                 }}
                             />
                         );

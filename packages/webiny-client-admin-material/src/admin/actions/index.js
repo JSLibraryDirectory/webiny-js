@@ -1,2 +1,2 @@
 // @flow
-export * from "./login";
+export * from "./authenticate.actions";
