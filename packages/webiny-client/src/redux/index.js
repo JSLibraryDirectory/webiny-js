@@ -1,3 +1,5 @@
+// @flow
+import logger from 'redux-logger'
 import { applyMiddleware, createStore, compose } from "redux";
 import _ from "lodash";
 
@@ -77,7 +79,7 @@ class Redux {
 
         this.store = createStore(
             this.rootReducer(INIT_STATE),
-            composeEnhancers(applyMiddleware(...middleware, ...this.middleware))
+            composeEnhancers(applyMiddleware(logger, ...middleware, ...this.middleware))
         );
 
         return this.store;

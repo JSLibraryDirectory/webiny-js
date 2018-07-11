@@ -1,8 +1,7 @@
 import React from "react";
 import _ from "lodash";
-import { app, inject } from "webiny-client";
+import { app } from "webiny-client";
 
-@inject()
 class FormData extends React.Component {
     constructor() {
         super();
