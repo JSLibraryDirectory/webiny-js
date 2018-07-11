@@ -15,6 +15,7 @@
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-emotion": "^9.2.5",
+    "recompose": "^0.27.1",
     "rmwc": "^1.7.6",
     "webiny-client": "0.0.0-semantically-released",
     "webiny-client-ui": "0.0.0-semantically-released"

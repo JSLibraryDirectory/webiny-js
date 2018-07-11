@@ -1,35 +1,14 @@
-import { createAction, graphQLAction } from "webiny-client/redux";
+// @flow
+import { createAction } from "webiny-client/redux";
+import { authenticate } from "webiny-client/actions";
 
 const PREFIX = "[SECURITY]";
 
 export const SECURITY_SUBMIT_LOGIN = `${PREFIX} Submit login`;
 
-const graphQLAction = (payloadCreator) => {
-    return createAction(SECURITY_SUBMIT_LOGIN, {
-        middleware({ store, action }) {
-            store.dispatch({
-                type: "GRAPHQL",
-                payload: payloadCreator(action)
-            });
-        }
-    });
-};
-
 export const submitLogin = createAction(SECURITY_SUBMIT_LOGIN, {
-    middleware({ store, action }) {
-        store.dispatch({
-            type: "GRAPHQL",
-            payload: {
-                data: action.payload.data,
-                graphql: {
-                    /* ... */
-                }
-            }
-        });
+    middleware({ action, next }) {
+        next(action);
+        authenticate(action.payload);
     }
 });
-
-export const abc = graphQLAction(SECURITY_SUBMIT_LOGIN, action => ({
-    entity: "securityLogin",
-    data: action.payload.data
-}));
