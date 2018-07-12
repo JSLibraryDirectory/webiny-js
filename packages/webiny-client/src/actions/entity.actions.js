@@ -18,12 +18,12 @@ const listEntities = createAction(ENTITY_LIST, {
             variables,
             onSuccess: data => {
                 if (typeof onSuccess === "function") {
-                    onSuccess({ data });
+                    onSuccess({ ...data.data });
                 }
             },
             onError: error => {
                 if (typeof onError === "function") {
-                    onError({ error });
+                    onError({ ...error });
                 }
             }
         });

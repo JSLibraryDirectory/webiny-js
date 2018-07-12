@@ -31,13 +31,13 @@ export const graphql = createAction(GRAPHQL_EXECUTE, {
             .then(data => {
                 graphqlSuccess(data);
                 if (onSuccess) {
-                    onSuccess(data);
+                    onSuccess({ data });
                 }
             })
             .catch(error => {
                 graphqlError(error);
                 if (onError) {
-                    onError(error);
+                    onError({ error });
                 }
             });
     }
