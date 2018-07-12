@@ -8,7 +8,6 @@ export { default as Grid } from "./Grid";
 export { default as Icon } from "./Icon";
 export { default as Input } from "./Input";
 export { default as List } from "./List";
-export { default as ListData } from "./ListData";
 export { default as Menu } from "./Menu";
 export { default as Radio } from "./Radio";
 export { default as Ripple } from "./Ripple";
