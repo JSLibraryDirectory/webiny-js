@@ -27,7 +27,6 @@ loadList.success = createAction(LIST_LOAD_SUCCESS, {
     key: "lists",
     reducer({ state = {}, action }) {
         const { data, name } = action.payload;
-        console.log('ide reducer list-load-succ', data, name);
         state[name] = {
             data,
             error: null

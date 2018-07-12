@@ -1,16 +1,20 @@
 // @flow
 import * as React from "react";
+import _ from "lodash";
 import styled from "react-emotion";
+import { connect } from "react-redux";
 import { compose } from "recompose";
 
 import Input from "webiny-client-ui-material/Input";
 import List from "webiny-client-ui-material/List";
 import Icon from "webiny-client-ui-material/Icon";
+import Checkbox from "webiny-client-ui-material/Checkbox";
+import Menu from "webiny-client-ui-material/Menu";
+import Ripple from "webiny-client-ui-material/Ripple";
 import Elevation from "webiny-client-ui-material/Elevation";
 import Grid from "webiny-client-ui-material/Grid";
 import Switch from "webiny-client-ui-material/Switch";
-
-import UsersListList from "./UsersListList"
+import { withList } from "webiny-client/hoc";
 
 import { i18n, inject } from "webiny-client";
 const t = i18n.namespace("Security.UsersList");
@@ -33,9 +37,131 @@ List.Icon = styled("div")`
     text-align: center;
 `;
 
+const listId = "securityUsersList";
+
 class UsersList extends React.Component {
+    renderList() {
+        const ListComponent = props => {
+            const list = _.get(props, "list.data.list", []);
+
+            return (
+                <React.Fragment>
+                    <ListHeader>
+                        <Grid>
+                            <Grid.Cell span="6">{t`Users`}</Grid.Cell>
+                            <Grid.Cell span="6" style={{ textAlign: "right" }}>
+                                {t`Actions`}
+                            </Grid.Cell>
+                        </Grid>
+                    </ListHeader>
+                    <ListHeader>
+                        <Grid>
+                            <Grid.Cell span="6">
+                                <ListHeader.Item>
+                                    <Checkbox />
+                                </ListHeader.Item>
+                                <ListHeader.Item>
+                                    <Ripple unbounded>
+                                        <List.Icon>
+                                            <Icon name={"sync-alt"} />
+                                        </List.Icon>
+                                    </Ripple>
+                                </ListHeader.Item>
+
+                                <ListHeader.Item>
+                                    <Menu
+                                        handle={
+                                            <Ripple unbounded>
+                                                <List.Icon>
+                                                    <Icon name={"ellipsis-v"} />
+                                                </List.Icon>
+                                            </Ripple>
+                                        }
+                                    >
+                                        <Menu.Item
+                                            onClick={function onClick() {
+                                                console.log("Apple selected!");
+                                            }}
+                                        >
+                                            Apple
+                                        </Menu.Item>
+                                        <Menu.Item>Banana</Menu.Item>
+                                        <Menu.Item>Watermelon</Menu.Item>
+                                    </Menu>
+                                </ListHeader.Item>
+                            </Grid.Cell>
+                            <Grid.Cell span="6" style={{ textAlign: "right" }}>
+                                1 - 3 of 3
+                                <Ripple unbounded>
+                                    <List.Icon>
+                                        <Icon name={"angle-left"} />
+                                    </List.Icon>
+                                </Ripple>
+                                <Ripple unbounded>
+                                    <List.Icon>
+                                        <Icon name={"angle-right"} />
+                                    </List.Icon>
+                                </Ripple>
+                            </Grid.Cell>
+                        </Grid>
+                    </ListHeader>
+                    <List>
+                        {list.map(item => (
+                            <List.Item key={item.id}>
+                                <List.Item.Graphic>
+                                    <img
+                                        src={"//www.gravatar.com/avatar/" + item.gravatar + "?s=48"}
+                                    />
+                                </List.Item.Graphic>
+                                <List.Item.Text>
+                                    {item.firstName} {item.lastName}
+                                    <List.Item.Text.Secondary>
+                                        {item.email}
+                                    </List.Item.Text.Secondary>
+                                </List.Item.Text>
+                                <List.Item.Meta>
+                                    <Ripple unbounded>
+                                        <List.Icon>
+                                            <Icon name={"edit"} />
+                                        </List.Icon>
+                                    </Ripple>
+                                    <Ripple unbounded>
+                                        <List.Icon>
+                                            <Icon name={"times-circle"} />
+                                        </List.Icon>
+                                    </Ripple>
+
+                                    <List.Icon>
+                                        <Menu handle={<Icon name={"ellipsis-v"} />}>
+                                            <Menu.Item
+                                                onClick={function onClick() {
+                                                    console.log("Apple selected!");
+                                                }}
+                                            >
+                                                Apple
+                                            </Menu.Item>
+                                            <Menu.Item>Banana</Menu.Item>
+                                            <Menu.Item>Watermelon</Menu.Item>
+                                        </Menu>
+                                    </List.Icon>
+                                </List.Item.Meta>
+                            </List.Item>
+                        ))}
+                    </List>
+                </React.Fragment>
+            );
+        };
+
+        const PreparedComponent = withList({
+            id: "test",
+            entity: "SecurityUser",
+            fields: "id enabled firstName lastName email createdOn gravatar"
+        })(ListComponent);
+
+        return <PreparedComponent />;
+    }
+
     renderForm() {
-        return null;
         const { Form } = this.props.modules;
 
         const model = {};
@@ -173,6 +299,7 @@ class UsersList extends React.Component {
 
     render() {
         const { AdminLayout, Loader } = this.props.modules;
+
         const loading = false;
 
         return (
@@ -180,7 +307,7 @@ class UsersList extends React.Component {
                 <Elevation z={1} style={{ backgroundColor: "white" }}>
                     {loading && <Loader />}
                     <Grid>
-                        <Grid.Cell span={6}><UsersListList/></Grid.Cell>
+                        <Grid.Cell span={6}>{this.renderList()}</Grid.Cell>
                         <Grid.Cell span={6}>{this.renderForm()}</Grid.Cell>
                     </Grid>
                 </Elevation>
@@ -202,4 +329,7 @@ export default compose(
             "Form"
         ]
     }),
+    connect(state => ({
+        list: _.get(state, `lists.${listId}`)
+    }))
 )(UsersList);
