@@ -24,7 +24,7 @@ const loadList = createAction(LIST_LOAD, {
 });
 
 loadList.success = createAction(LIST_LOAD_SUCCESS, {
-    key: "lists",
+    selector: "lists",
     reducer({ state = {}, action }) {
         const { data, name } = action.payload;
         state[name] = {
@@ -36,7 +36,7 @@ loadList.success = createAction(LIST_LOAD_SUCCESS, {
 });
 
 loadList.error = createAction(LIST_LOAD_ERROR, {
-    key: "lists",
+    selector: "lists",
     reducer({ state = {}, action }) {
         const { error, name } = action.payload;
         state[name] = {

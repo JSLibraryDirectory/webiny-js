@@ -8,7 +8,7 @@ export const AUTH_SUCCESS = `${SECURITY} Authentication successful`;
 export const AUTH_ERROR = `${SECURITY} Authentication failed`;
 
 export const authenticationSuccess = createAction(AUTH_SUCCESS, {
-    key: "security.authentication",
+    selector: "security.authentication",
     reducer({ action }) {
         return {
             error: null,
@@ -19,7 +19,7 @@ export const authenticationSuccess = createAction(AUTH_SUCCESS, {
 });
 
 export const authenticationError = createAction(AUTH_ERROR, {
-    key: "security.authentication",
+    selector: "security.authentication",
     reducer({ action }) {
         return {
             error: action.payload,
@@ -30,7 +30,7 @@ export const authenticationError = createAction(AUTH_ERROR, {
 });
 
 export const authenticate = createAction(AUTH, {
-    key: "security.authentication.inProgress",
+    selector: "security.authentication.inProgress",
     reducer() {
         return true;
     },

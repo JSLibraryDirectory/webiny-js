@@ -10,9 +10,7 @@ type ListQueryParams = {
 
 const generateListQuery = (params: ListQueryParams) => {
     const methodName = "list" + pluralize.plural(params.entity);
-    return {
-        methodName,
-        query: gql`
+    const query = gql`
             query ${_.upperFirst(
                 methodName
             )}($filter: JSON, $sort: JSON, $page: Int, $perPage: Int, $search: SearchInput) {
@@ -27,7 +25,11 @@ const generateListQuery = (params: ListQueryParams) => {
                     }
                 }
             }
-        `
+        `;
+
+    return {
+        methodName,
+        query
     };
 };
 
