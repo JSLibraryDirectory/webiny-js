@@ -1,14 +1,19 @@
 // @flow
-import logger from 'redux-logger'
 import { applyMiddleware, createStore, compose } from "redux";
+import logger from "redux-logger";
 import _ from "lodash";
 
-const wrapReducer = (type, key, reducer) => {
+const wrapReducer = (type, selector, reducer) => {
     return (state, action) => {
         if (action.type === type) {
-            const subState = _.cloneDeep(key ? _.get(state, key) : state);
+            let stateKey = selector;
+            if (typeof selector === "function") {
+                stateKey = selector({ action });
+            }
+
+            const subState = _.cloneDeep(stateKey ? _.get(state, stateKey) : state);
             const result = reducer({ state: subState, root: state, action });
-            state = key ? _.setWith(_.cloneDeep(state), key, result, _.clone) : _.cloneDeep(result);
+            state = stateKey ? _.set(_.cloneDeep(state), stateKey, result) : _.cloneDeep(result);
         }
 
         return state;
@@ -18,14 +23,14 @@ const wrapReducer = (type, key, reducer) => {
 const wrapMiddleware = (type, middleware) => {
     return store => next => action => {
         if (action.type === type) {
-            middleware({ store, next, action });
+            middleware({ store, next, action: _.cloneDeep(action) });
         } else {
             next(action);
         }
     };
 };
 
-class Redux {
+class App {
     store;
     middleware = [];
     reducers = [];
@@ -41,10 +46,10 @@ class Redux {
     };
 
     on(type, options = {}) {
-        const { key = null, reducer = null, middleware = null } = options;
+        const { selector = null, reducer = null, middleware = null } = options;
 
         if (reducer) {
-            this.reducers.push(wrapReducer(type, key, reducer));
+            this.reducers.push(wrapReducer(type, selector, reducer));
         }
 
         if (middleware) {
@@ -53,14 +58,10 @@ class Redux {
     }
 
     action(type, options = {}) {
-        const {
-            key = null,
-            reducer = state => state,
-            middleware = null
-        } = options;
+        const { selector = null, reducer = state => state, middleware = null } = options;
 
-        if (key && reducer) {
-            this.reducers.push(wrapReducer(type, key, reducer));
+        if (selector && reducer) {
+            this.reducers.push(wrapReducer(type, selector, reducer));
         }
 
         if (middleware) {
@@ -86,7 +87,9 @@ class Redux {
     }
 }
 
-export const redux = new Redux();
+export default new App();
+
+export const redux = new App();
 
 export const createAction = (type, config) => {
     return redux.action(type, config);
