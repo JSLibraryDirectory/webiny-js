@@ -2,7 +2,6 @@
 import * as React from "react";
 import _ from "lodash";
 import styled from "react-emotion";
-import { connect } from "react-redux";
 import { compose } from "recompose";
 
 import Input from "webiny-client-ui-material/Input";
@@ -10,13 +9,15 @@ import List from "webiny-client-ui-material/List";
 import Icon from "webiny-client-ui-material/Icon";
 import Checkbox from "webiny-client-ui-material/Checkbox";
 import Menu from "webiny-client-ui-material/Menu";
+import Button from "webiny-client-ui-material/Button";
 import Ripple from "webiny-client-ui-material/Ripple";
 import Elevation from "webiny-client-ui-material/Elevation";
 import Grid from "webiny-client-ui-material/Grid";
 import Switch from "webiny-client-ui-material/Switch";
-import { withList } from "webiny-client/hoc";
+import { withList, withForm } from "webiny-client/hoc";
+import { loadForm } from "webiny-client/actions";
 
-import { i18n, inject } from "webiny-client";
+import { i18n, inject, app } from "webiny-client";
 const t = i18n.namespace("Security.UsersList");
 
 const ListHeader = styled("div")`
@@ -37,12 +38,11 @@ List.Icon = styled("div")`
     text-align: center;
 `;
 
-const listId = "securityUsersList";
-
 class UsersList extends React.Component {
     renderList() {
         const ListComponent = props => {
             const list = _.get(props, "list.data.list", []);
+            const { Link } = this.props.modules;
 
             return (
                 <React.Fragment>
@@ -122,7 +122,9 @@ class UsersList extends React.Component {
                                 <List.Item.Meta>
                                     <Ripple unbounded>
                                         <List.Icon>
-                                            <Icon name={"edit"} />
+                                            <Link route="Users.List.Edit" params={{ id: item.id }}>
+                                                <Icon name="edit" />
+                                            </Link>
                                         </List.Icon>
                                     </Ripple>
                                     <Ripple unbounded>
@@ -153,7 +155,7 @@ class UsersList extends React.Component {
         };
 
         const PreparedComponent = withList({
-            id: "test",
+            name: "test",
             entity: "SecurityUser",
             fields: "id enabled firstName lastName email createdOn gravatar"
         })(ListComponent);
@@ -164,14 +166,20 @@ class UsersList extends React.Component {
     renderForm() {
         const { Form } = this.props.modules;
 
-        const model = {};
-        const onSubmit = () => {};
         const invalidFields = {};
 
-        return (
-            <Form model={model} onSubmit={onSubmit} invalidFields={invalidFields}>
-                {({ model, form, Bind }) => {
-                    return (
+        const FormComponent = props => {
+            const { data } = props.form;
+
+            return (
+                <Form
+                    model={data}
+                    invalidFields={invalidFields}
+                    onSubmit={model => {
+                        props.form.submit(model);
+                    }}
+                >
+                    {({ model, form, Bind }) => (
                         <React.Fragment>
                             {/* TODO: separate into own component */}
                             <ListHeader>
@@ -290,11 +298,29 @@ class UsersList extends React.Component {
                                     </Bind>
                                 </Grid.Cell>
                             </Grid>
+                            <Grid>
+                                <Grid.Cell span={12}>
+                                    <Button.Primary
+                                        type="primary"
+                                        onClick={form.submit}
+                                        align="right"
+                                    >{t`Save user`}</Button.Primary>
+                                </Grid.Cell>
+                            </Grid>
                         </React.Fragment>
-                    );
-                }}
-            </Form>
-        );
+                    )}
+                </Form>
+            );
+        };
+
+        const PreparedComponent = withForm({
+            id: app.router.getParams("id"),
+            name: "testForm",
+            entity: "SecurityUser",
+            fields: "id enabled firstName lastName email createdOn gravatar"
+        })(FormComponent);
+
+        return <PreparedComponent />;
     }
 
     render() {
@@ -326,10 +352,8 @@ export default compose(
             "Icon",
             "Loader",
             "Input",
-            "Form"
+            "Form",
+            "Link"
         ]
-    }),
-    connect(state => ({
-        list: _.get(state, `lists.${listId}`)
-    }))
+    })
 )(UsersList);

@@ -151,6 +151,14 @@ export default () => {
             });
 
             app.router.addRoute({
+                name: "Users.List.Edit",
+                path: "/users/:id",
+                component: () => import("./admin/views/UsersList").then(m => m.default),
+                title: "Security - Users",
+                group: securityManager
+            });
+
+            app.router.addRoute({
                 name: "ApiTokens.Create",
                 path: "/api-tokens/new",
                 component: () => import("./admin/views/ApiTokensForm").then(m => m.default),
