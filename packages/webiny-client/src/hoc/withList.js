@@ -1,16 +1,16 @@
 // @flow
 import { connect } from "react-redux";
-import { compose, lifecycle } from "recompose";
+import { compose, lifecycle, withProps } from "recompose";
 import { loadList } from "./../actions";
 import _ from "lodash";
 
 type WithFormParams = {
     name: string,
     entity: string,
-    fields: string,
+    fields: string
 };
 
-export default ({ name, entity, fields } : WithFormParams) => {
+export default ({ name, entity, fields }: WithFormParams) => {
     return BaseComponent => {
         return compose(
             connect(state => {
@@ -24,6 +24,16 @@ export default ({ name, entity, fields } : WithFormParams) => {
                         fields
                     });
                 }
+            }),
+            withProps(props => {
+                props.list.refresh = () => {
+                    console.log("krece");
+                    loadList({
+                        name,
+                        entity,
+                        fields
+                    });
+                };
             })
         )(BaseComponent);
     };

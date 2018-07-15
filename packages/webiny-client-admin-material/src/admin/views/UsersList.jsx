@@ -63,7 +63,7 @@ class UsersList extends React.Component {
                                 <ListHeader.Item>
                                     <Ripple unbounded>
                                         <List.Icon>
-                                            <Icon name={"sync-alt"} />
+                                            <Icon onClick={props.list.refresh} name={"sync-alt"} />
                                         </List.Icon>
                                     </Ripple>
                                 </ListHeader.Item>
