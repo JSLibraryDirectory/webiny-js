@@ -14,7 +14,6 @@ export const FORM_SUBMIT_SUCCESS = `${PREFIX} Form Submit Success`;
 export const FORM_SUBMIT_ERROR = `${PREFIX} Form Submit Error`;
 
 const formSelector = ({ action }) => {
-    console.log("forms." + action.payload.name);
     return "forms." + action.payload.name;
 };
 
@@ -37,39 +36,43 @@ const resetForm = createAction(FORM_RESET, {
 const loadForm = createAction(FORM_LOAD, {
     middleware({ action, next }) {
         next(action);
-
         const { name, entity, fields, id } = action.payload;
+        setFormLoading({ name, loading: true });
         findOneEntity({
             entity,
             fields,
             variables: { id },
-            onSuccess: data => loadFormSuccess({ data, name }),
-            onError: error => loadFormError({ error, name })
+            onSuccess: data => {
+                setFormLoading({ name, loading: false });
+                loadFormSuccess({ data, name });
+            },
+            onError: error => {
+                setFormLoading({ name, loading: false });
+                loadFormError({ error, name });
+            }
         });
     }
 });
 
 const loadFormSuccess = createAction(FORM_LOAD_SUCCESS, {
-    selector: "forms",
-    reducer({ state = {}, action }) {
-        const { data, name } = action.payload;
-        state[name] = {
+    selector: formSelector,
+    reducer({ action }) {
+        const { data } = action.payload;
+        return {
             data,
             error: null
         };
-        return state;
     }
 });
 
 const loadFormError = createAction(FORM_LOAD_ERROR, {
-    selector: "forms",
-    reducer({ state = {}, action }) {
-        const { error, name } = action.payload;
-        state[name] = {
-            error,
-            data: null
+    selector: formSelector,
+    reducer({ action }) {
+        const { error } = action.payload;
+        return {
+            data: null,
+            error
         };
-        return state;
     }
 });
 
@@ -94,26 +97,24 @@ const submitForm = createAction(FORM_SUBMIT, {
 });
 
 const submitFormSuccess = createAction(FORM_SUBMIT_SUCCESS, {
-    selector: "forms",
-    reducer({ state = {}, action }) {
-        const { data, name } = action.payload;
-        state[name] = {
+    selector: formSelector,
+    reducer({ action }) {
+        const { data } = action.payload;
+        return {
             data,
             error: null
         };
-        return state;
     }
 });
 
 const submitFormError = createAction(FORM_SUBMIT_ERROR, {
-    selector: "forms",
-    reducer({ state = {}, action }) {
-        const { error, name } = action.payload;
-        state[name] = {
+    selector: formSelector,
+    reducer({ action }) {
+        const { error } = action.payload;
+        return {
             error,
             data: null
         };
-        return state;
     }
 });
 
