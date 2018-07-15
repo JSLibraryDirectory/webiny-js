@@ -29,12 +29,13 @@ export default ({ name, entity, fields, id }: WithFormParams): Function => {
                         });
                 }
             }),
-            withProps((props) => {
-                props.form.submit = (data) => {
+            withProps(props => {
+                props.form.submit = ({ data }) => {
                     submitForm({
                         data,
                         name,
-                        entity
+                        entity,
+                        fields
                     });
                 };
             })
