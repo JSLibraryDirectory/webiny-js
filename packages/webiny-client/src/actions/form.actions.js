@@ -5,6 +5,7 @@ import { findOneEntity, saveEntity } from ".";
 const PREFIX = "[FORM]";
 
 export const FORM_SET_LOADING = `${PREFIX} Set Loading`;
+export const FORM_RESET = `${PREFIX} Reset`;
 export const FORM_LOAD = `${PREFIX} Load`;
 export const FORM_LOAD_SUCCESS = `${PREFIX} Form Load Success`;
 export const FORM_LOAD_ERROR = `${PREFIX} Form Load Error`;
@@ -12,14 +13,24 @@ export const FORM_SUBMIT = `${PREFIX} Submit`;
 export const FORM_SUBMIT_SUCCESS = `${PREFIX} Form Submit Success`;
 export const FORM_SUBMIT_ERROR = `${PREFIX} Form Submit Error`;
 
+const formSelector = ({ action }) => {
+    console.log("forms." + action.payload.name);
+    return "forms." + action.payload.name;
+};
+
 const setFormLoading = createAction(FORM_SET_LOADING, {
-    selector: ({ action }) => {
-        return "forms." + action.payload.name;
-    },
+    selector: formSelector,
     reducer: ({ state = {}, action }) => {
         const { loading } = action.payload;
         state.loading = loading;
         return state;
+    }
+});
+
+const resetForm = createAction(FORM_RESET, {
+    selector: formSelector,
+    reducer: () => {
+        return {};
     }
 });
 
@@ -106,4 +117,4 @@ const submitFormError = createAction(FORM_SUBMIT_ERROR, {
     }
 });
 
-export { loadForm, submitForm };
+export { loadForm, submitForm, resetForm };

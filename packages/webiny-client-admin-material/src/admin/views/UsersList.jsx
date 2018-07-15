@@ -15,7 +15,6 @@ import Elevation from "webiny-client-ui-material/Elevation";
 import Grid from "webiny-client-ui-material/Grid";
 import Switch from "webiny-client-ui-material/Switch";
 import { withList, withForm } from "webiny-client/hoc";
-import { loadForm } from "webiny-client/actions";
 
 import { i18n, inject, app } from "webiny-client";
 const t = i18n.namespace("Security.UsersList");
@@ -300,11 +299,13 @@ class UsersList extends React.Component {
                             </Grid>
                             <Grid>
                                 <Grid.Cell span={12}>
-                                    <Button.Primary
-                                        type="primary"
-                                        onClick={form.submit}
-                                        align="right"
-                                    >{t`Save user`}</Button.Primary>
+                                    <Button.Primary onClick={form.submit}>
+                                        {t`Save user`}
+                                    </Button.Primary>
+
+                                    <Button.Secondary onClick={props.form.reset}>
+                                        {t`Reset`}
+                                    </Button.Secondary>
                                 </Grid.Cell>
                             </Grid>
                         </React.Fragment>

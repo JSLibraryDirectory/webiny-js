@@ -1,7 +1,7 @@
 // @flow
 import { connect } from "react-redux";
 import { compose, lifecycle, withProps } from "recompose";
-import { loadForm, submitForm } from "./../actions";
+import { loadForm, submitForm, resetForm } from "./../actions";
 import _ from "lodash";
 
 type WithFormParams = {
@@ -37,6 +37,10 @@ export default ({ name, entity, fields, id }: WithFormParams): Function => {
                         entity,
                         fields
                     });
+                };
+
+                props.form.reset = () => {
+                    resetForm({ name });
                 };
             })
         )(BaseComponent);
