@@ -1,6 +1,6 @@
 // @flow
 import { applyMiddleware, createStore, compose } from "redux";
-import logger from "redux-logger";
+// import logger from "redux-logger";
 import _ from "lodash";
 
 const wrapReducer = (type, selector, reducer) => {
@@ -80,7 +80,7 @@ class App {
 
         this.store = createStore(
             this.rootReducer(INIT_STATE),
-            composeEnhancers(applyMiddleware(logger, ...middleware, ...this.middleware))
+            composeEnhancers(applyMiddleware(/*logger, */ ...middleware, ...this.middleware))
         );
 
         return this.store;

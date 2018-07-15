@@ -175,8 +175,8 @@ class UsersList extends React.Component {
                 <Form
                     model={data}
                     invalidFields={invalidFields}
-                    onSubmit={model => {
-                        props.form.submit(model);
+                    onSubmit={data => {
+                        props.form.submit({ data });
                     }}
                 >
                     {({ model, form, Bind }) => (
