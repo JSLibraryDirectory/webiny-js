@@ -27,7 +27,6 @@ export default ({ name, entity, fields }: WithFormParams) => {
             }),
             withProps(props => {
                 props.list.refresh = () => {
-                    console.log("krece");
                     loadList({
                         name,
                         entity,

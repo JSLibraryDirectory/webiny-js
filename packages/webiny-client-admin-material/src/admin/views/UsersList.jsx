@@ -41,10 +41,11 @@ class UsersList extends React.Component {
     renderList() {
         const ListComponent = props => {
             const list = _.get(props, "list.data.list", []);
-            const { Link } = this.props.modules;
+            const { Link, Loader } = this.props.modules;
 
             return (
                 <React.Fragment>
+                    {props.list.loading && <Loader />}
                     <ListHeader>
                         <Grid>
                             <Grid.Cell span="6">{t`Users`}</Grid.Cell>
@@ -131,20 +132,6 @@ class UsersList extends React.Component {
                                             <Icon name={"times-circle"} />
                                         </List.Icon>
                                     </Ripple>
-
-                                    <List.Icon>
-                                        <Menu handle={<Icon name={"ellipsis-v"} />}>
-                                            <Menu.Item
-                                                onClick={function onClick() {
-                                                    console.log("Apple selected!");
-                                                }}
-                                            >
-                                                Apple
-                                            </Menu.Item>
-                                            <Menu.Item>Banana</Menu.Item>
-                                            <Menu.Item>Watermelon</Menu.Item>
-                                        </Menu>
-                                    </List.Icon>
                                 </List.Item.Meta>
                             </List.Item>
                         ))}
@@ -163,7 +150,7 @@ class UsersList extends React.Component {
     }
 
     renderForm() {
-        const { Form } = this.props.modules;
+        const { Form, Loader } = this.props.modules;
 
         const invalidFields = {};
 
@@ -171,37 +158,38 @@ class UsersList extends React.Component {
             const { data } = props.form;
 
             return (
-                <Form
-                    model={data}
-                    invalidFields={invalidFields}
-                    onSubmit={data => {
-                        props.form.submit({ data });
-                    }}
-                >
-                    {({ model, form, Bind }) => (
-                        <React.Fragment>
-                            {/* TODO: separate into own component */}
-                            <ListHeader>
+                <div style={{ position: "relative" }}>
+                    <Form
+                        model={data}
+                        invalidFields={invalidFields}
+                        onSubmit={data => {
+                            props.form.submit({ data });
+                        }}
+                    >
+                        {({ model, form, Bind }) => (
+                            <React.Fragment>
+                                {props.form.loading && <Loader />}
+                                <ListHeader>
+                                    <Grid>
+                                        <Grid.Cell span="6">{t`New User`}</Grid.Cell>
+                                        <Grid.Cell span="6" style={{ textAlign: "right" }}>
+                                            <Icon name={"trash"} />
+                                        </Grid.Cell>
+                                    </Grid>
+                                </ListHeader>
                                 <Grid>
-                                    <Grid.Cell span="6">{t`New User`}</Grid.Cell>
-                                    <Grid.Cell span="6" style={{ textAlign: "right" }}>
-                                        <Icon name={"trash"} />
-                                    </Grid.Cell>
-                                </Grid>
-                            </ListHeader>
-                            <Grid>
-                                <Grid.Cell span={6}>
-                                    <h2>Info</h2>
-                                    <Bind name="firstName" validators={["required"]}>
-                                        <Input label={t`First name`} />
-                                    </Bind>
-                                    <Bind name="lastName" validators={["required"]}>
-                                        <Input label={t`Last name`} />
-                                    </Bind>
-                                    <Bind name="email" validators={["required", "email"]}>
-                                        <Input label={t`Email`} description={t`Your email`} />
-                                    </Bind>
-                                    {/*<Grid>
+                                    <Grid.Cell span={6}>
+                                        <h2>Info</h2>
+                                        <Bind name="firstName" validators={["required"]}>
+                                            <Input label={t`First name`} />
+                                        </Bind>
+                                        <Bind name="lastName" validators={["required"]}>
+                                            <Input label={t`Last name`} />
+                                        </Bind>
+                                        <Bind name="email" validators={["required", "email"]}>
+                                            <Input label={t`Email`} description={t`Your email`} />
+                                        </Bind>
+                                        {/*<Grid>
                                                         <Grid.Cell span={12}>
                                                             <OptionsData
                                                                 entity="SecurityGroup"
@@ -265,52 +253,49 @@ class UsersList extends React.Component {
                                                             </OptionsData>
                                                         </Grid.Cell>
                                                     </Grid>*/}
-                                </Grid.Cell>
-                                <Grid.Cell span={6}>
-                                    <h2>Password</h2>
-                                    <Bind name="password" validators={["password"]}>
-                                        <Input
-                                            type="password"
-                                            label={t`New password`}
-                                            placeholder={t`Type a new password`}
-                                        />
-                                    </Bind>
+                                    </Grid.Cell>
+                                    <Grid.Cell span={6}>
+                                        <h2>Password</h2>
+                                        <Bind name="password" validators={["password"]}>
+                                            <Input
+                                                type="password"
+                                                label={t`New password`}
+                                                placeholder={t`Type a new password`}
+                                            />
+                                        </Bind>
 
-                                    <Bind
-                                        name="confirmPassword"
-                                        validators={["password", "eq:@password"]}
-                                    >
-                                        <Input
-                                            type="password"
-                                            label={t`Confirm password`}
-                                            placeholder={t`Retype the new password`}
+                                        <Bind
+                                            name="confirmPassword"
+                                            validators={["password", "eq:@password"]}
                                         >
-                                            <validator>{t`Passwords do not match`}</validator>
-                                        </Input>
-                                    </Bind>
-                                </Grid.Cell>
-                            </Grid>
-                            <Grid>
-                                <Grid.Cell span={12}>
-                                    <Bind name="enabled">
-                                        <Switch label={t`Enabled`} />
-                                    </Bind>
-                                </Grid.Cell>
-                            </Grid>
-                            <Grid>
-                                <Grid.Cell span={12}>
-                                    <Button.Primary onClick={form.submit}>
-                                        {t`Save user`}
-                                    </Button.Primary>
-
-                                    <Button.Secondary onClick={props.form.reset}>
-                                        {t`Reset`}
-                                    </Button.Secondary>
-                                </Grid.Cell>
-                            </Grid>
-                        </React.Fragment>
-                    )}
-                </Form>
+                                            <Input
+                                                type="password"
+                                                label={t`Confirm password`}
+                                                placeholder={t`Retype the new password`}
+                                            >
+                                                <validator>{t`Passwords do not match`}</validator>
+                                            </Input>
+                                        </Bind>
+                                    </Grid.Cell>
+                                </Grid>
+                                <Grid>
+                                    <Grid.Cell span={12}>
+                                        <Bind name="enabled">
+                                            <Switch label={t`Enabled`} />
+                                        </Bind>
+                                    </Grid.Cell>
+                                </Grid>
+                                <Grid>
+                                    <Grid.Cell span={12}>
+                                        <Button.Primary onClick={form.submit}>
+                                            {t`Save user`}
+                                        </Button.Primary>
+                                    </Grid.Cell>
+                                </Grid>
+                            </React.Fragment>
+                        )}
+                    </Form>
+                </div>
             );
         };
 
@@ -325,17 +310,13 @@ class UsersList extends React.Component {
     }
 
     render() {
-        const { AdminLayout, Loader } = this.props.modules;
-
-        const loading = false;
-
+        const { AdminLayout } = this.props.modules;
         return (
             <AdminLayout>
                 <Elevation z={1} style={{ backgroundColor: "white" }}>
-                    {loading && <Loader />}
                     <Grid>
-                        <Grid.Cell span={6}>{this.renderList()}</Grid.Cell>
-                        <Grid.Cell span={6}>{this.renderForm()}</Grid.Cell>
+                        <Grid.Cell span={6} style={{position: "relative"}}>{this.renderList()}</Grid.Cell>
+                        <Grid.Cell span={6} style={{position: "relative"}}>{this.renderForm()}</Grid.Cell>
                     </Grid>
                 </Elevation>
             </AdminLayout>
