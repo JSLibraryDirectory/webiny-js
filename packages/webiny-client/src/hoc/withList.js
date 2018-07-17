@@ -33,6 +33,36 @@ export default ({ name, entity, fields }: WithFormParams) => {
                         fields
                     });
                 };
+
+                let hasNext = false;
+                let hasPrevious = false;
+                if (props.list.data) {
+                    hasNext = props.list.data.meta.page < props.list.data.meta.totalPages;
+                    hasPrevious = props.list.data.meta.page > 1;
+                }
+
+                props.list.pages = {
+                    hasNext,
+                    hasPrevious,
+                    next: () => {
+                        hasNext &&
+                            loadList({
+                                name,
+                                entity,
+                                fields,
+                                page: props.list.data.meta.page + 1
+                            });
+                    },
+                    previous: () => {
+                        hasPrevious &&
+                            loadList({
+                                name,
+                                entity,
+                                fields,
+                                page: props.list.data.meta.page - 1
+                            });
+                    }
+                };
             })
         )(BaseComponent);
     };

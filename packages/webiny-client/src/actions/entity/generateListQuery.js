@@ -22,6 +22,10 @@ const generateListQuery = (params: ListQueryParams) => {
                         count
                         totalCount
                         totalPages
+                        page
+                        perPage
+                        from
+                        to
                     }
                 }
             }

@@ -26,13 +26,14 @@ const loadList = createAction(LIST_LOAD, {
     middleware({ action, next }) {
         next(action);
 
-        const { name, entity, fields, variables } = action.payload;
+        const { name, entity, fields, page, perPage } = action.payload;
         setListLoading({ name, loading: true });
 
         listEntities({
             entity,
             fields,
-            variables,
+            page,
+            perPage,
             onSuccess: data => {
                 setListLoading({ name, loading: false });
                 loadListSuccess({ data, name });

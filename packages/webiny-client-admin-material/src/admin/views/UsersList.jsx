@@ -2,6 +2,7 @@
 import * as React from "react";
 import _ from "lodash";
 import styled from "react-emotion";
+import classNames from "classnames";
 import { compose } from "recompose";
 
 import Input from "webiny-client-ui-material/Input";
@@ -19,30 +20,37 @@ import { withList, withForm } from "webiny-client/hoc";
 import { i18n, inject, app } from "webiny-client";
 const t = i18n.namespace("Security.UsersList");
 
-const ListHeader = styled("div")`
-    border-bottom: 1px solid lightgray;
-`;
+const ListHeader = styled("div")({
+    borderBottom: "1px solid lightgray"
+});
 
-ListHeader.Item = styled("div")`
-    display: inline-block;
-    vertical-align: middle;
-`;
+ListHeader.Item = styled("div")({
+    display: "inline-block",
+    verticalAlign: "middle",
+    "&.disabled": {
+        opacity: 0.5,
+        pointerEvents: "none"
+    }
+});
 
-List.Icon = styled("div")`
-    display: inline-block;
-    height: 18px;
-    width: 18px;
-    padding: 11px;
-    color: rgba(0, 0, 0, 0.54);
-    text-align: center;
-`;
+List.Icon = styled("div")({
+    display: "inline-block",
+    height: 18,
+    width: 18,
+    padding: 11,
+    color: "rgba(0, 0, 0, 0.54)",
+    textAlign: "center"
+});
 
 class UsersList extends React.Component {
     renderList() {
         const ListComponent = props => {
             const list = _.get(props, "list.data.list", []);
+            const meta = _.get(props, "list.data.meta", {});
+
             const { Link, Loader } = this.props.modules;
 
+            console.log(props);
             return (
                 <React.Fragment>
                     {props.list.loading && <Loader />}
@@ -91,17 +99,35 @@ class UsersList extends React.Component {
                                 </ListHeader.Item>
                             </Grid.Cell>
                             <Grid.Cell span="6" style={{ textAlign: "right" }}>
-                                1 - 3 of 3
-                                <Ripple unbounded>
-                                    <List.Icon>
-                                        <Icon name={"angle-left"} />
-                                    </List.Icon>
-                                </Ripple>
-                                <Ripple unbounded>
-                                    <List.Icon>
-                                        <Icon name={"angle-right"} />
-                                    </List.Icon>
-                                </Ripple>
+                                {t`{from} - {to} of {totalCount}`(meta)}
+                                <ListHeader.Item
+                                    className={classNames({
+                                        disabled: !props.list.pages.hasPrevious
+                                    })}
+                                >
+                                    <Ripple unbounded>
+                                        <List.Icon>
+                                            <Icon
+                                                name={"angle-left"}
+                                                onClick={props.list.pages.previous}
+                                            />
+                                        </List.Icon>
+                                    </Ripple>
+                                </ListHeader.Item>
+
+                                <ListHeader.Item
+                                    className={classNames({ disabled: !props.list.pages.hasNext })}
+                                >
+                                    <Ripple unbounded>
+                                        <List.Icon>
+                                            <Icon
+                                                name={"angle-right"}
+                                                onClick={props.list.pages.next}
+                                            />
+                                        </List.Icon>
+                                    </Ripple>
+                                </ListHeader.Item>
+
                             </Grid.Cell>
                         </Grid>
                     </ListHeader>
@@ -315,8 +341,12 @@ class UsersList extends React.Component {
             <AdminLayout>
                 <Elevation z={1} style={{ backgroundColor: "white" }}>
                     <Grid>
-                        <Grid.Cell span={6} style={{position: "relative"}}>{this.renderList()}</Grid.Cell>
-                        <Grid.Cell span={6} style={{position: "relative"}}>{this.renderForm()}</Grid.Cell>
+                        <Grid.Cell span={6} style={{ position: "relative" }}>
+                            {this.renderList()}
+                        </Grid.Cell>
+                        <Grid.Cell span={6} style={{ position: "relative" }}>
+                            {this.renderForm()}
+                        </Grid.Cell>
                     </Grid>
                 </Elevation>
             </AdminLayout>
