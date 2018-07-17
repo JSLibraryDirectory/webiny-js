@@ -1,4 +1,5 @@
 // @flow
+/*
 const app = () => {
     return ({ app }, next) => {
         app.modules.register([
@@ -52,4 +53,4 @@ const app = () => {
     };
 };
 
-export { app };
+export { app };*/
