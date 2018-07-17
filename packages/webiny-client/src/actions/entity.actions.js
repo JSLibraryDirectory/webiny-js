@@ -20,11 +20,21 @@ const listEntities = createAction(ENTITY_LIST, {
     middleware({ action, next }) {
         next(action);
 
-        const { entity, fields, page, perPage, onSuccess, onError } = action.payload;
+        const {
+            entity,
+            fields,
+            page,
+            perPage,
+            search,
+            sort,
+            filter,
+            onSuccess,
+            onError
+        } = action.payload;
         const generatedQuery = generateListQuery({ entity, fields });
         graphqlQuery({
             ...generatedQuery,
-            variables: { page, perPage },
+            variables: { page, perPage, sort, filter, search },
             onSuccess: data => {
                 if (typeof onSuccess === "function") {
                     onSuccess({ ...data.data });
