@@ -35,16 +35,21 @@ export default (entityClass: Class<Entity>, schema: Schema) => {
                     operator: args.search.operator || "or"
                 };
             }
+
             const list = await entityClass.find({
                 query,
                 page: args.page,
                 perPage: args.perPage,
                 sort: args.sort
             });
+
             const meta = list.getParams();
             meta.count = list.length;
             meta.totalCount = list.getMeta().totalCount;
             meta.totalPages = Math.ceil(meta.totalCount / meta.perPage);
+            meta.to = (meta.page - 1) * meta.perPage + meta.count;
+            meta.from = meta.to - meta.count + 1;
+
             return { list, meta };
         }
     };

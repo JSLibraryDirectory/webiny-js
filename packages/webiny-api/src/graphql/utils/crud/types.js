@@ -25,7 +25,11 @@ const ListMeta = new GraphQLObjectType({
     fields: () => ({
         count: { type: GraphQLInt },
         totalCount: { type: GraphQLInt },
-        totalPages: { type: GraphQLInt }
+        totalPages: { type: GraphQLInt },
+        page: { type: GraphQLInt },
+        perPage: { type: GraphQLInt },
+        from: { type: GraphQLInt },
+        to: { type: GraphQLInt }
     })
 });
 
