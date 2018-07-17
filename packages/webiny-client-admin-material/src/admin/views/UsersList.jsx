@@ -15,7 +15,7 @@ import Ripple from "webiny-client-ui-material/Ripple";
 import Elevation from "webiny-client-ui-material/Elevation";
 import Grid from "webiny-client-ui-material/Grid";
 import Switch from "webiny-client-ui-material/Switch";
-import { withList, withForm } from "webiny-client/hoc";
+import { withList, withForm, withRouter } from "webiny-client/hoc";
 
 import { i18n, inject, app } from "webiny-client";
 const t = i18n.namespace("Security.UsersList");
@@ -50,7 +50,6 @@ class UsersList extends React.Component {
 
             const { Link, Loader } = this.props.modules;
 
-            console.log(props);
             return (
                 <React.Fragment>
                     {props.list.loading && <Loader />}
@@ -127,7 +126,6 @@ class UsersList extends React.Component {
                                         </List.Icon>
                                     </Ripple>
                                 </ListHeader.Item>
-
                             </Grid.Cell>
                         </Grid>
                     </ListHeader>
@@ -166,11 +164,14 @@ class UsersList extends React.Component {
             );
         };
 
-        const PreparedComponent = withList({
-            name: "test",
-            entity: "SecurityUser",
-            fields: "id enabled firstName lastName email createdOn gravatar"
-        })(ListComponent);
+        const PreparedComponent = compose(
+            withList({
+                withRouter: true,
+                name: "test",
+                entity: "SecurityUser",
+                fields: "id enabled firstName lastName email createdOn gravatar"
+            })
+        )(ListComponent);
 
         return <PreparedComponent />;
     }

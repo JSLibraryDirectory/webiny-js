@@ -1,37 +1,43 @@
 // @flow
+import * as React from "react";
 import { connect } from "react-redux";
 import { compose, lifecycle, withProps } from "recompose";
 import { loadList } from "./../actions";
+import { app } from "webiny-client";
 import _ from "lodash";
 
-type WithFormParams = {
+type WithListParams = {
     name: string,
     entity: string,
-    fields: string
+    fields: string,
+    withRouter?: boolean,
+    page?: number,
+    perPage?: number
 };
 
-export default ({ name, entity, fields }: WithFormParams) => {
-    return BaseComponent => {
+const getLoadParams = ({ name, entity, fields, withRouter }: WithListParams): WithListParams => {
+    let params = { name, entity, fields };
+    if (withRouter) {
+        params = Object.assign(params, app.router.match.query);
+    }
+
+    return params;
+};
+
+export default (params: WithListParams) => {
+    return (BaseComponent: typeof React.Component) => {
         return compose(
             connect(state => {
-                return { list: _.get(state, `lists.${name}`, {}) };
+                return { list: _.get(state, `lists.${params.name}`, {}) };
             }),
             lifecycle({
                 componentDidMount() {
-                    loadList({
-                        name,
-                        entity,
-                        fields
-                    });
+                    loadList(getLoadParams(params));
                 }
             }),
             withProps(props => {
                 props.list.refresh = () => {
-                    loadList({
-                        name,
-                        entity,
-                        fields
-                    });
+                    loadList(getLoadParams(params));
                 };
 
                 let hasNext = false;
@@ -45,22 +51,38 @@ export default ({ name, entity, fields }: WithFormParams) => {
                     hasNext,
                     hasPrevious,
                     next: () => {
-                        hasNext &&
-                            loadList({
-                                name,
-                                entity,
-                                fields,
-                                page: props.list.data.meta.page + 1
+                        if (!hasNext) {
+                            return;
+                        }
+
+                        const loadParams = getLoadParams(params);
+                        loadParams.page = Number(_.get(loadParams, "page", 1)) + 1;
+
+                        if (params.withRouter) {
+                            app.router.goToRoute("current", {
+                                page: loadParams.page
                             });
+                            return;
+                        }
+
+                        loadList(loadParams);
                     },
                     previous: () => {
-                        hasPrevious &&
-                            loadList({
-                                name,
-                                entity,
-                                fields,
-                                page: props.list.data.meta.page - 1
+                        if (!hasPrevious) {
+                            return;
+                        }
+
+                        const loadParams = getLoadParams(params);
+                        loadParams.page = Number(_.get(loadParams, "page", 1)) - 1;
+
+                        if (params.withRouter) {
+                            app.router.goToRoute("current", {
+                                page: loadParams.page
                             });
+                            return;
+                        }
+
+                        loadList(loadParams);
                     }
                 };
             })
