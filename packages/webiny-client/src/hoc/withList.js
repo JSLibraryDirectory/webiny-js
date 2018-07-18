@@ -92,7 +92,7 @@ export default (params: WithListParams) => {
                     loadList(loadParams);
                 };
 
-                props.list.pages = {
+                props.list.pagination = {
                     hasNext,
                     hasPrevious,
                     next: () => {
