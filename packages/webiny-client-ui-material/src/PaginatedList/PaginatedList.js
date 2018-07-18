@@ -10,13 +10,14 @@ import Checkbox from "webiny-client-ui-material/Checkbox";
 import Menu from "webiny-client-ui-material/Menu";
 import Ripple from "webiny-client-ui-material/Ripple";
 import Grid from "webiny-client-ui-material/Grid";
-
-const Loader = () => {
-    return <div>loadam se...</div>
-};
+import Loader from "webiny-client-ui-material/Loader";
 
 import { i18n } from "webiny-client";
 const t = i18n.namespace("Security.UsersList");
+
+const ListContainer = styled("div")({
+    position: "relative"
+});
 
 const ListHeader = styled("div")({
     borderBottom: "1px solid lightgray"
@@ -40,11 +41,11 @@ List.Icon = styled("div")({
     textAlign: "center"
 });
 
-type ListPagesProp = {
+type PaginationProp = {
     next?: Function,
     previous?: Function,
-    hasNext: boolean,
-    hasPrevious: boolean
+    hasNext?: boolean,
+    hasPrevious?: boolean
 };
 
 type DataProp = {
@@ -60,21 +61,19 @@ type DataProp = {
     }
 };
 
-
 type Props = {
-    title?: React.Node,
-    data?: DataProp,
+    title: ?React.Node,
+    data: ?DataProp,
 
-    refresh?: Function,
-    loading?: boolean,
-    sorters?: Array<any>, // TODO: define
-    pages: ListPagesProp,
-    setPerPage?: Function,
+    refresh: ?Function,
+    children: ?Function,
+    loading: ?boolean,
+    sorters: ?Array<any>, // TODO: define
+    pagination: ?PaginationProp,
+    setPerPage: ?Function,
 
-    multiActions: Array<any>, // TODO: define
-    perPageOptions: Array<number>,
-
-    modules: Object // TODO: this could be defined a bit better for sure.
+    multiActions: ?Array<any>, // TODO: define
+    perPageOptions: ?Array<number>,
 };
 
 const MultiActions = (props: Props) => {
@@ -137,28 +136,40 @@ const Sorters = (props: Props) => {
 };
 
 const Pagination = (props: Props) => {
-    const meta = _.get(props, "data.meta");
+    const pagination = props.pagination;
+
+    if (!pagination) {
+        return null;
+    }
 
     return (
         <React.Fragment>
-            <ListHeader.Item>{t`{from} - {to} of {totalCount}`(meta)}</ListHeader.Item>
+            <ListHeader.Item>{t`{from} - {to} of {totalCount}`(pagination)}</ListHeader.Item>
 
             <ListHeader.Item
                 className={classNames({
-                    disabled: !props.pages.hasPrevious
+                    disabled: props.pagination && !props.pagination.hasPrevious
                 })}
             >
                 <Ripple unbounded>
                     <List.Icon>
-                        <Icon name={"angle-left"} onClick={props.pages.previous} />
+                        <Icon
+                            name={"angle-left"}
+                            onClick={props.pagination && props.pagination.previous}
+                        />
                     </List.Icon>
                 </Ripple>
             </ListHeader.Item>
 
-            <ListHeader.Item className={classNames({ disabled: !props.pages.hasNext })}>
+            <ListHeader.Item
+                className={classNames({ disabled: props.pagination && !props.pagination.hasNext })}
+            >
                 <Ripple unbounded>
                     <List.Icon>
-                        <Icon name={"angle-right"} onClick={props.pages.next} />
+                        <Icon
+                            name={"angle-right"}
+                            onClick={props.pagination && props.pagination.next}
+                        />
                     </List.Icon>
                 </Ripple>
             </ListHeader.Item>
@@ -175,14 +186,15 @@ const Pagination = (props: Props) => {
                         }
                     >
                         {props.setPerPage &&
-                        props.perPageOptions.map(perPage => (
-                            <Menu.Item
-                                key={perPage}
-                                onClick={() => props.setPerPage && props.setPerPage(perPage)}
-                            >
-                                {perPage}
-                            </Menu.Item>
-                        ))}
+                            props.perPageOptions &&
+                            props.perPageOptions.map(perPage => (
+                                <Menu.Item
+                                    key={perPage}
+                                    onClick={() => props.setPerPage && props.setPerPage(perPage)}
+                                >
+                                    {perPage}
+                                </Menu.Item>
+                            ))}
                     </Menu>
                 </ListHeader.Item>
             )}
@@ -191,10 +203,8 @@ const Pagination = (props: Props) => {
 };
 
 const PaginatedList = (props: Props) => {
-    const list = _.get(props, "data.list");
-
     return (
-        <React.Fragment>
+        <ListContainer>
             {props.loading && <Loader />}
             <ListHeader>
                 <Grid>
@@ -218,42 +228,20 @@ const PaginatedList = (props: Props) => {
                     </Grid.Cell>
                 </Grid>
             </ListHeader>
-            <List>
-                {list && list.map(item => (
-                    <List.Item key={item.id}>
-                        <List.Item.Graphic>
-                            <img src={"//www.gravatar.com/avatar/" + item.gravatar + "?s=48"} />
-                        </List.Item.Graphic>
-                        <List.Item.Text>
-                            {item.firstName} {item.lastName}
-                            <List.Item.Text.Secondary>{item.email}</List.Item.Text.Secondary>
-                        </List.Item.Text>
-                        <List.Item.Meta>
-                            <Ripple unbounded>
-                                <List.Icon>
-                                    <Icon
-                                        name="edit"
-                                        onClick={() => {
-                                            app.router.goToRoute("current", { edit: item.id });
-                                        }}
-                                    />
-                                </List.Icon>
-                            </Ripple>
-                            <Ripple unbounded>
-                                <List.Icon>
-                                    <Icon name={"times-circle"} />
-                                </List.Icon>
-                            </Ripple>
-                        </List.Item.Meta>
-                    </List.Item>
-                ))}
-            </List>
-        </React.Fragment>
+            {props.children && props.children(props)}
+        </ListContainer>
     );
 };
 
 PaginatedList.defaultProps = {
+    children: null,
+    loading: false,
+    multiActions: null,
+    sorters: null,
+    refresh: null,
+    pagination: null,
     title: null,
+    setPerPage: null,
     perPageOptions: [5, 10, 25, 50],
     data: null
 };
