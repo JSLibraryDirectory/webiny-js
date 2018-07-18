@@ -27,34 +27,26 @@ story.add("usage", () => {
 
     const dataProp = object(
         "Data",
-        {
-            list: [
-                {
-                    id: "A",
-                    firstName: "John",
-                    lastName: "Doe",
-                    email: "john.doe@webiny.com"
-                },
-                {
-                    id: "B",
-                    firstName: "Jane",
-                    lastName: "Doe",
-                    email: "jane.doe@webiny.com"
-                },
-                {
-                    id: "C",
-                    firstName: "Foo",
-                    lastName: "Bar",
-                    email: "foo.bar@webiny.com"
-                }
-            ],
-            meta: {
-                totalPages: 1,
-                totalCount: 3,
-                from: 1,
-                to: 3
+        [
+            {
+                id: "A",
+                firstName: "John",
+                lastName: "Doe",
+                email: "john.doe@webiny.com"
+            },
+            {
+                id: "B",
+                firstName: "Jane",
+                lastName: "Doe",
+                email: "jane.doe@webiny.com"
+            },
+            {
+                id: "C",
+                firstName: "Foo",
+                lastName: "Bar",
+                email: "foo.bar@webiny.com"
             }
-        },
+        ],
         "Data"
     );
 
@@ -68,7 +60,7 @@ story.add("usage", () => {
         setPage: page => {
             console.log(`Implement setPage method (selected ${page}).`);
         },
-        perPageOptions: array("perPageOptions", [10, 25, 50], "Pagination"),
+        perPageOptions: array("perPageOptions", [10, 25, 50], ",", "Pagination"),
         setPerPage: perPage => {
             console.log(`Implement setPerPage method (selected ${perPage}).`);
         }
@@ -105,7 +97,7 @@ story.add("usage", () => {
                     {({ data }) => {
                         return (
                             <List>
-                                {data.list.map(item => (
+                                {data.map(item => (
                                     <List.Item key={item.id}>
                                         <List.Item.Graphic>
                                             <img

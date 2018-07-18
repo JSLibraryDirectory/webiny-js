@@ -74,6 +74,7 @@ type Props = {
     // Provide all pagination data, options and callbacks here.
     pagination: ?PaginationProp,
 
+    // Provide all sorters options and callbacks here.
     sorters: ?SortersProp,
 
     multiActions: ?Array<any> // TODO: define
