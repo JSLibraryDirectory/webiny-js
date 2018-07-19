@@ -268,4 +268,4 @@ DataList.defaultProps = {
     multiActions: null
 };
 
-export default DataList;
+export { DataList };

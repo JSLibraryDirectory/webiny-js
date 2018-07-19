@@ -1,2 +1,2 @@
 // @flow
-export { default } from "./DataList";
+export { DataList } from "./DataList";

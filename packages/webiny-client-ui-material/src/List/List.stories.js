@@ -8,7 +8,7 @@ import Icon from "./../Icon";
 import Button from "./../Button";
 
 // $FlowFixMe
-import List, { PropsType } from "./List";
+import { List, PropsType } from "./List";
 
 const story = storiesOf("Components/List", module);
 
