@@ -11,6 +11,7 @@ import Menu from "webiny-client-ui-material/Menu";
 import Ripple from "webiny-client-ui-material/Ripple";
 import Grid from "webiny-client-ui-material/Grid";
 import Loader from "webiny-client-ui-material/Loader";
+import type {PaginationProp, SortersProp} from "./types"
 
 const ListContainer = styled("div")({
     position: "relative"
@@ -38,23 +39,7 @@ List.Icon = styled("div")({
     textAlign: "center"
 });
 
-type PaginationProp = {
-    from?: number,
-    to?: number,
-    totalCount?: number,
-    totalPages?: number,
-    nextPage?: number,
-    previousPage?: number,
-    setPage?: Function,
-    setPerPage?: Function,
-    perPageOptions?: Array<number>
-};
-
-type SortersProp = {
-    list?: { [string]: string },
-    setSorter?: Function
-};
-
+// This was copied from "./types" so that it can be outputted in docs.
 type Props = {
     // Pass a function to take full control of list render.
     children: ?Function,
