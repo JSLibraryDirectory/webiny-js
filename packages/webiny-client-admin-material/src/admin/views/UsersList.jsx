@@ -8,8 +8,8 @@ import Button from "webiny-client-ui-material/Button";
 import Elevation from "webiny-client-ui-material/Elevation";
 import Grid from "webiny-client-ui-material/Grid";
 import Switch from "webiny-client-ui-material/Switch";
+import PaginatedList from "webiny-client-ui-material/PaginatedList";
 import { withForm } from "webiny-client/hoc";
-import List from "./List";
 
 import { i18n, inject, app } from "webiny-client";
 const t = i18n.namespace("Security.UsersList");
@@ -180,7 +180,7 @@ class UsersList extends React.Component<{ modules: Object }> {
                 <Elevation z={1} style={{ backgroundColor: "white" }}>
                     <Grid>
                         <Grid.Cell span={6} style={{ position: "relative" }}>
-                            <List />
+                            <PaginatedList />
                         </Grid.Cell>
                         <Grid.Cell span={6} style={{ position: "relative" }}>
                             {this.renderForm()}

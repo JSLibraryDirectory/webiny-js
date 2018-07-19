@@ -6,7 +6,7 @@ import { loadList } from "./../actions";
 import { app } from "webiny-client";
 import _ from "lodash";
 
-type WithListParams = {
+type WithDataListParams = {
     prop?: string,
     name: string,
     entity: string,
@@ -28,11 +28,11 @@ const redirectToRouteWithQueryParams = (params: Object) => {
     });
 };
 
-const prepareLoadListParams = (withListParams: WithListParams, props: Object) => {
-    const paramsClone = Object.assign({}, withListParams);
+const prepareLoadListParams = (withDataListParams: WithDataListParams, props: Object) => {
+    const paramsClone = Object.assign({}, withDataListParams);
     if (props.router) {
         const { page, perPage, sort, search } = app.router.match.query;
-        Object.assign(withListParams, {
+        Object.assign(withDataListParams, {
             page,
             perPage,
             sort,
@@ -51,9 +51,9 @@ const prepareLoadListParams = (withListParams: WithListParams, props: Object) =>
  * @param params
  * @returns {*}
  */
-const getPropKey = (params: WithListParams): string => params.prop || params.name;
+const getPropKey = (params: WithDataListParams): string => params.prop || params.name;
 
-export default (params: WithListParams) => {
+export default (params: WithDataListParams) => {
     return (BaseComponent: typeof React.Component) => {
         return compose(
             lifecycle({

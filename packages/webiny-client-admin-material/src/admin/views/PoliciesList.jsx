@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 import { app } from "webiny-client";
-import { withList, withRouter } from "webiny-client/hoc";
+import { withDataList, withRouter } from "webiny-client/hoc";
 import { inject, i18n } from "webiny-client";
 import { compose } from "recompose";
 import Elevation from "webiny-client-ui-material/Elevation";
@@ -79,7 +79,7 @@ const PoliciesList = props => {
 
 export default compose(
     withRouter(),
-    withList({
+    withDataList({
         name: "PoliciesList",
         entity: "SecurityPolicy",
         fields: "id name description createdOn"
