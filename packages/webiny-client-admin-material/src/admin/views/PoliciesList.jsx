@@ -1,6 +1,7 @@
 // @flow
 import * as React from "react";
-import { withList } from "webiny-client/hoc";
+import { app } from "webiny-client";
+import { withList, withRouter } from "webiny-client/hoc";
 import { inject, i18n } from "webiny-client";
 import { compose } from "recompose";
 import Elevation from "webiny-client-ui-material/Elevation";
@@ -23,7 +24,7 @@ const PoliciesList = props => {
                     {/* TODO: styles must not be set inline. "position: relative" is here because of the loader. */}
                     <Elevation z={1} style={{ background: "white", position: "relative" }}>
                         <PaginatedList
-                            {...props.SecurityUsers}
+                            {...props.PoliciesList}
                             title={t`Security Policies`}
                             sorters={{
                                 name: t`Name`,
@@ -35,19 +36,10 @@ const PoliciesList = props => {
                                     <List>
                                         {data.map(item => (
                                             <List.Item key={item.id}>
-                                                <List.Item.Graphic>
-                                                    <img
-                                                        src={
-                                                            "//www.gravatar.com/avatar/" +
-                                                            item.gravatar +
-                                                            "?s=48"
-                                                        }
-                                                    />
-                                                </List.Item.Graphic>
                                                 <List.Item.Text>
-                                                    {item.firstName} {item.lastName}
+                                                    {item.name}
                                                     <List.Item.Text.Secondary>
-                                                        {item.email}
+                                                        {item.description}
                                                     </List.Item.Text.Secondary>
                                                 </List.Item.Text>
                                                 <List.Item.Meta>
@@ -56,7 +48,12 @@ const PoliciesList = props => {
                                                         <Icon
                                                             name="edit"
                                                             onClick={() => {
-                                                                console.log("ide redirectara");
+                                                                app.router.goToRoute(
+                                                                    "Policies.Edit",
+                                                                    {
+                                                                        id: item.id
+                                                                    }
+                                                                );
                                                             }}
                                                         />
                                                         {/*</List.Icon>*/}
@@ -81,11 +78,11 @@ const PoliciesList = props => {
 };
 
 export default compose(
+    withRouter(),
     withList({
-        withRouter: true,
-        name: "SecurityUsers",
-        entity: "SecurityUser",
-        fields: "id enabled firstName lastName email createdOn gravatar"
+        name: "PoliciesList",
+        entity: "SecurityPolicy",
+        fields: "id name description createdOn"
     }),
     inject({
         modules: [
