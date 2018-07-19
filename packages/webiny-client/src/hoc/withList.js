@@ -79,17 +79,18 @@ export default (params: WithListParams) => {
                 return {
                     [prop]: {
                         data: _.get(state, `lists.${params.name}.data.list`, []),
-                        pagination: _.get(state, `lists.${params.name}.data.meta`, {})
+                        meta: _.get(state, `lists.${params.name}.data.meta`, {})
                     }
                 };
             }),
             withProps(props => {
                 const prop = getPropKey(params);
-                props[prop].refresh = () => {
-                    loadList(getLoadListParams(params));
-                };
 
-                props[prop].pagination = Object.assign({}, props[prop].pagination, {
+                Object.assign(props[prop], {
+                    refresh: () => {
+                        loadList(getLoadListParams(params));
+                    },
+
                     setPerPage: perPage => {
                         const loadParams = getLoadListParams(params);
                         loadParams.perPage = perPage;
@@ -112,14 +113,16 @@ export default (params: WithListParams) => {
                         }
 
                         loadList(loadParams);
+                    },
+
+                    setSorters: () => {
+                        console.log("Set sorters triggered.");
                     }
                 });
 
                 /*props[prop].sorters = {
                     setSorter
                 }*/
-
-                console.log("FINAL PROPS", props);
             })
         )(BaseComponent);
     };
