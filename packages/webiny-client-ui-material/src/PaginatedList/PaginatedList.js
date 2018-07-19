@@ -11,7 +11,7 @@ import Menu from "webiny-client-ui-material/Menu";
 import Ripple from "webiny-client-ui-material/Ripple";
 import Grid from "webiny-client-ui-material/Grid";
 import Loader from "webiny-client-ui-material/Loader";
-import type {PaginationProp, SortersProp} from "./types"
+import type { MetaProp, SortersProp } from "./types";
 
 const ListContainer = styled("div")({
     position: "relative"
@@ -57,7 +57,16 @@ type Props = {
     loading: ?boolean,
 
     // Provide all pagination data, options and callbacks here.
-    pagination: ?PaginationProp,
+    meta: ?MetaProp,
+
+    // Triggered once the page has been selected.
+    setPage: ?Function,
+
+    // Triggered when number of entries per page has been changed.
+    setPerPage: ?Function,
+
+    // By default, users can choose from 10, 25 or 50 entries per page.
+    perPageOptions: Array<number>,
 
     // Provide all sorters options and callbacks here.
     sorters: ?SortersProp,
@@ -66,37 +75,41 @@ type Props = {
 };
 
 const MultiActions = (props: Props) => {
-    if (props.multiActions) {
-        return (
-            <ListHeader.Item>
-                <Checkbox />
-            </ListHeader.Item>
-        );
+    const multiActions = props.multiActions;
+    if (!multiActions) {
+        return null;
     }
 
-    return null;
+    return (
+        <ListHeader.Item>
+            <Checkbox />
+        </ListHeader.Item>
+    );
 };
 
 const RefreshButton = (props: Props) => {
-    if (props.refresh) {
-        return (
-            <ListHeader.Item>
-                <Ripple unbounded>
-                    <List.Icon>
-                        <Icon onClick={props.refresh} name={"sync-alt"} />
-                    </List.Icon>
-                </Ripple>
-            </ListHeader.Item>
-        );
+    const refresh = props.refresh;
+    if (!refresh) {
+        return null;
     }
 
-    return null;
+    return (
+        <ListHeader.Item>
+            <Ripple unbounded>
+                <List.Icon>
+                    <Icon onClick={refresh} name={"sync-alt"} />
+                </List.Icon>
+            </Ripple>
+        </ListHeader.Item>
+    );
 };
 
 const Sorters = (props: Props) => {
-    if (!props.sorters) {
+    const sorters = props.sorters;
+    if (!sorters) {
         return null;
     }
+
     return (
         <ListHeader.Item>
             <Menu
@@ -108,12 +121,12 @@ const Sorters = (props: Props) => {
                     </Ripple>
                 }
             >
-                {_.map(props.sorters.list, (label, value) => (
+                {_.map(sorters.list, (label, value) => (
                     <Menu.Item
                         key={value}
                         onClick={() => {
-                            if (props.sorters && props.sorters.setSorter) {
-                                props.sorters.setSorter(value);
+                            if (sorters && sorters.setSorter) {
+                                sorters.setSorter(value);
                             }
                         }}
                     >
@@ -126,26 +139,26 @@ const Sorters = (props: Props) => {
 };
 
 const Pagination = (props: Props) => {
-    const pagination = props.pagination;
-    if (!pagination) {
+    const meta = props.meta;
+    if (!meta) {
         return null;
     }
 
     return (
         <React.Fragment>
-            {pagination.from &&
-                pagination.to &&
-                pagination.totalCount && (
+            {meta.from &&
+                meta.to &&
+                meta.totalCount && (
                     <ListHeader.Item>
-                        {pagination.from} - {pagination.to} of {pagination.totalCount}
+                        {meta.from} - {meta.to} of {meta.totalCount}
                     </ListHeader.Item>
                 )}
 
-            {pagination.setPage && (
+            {props.setPage && (
                 <React.Fragment>
                     <ListHeader.Item
                         className={classNames({
-                            disabled: !pagination.previousPage
+                            disabled: !meta.previousPage
                         })}
                     >
                         <Ripple unbounded>
@@ -153,8 +166,8 @@ const Pagination = (props: Props) => {
                                 <Icon
                                     name={"angle-left"}
                                     onClick={() => {
-                                        if (pagination.setPage && pagination.previousPage) {
-                                            pagination.setPage(pagination.previousPage);
+                                        if (props.setPage && meta.previousPage) {
+                                            props.setPage(meta.previousPage);
                                         }
                                     }}
                                 />
@@ -164,7 +177,7 @@ const Pagination = (props: Props) => {
 
                     <ListHeader.Item
                         className={classNames({
-                            disabled: !pagination.nextPage
+                            disabled: !meta.nextPage
                         })}
                     >
                         <Ripple unbounded>
@@ -172,8 +185,8 @@ const Pagination = (props: Props) => {
                                 <Icon
                                     name={"angle-right"}
                                     onClick={() => {
-                                        if (pagination.setPage && pagination.nextPage) {
-                                            pagination.setPage(pagination.nextPage);
+                                        if (props.setPage && meta.nextPage) {
+                                            props.setPage(meta.nextPage);
                                         }
                                     }}
                                 />
@@ -183,7 +196,7 @@ const Pagination = (props: Props) => {
                 </React.Fragment>
             )}
 
-            {pagination.setPerPage && (
+            {props.setPerPage && (
                 <ListHeader.Item>
                     <Menu
                         handle={
@@ -194,14 +207,11 @@ const Pagination = (props: Props) => {
                             </Ripple>
                         }
                     >
-                        {pagination.setPerPage &&
-                            pagination.perPageOptions &&
-                            pagination.perPageOptions.map(perPage => (
+                        {props.setPerPage &&
+                            props.perPageOptions.map(perPage => (
                                 <Menu.Item
                                     key={perPage}
-                                    onClick={() =>
-                                        pagination.setPerPage && pagination.setPerPage(perPage)
-                                    }
+                                    onClick={() => props.setPerPage && props.setPerPage(perPage)}
                                 >
                                     {perPage}
                                 </Menu.Item>
@@ -248,14 +258,15 @@ PaginatedList.defaultProps = {
     children: null,
     title: null,
     data: null,
-    refresh: null,
+    meta: null,
     loading: false,
-    pagination: null,
-
-    multiActions: null,
-    sorters: null,
+    refresh: null,
+    setPage: null,
     setPerPage: null,
-    perPageOptions: [5, 10, 25, 50]
+    perPageOptions: [10, 25, 50],
+
+    sorters: null,
+    multiActions: null
 };
 
 export default PaginatedList;

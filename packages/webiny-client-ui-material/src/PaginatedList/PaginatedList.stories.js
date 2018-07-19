@@ -6,7 +6,7 @@ import List from "./../List";
 import Ripple from "./../Ripple";
 import Icon from "./../Icon";
 import readme from "./../PaginatedList/README.md";
-import { withKnobs, boolean, text, object, number, array } from "@storybook/addon-knobs";
+import { withKnobs, boolean, text, object, array } from "@storybook/addon-knobs";
 
 // $FlowFixMe
 import PaginatedList, { PropsType } from "./PaginatedList";
@@ -15,14 +15,22 @@ const story = storiesOf("Components/PaginatedList", module);
 story.addDecorator(withKnobs);
 
 story.add("usage", () => {
-    const generalProps = {
+    const generalOptionsAndCallbacks = {
         refresh: () => {
             // eslint-disable-next-line
             alert('Use the "refresh" prop to pass a callback.');
         },
         loading: boolean("Loading", false, "Basic"),
         title: text("Title", "A list of all users", "Basic"),
-        multiActions: boolean("Multi actions", false, "Basic")
+        multiActions: boolean("Multi actions", false, "Basic"),
+
+        setPage: page => {
+            console.log(`Implement setPage method (selected ${page}).`);
+        },
+        perPageOptions: array("perPageOptions", [10, 25, 50], ",", "Basic"),
+        setPerPage: perPage => {
+            console.log(`Implement setPerPage method (selected ${perPage}).`);
+        }
     };
 
     const dataProp = object(
@@ -50,21 +58,18 @@ story.add("usage", () => {
         "Data"
     );
 
-    const paginationProp = {
-        totalPages: number("totalPages", 1, {}, "Pagination"),
-        totalCount: number("totalCount", 3, {}, "Pagination"),
-        from: number("from", 1, {}, "Pagination"),
-        to: number("to", 3, {}, "Pagination"),
-        nextPage: number("nextPage", 0, {}, "Pagination"),
-        previousPage: number("previousPage", 0, {}, "Pagination"),
-        setPage: page => {
-            console.log(`Implement setPage method (selected ${page}).`);
+    const metaProp = object(
+        "Meta",
+        {
+            totalPages: 1,
+            totalCount: 3,
+            from: 1,
+            to: 3,
+            previousPage: null,
+            nextPage: null
         },
-        perPageOptions: array("perPageOptions", [10, 25, 50], ",", "Pagination"),
-        setPerPage: perPage => {
-            console.log(`Implement setPerPage method (selected ${perPage}).`);
-        }
-    };
+        "Meta"
+    );
 
     const sortersProp = {
         setSorter: sorter => {
@@ -89,9 +94,9 @@ story.add("usage", () => {
 
             <Story.Sandbox>
                 <PaginatedList
-                    {...generalProps}
+                    {...generalOptionsAndCallbacks}
                     data={dataProp}
-                    pagination={paginationProp}
+                    meta={metaProp}
                     sorters={sortersProp}
                 >
                     {({ data }) => {

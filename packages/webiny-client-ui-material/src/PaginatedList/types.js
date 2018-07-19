@@ -1,16 +1,13 @@
 // @flow
 import * as React from "react";
 
-export type PaginationProp = {
+export type MetaProp = {
     from?: number,
     to?: number,
     totalCount?: number,
     totalPages?: number,
     nextPage?: number,
-    previousPage?: number,
-    setPage?: Function,
-    setPerPage?: Function,
-    perPageOptions?: Array<number>
+    previousPage?: number
 };
 
 export type SortersProp = {
@@ -35,7 +32,16 @@ export type Props = {
     loading: ?boolean,
 
     // Provide all pagination data, options and callbacks here.
-    pagination: ?PaginationProp,
+    meta: ?MetaProp,
+
+    // Triggered once the page has been selected.
+    setPage?: Function,
+
+    // Triggered when number of entries per page has been changed.
+    setPerPage?: Function,
+
+    // By default, users can choose from 10, 25 or 50 entries per page.
+    perPageOptions?: Array<number>,
 
     // Provide all sorters options and callbacks here.
     sorters: ?SortersProp,
