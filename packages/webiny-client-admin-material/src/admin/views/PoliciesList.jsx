@@ -4,13 +4,12 @@ import { app } from "webiny-client";
 import { withDataList, withRouter } from "webiny-client/hoc";
 import { inject, i18n } from "webiny-client";
 import { compose } from "recompose";
+
 import Elevation from "webiny-client-ui-material/Elevation";
 import Grid from "webiny-client-ui-material/Grid";
-import PaginatedList from "webiny-client-ui-material/PaginatedList";
-
-import List from "webiny-client-ui-material/List";
 import Icon from "webiny-client-ui-material/Icon";
 import Ripple from "webiny-client-ui-material/Ripple";
+import { DataList, List } from "webiny-client-ui-material/List";
 
 const t = i18n.namespace("Security.PoliciesList");
 
@@ -23,7 +22,7 @@ const PoliciesList = props => {
                 <Grid.Cell span={12}>
                     {/* TODO: styles must not be set inline. "position: relative" is here because of the loader. */}
                     <Elevation z={1} style={{ background: "white", position: "relative" }}>
-                        <PaginatedList
+                        <DataList
                             {...props.PoliciesList}
                             title={t`Security Policies`}
                             sorters={{
@@ -69,7 +68,7 @@ const PoliciesList = props => {
                                     </List>
                                 );
                             }}
-                        </PaginatedList>
+                        </DataList>
                     </Elevation>
                 </Grid.Cell>
             </Grid>
