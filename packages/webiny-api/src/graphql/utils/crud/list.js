@@ -49,7 +49,9 @@ export default (entityClass: Class<Entity>, schema: Schema) => {
             meta.totalPages = Math.ceil(meta.totalCount / meta.perPage);
             meta.to = (meta.page - 1) * meta.perPage + meta.count;
             meta.from = meta.to - meta.count + 1;
-
+            meta.nextPage = meta.page < meta.totalPages ? meta.page + 1 : null;
+            meta.previousPage = meta.page === 1 ? null : meta.page - 1;
+            console.log(meta);
             return { list, meta };
         }
     };
