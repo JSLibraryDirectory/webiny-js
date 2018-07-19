@@ -8,6 +8,7 @@ import { app } from "webiny-client";
 import _ from "lodash";
 
 type WithListParams = {
+    prop?: string,
     name: string,
     entity: string,
     fields: string,
@@ -53,6 +54,14 @@ const applyRouteQueryParams = (params: Object) => {
     });
 };
 
+/**
+ * All list data is passed into child components via specific prop. Be default, "name" parameter will be
+ * used to determine its name. Alternatively, "prop" parameter can be used to specify a different name.
+ * @param params
+ * @returns {*}
+ */
+const getPropKey = (params: WithListParams): string => params.prop || params.name;
+
 export default (params: WithListParams) => {
     return (BaseComponent: typeof React.Component) => {
         return compose(
@@ -66,56 +75,37 @@ export default (params: WithListParams) => {
                 }
             }),
             connect(state => {
-                return { list: _.get(state, `lists.${params.name}`, {}) };
+                const prop = getPropKey(params);
+                return {
+                    [prop]: {
+                        data: _.get(state, `lists.${params.name}.data.list`, []),
+                        pagination: _.get(state, `lists.${params.name}.data.meta`, {})
+                    }
+                };
             }),
             withProps(props => {
-                props.list.refresh = () => {
+                const prop = getPropKey(params);
+                props[prop].refresh = () => {
                     loadList(getLoadListParams(params));
                 };
 
-                let hasNext = false;
-                let hasPrevious = false;
-                if (props.list.data) {
-                    hasNext = props.list.data.meta.page < props.list.data.meta.totalPages;
-                    hasPrevious = props.list.data.meta.page > 1;
-                }
+                props[prop].pagination = Object.assign({}, props[prop].pagination, {
+                    setPerPage: perPage => {
+                        const loadParams = getLoadListParams(params);
+                        loadParams.perPage = perPage;
 
-                props.list.setPerPage = perPage => {
-                    const loadParams = getLoadListParams(params);
-                    loadParams.perPage = perPage;
-
-                    if (params.withRouter) {
-                        applyRouteQueryParams(loadParams);
-                        return;
-                    }
-
-                    loadList(loadParams);
-                };
-
-                props.list.pagination = {
-                    hasNext,
-                    hasPrevious,
-                    next: () => {
-                        if (!hasNext) {
+                        if (params.withRouter) {
+                            applyRouteQueryParams(loadParams);
                             return;
                         }
 
-                        const loadParams = getLoadListParams(params);
-                        props.list.pages.set(Number(_.get(loadParams, "page", 1)) + 1);
+                        loadList(loadParams);
                     },
-                    previous: () => {
-                        if (!hasPrevious) {
-                            return;
-                        }
 
-                        const loadParams = getLoadListParams(params);
-                        props.list.pages.set(Number(_.get(loadParams, "page", 1)) - 1);
-                    },
-                    set: (page: number) => {
+                    setPage: (page: number) => {
                         const loadParams = getLoadListParams(params);
                         loadParams.page = page;
 
-                        console.log(loadParams);
                         if (params.withRouter) {
                             applyRouteQueryParams(loadParams);
                             return;
@@ -123,7 +113,13 @@ export default (params: WithListParams) => {
 
                         loadList(loadParams);
                     }
-                };
+                });
+
+                /*props[prop].sorters = {
+                    setSorter
+                }*/
+
+                console.log("FINAL PROPS", props);
             })
         )(BaseComponent);
     };
