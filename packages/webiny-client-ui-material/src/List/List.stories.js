@@ -12,7 +12,7 @@ import List, { PropsType } from "./List";
 
 const story = storiesOf("Components/List", module);
 
-story.add("usage", () => {
+story.add("simple list", () => {
     return (
         <Story>
             <Story.Readme>{readme}</Story.Readme>

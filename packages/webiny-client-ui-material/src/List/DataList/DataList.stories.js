@@ -3,18 +3,18 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import Story from "webiny-storybook-utils/Story";
 import List from "./../List";
-import Ripple from "./../Ripple";
-import Icon from "./../Icon";
-import readme from "./../PaginatedList/README.md";
+import Ripple from "webiny-client-ui-material/Ripple";
+import Icon from "webiny-client-ui-material/Icon";
+import readme from "./../DataList/README.md";
 import { withKnobs, boolean, text, object, array } from "@storybook/addon-knobs";
 
 // $FlowFixMe
-import PaginatedList, { PropsType } from "./PaginatedList";
+import DataList, { PropsType } from "./DataList";
 
-const story = storiesOf("Components/PaginatedList", module);
+const story = storiesOf("Components/List", module);
 story.addDecorator(withKnobs);
 
-story.add("usage", () => {
+story.add("data list", () => {
     const generalOptionsAndCallbacks = {
         refresh: () => {
             // eslint-disable-next-line
@@ -93,7 +93,7 @@ story.add("usage", () => {
             <Story.Props>{PropsType}</Story.Props>
 
             <Story.Sandbox>
-                <PaginatedList
+                <DataList
                     {...generalOptionsAndCallbacks}
                     data={dataProp}
                     meta={metaProp}
@@ -125,7 +125,7 @@ story.add("usage", () => {
                                                 <Icon
                                                     name="edit"
                                                     onClick={() => {
-                                                        console.log("ide redirectara");
+                                                        console.log("Redirect user to form.");
                                                     }}
                                                 />
                                                 {/*</List.Icon>*/}
@@ -141,7 +141,7 @@ story.add("usage", () => {
                             </List>
                         );
                     }}
-                </PaginatedList>
+                </DataList>
             </Story.Sandbox>
         </Story>
     );

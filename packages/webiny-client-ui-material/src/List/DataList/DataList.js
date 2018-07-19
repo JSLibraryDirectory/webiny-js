@@ -4,7 +4,6 @@ import _ from "lodash";
 import styled from "react-emotion";
 import classNames from "classnames";
 
-import List from "webiny-client-ui-material/List";
 import Icon from "webiny-client-ui-material/Icon";
 import Checkbox from "webiny-client-ui-material/Checkbox";
 import Menu from "webiny-client-ui-material/Menu";
@@ -30,7 +29,7 @@ ListHeader.Item = styled("div")({
     }
 });
 
-List.Icon = styled("div")({
+ListHeader.Icon = styled("div")({
     display: "inline-block",
     height: 18,
     width: 18,
@@ -96,9 +95,9 @@ const RefreshButton = (props: Props) => {
     return (
         <ListHeader.Item>
             <Ripple unbounded>
-                <List.Icon>
+                <ListHeader.Icon>
                     <Icon onClick={refresh} name={"sync-alt"} />
-                </List.Icon>
+                </ListHeader.Icon>
             </Ripple>
         </ListHeader.Item>
     );
@@ -115,9 +114,9 @@ const Sorters = (props: Props) => {
             <Menu
                 handle={
                     <Ripple unbounded>
-                        <List.Icon>
+                        <ListHeader.Icon>
                             <Icon name={"sort-alpha-up"} />
-                        </List.Icon>
+                        </ListHeader.Icon>
                     </Ripple>
                 }
             >
@@ -162,7 +161,7 @@ const Pagination = (props: Props) => {
                         })}
                     >
                         <Ripple unbounded>
-                            <List.Icon>
+                            <ListHeader.Icon>
                                 <Icon
                                     name={"angle-left"}
                                     onClick={() => {
@@ -171,7 +170,7 @@ const Pagination = (props: Props) => {
                                         }
                                     }}
                                 />
-                            </List.Icon>
+                            </ListHeader.Icon>
                         </Ripple>
                     </ListHeader.Item>
 
@@ -181,7 +180,7 @@ const Pagination = (props: Props) => {
                         })}
                     >
                         <Ripple unbounded>
-                            <List.Icon>
+                            <ListHeader.Icon>
                                 <Icon
                                     name={"angle-right"}
                                     onClick={() => {
@@ -190,7 +189,7 @@ const Pagination = (props: Props) => {
                                         }
                                     }}
                                 />
-                            </List.Icon>
+                            </ListHeader.Icon>
                         </Ripple>
                     </ListHeader.Item>
                 </React.Fragment>
@@ -201,9 +200,9 @@ const Pagination = (props: Props) => {
                     <Menu
                         handle={
                             <Ripple unbounded>
-                                <List.Icon>
+                                <ListHeader.Icon>
                                     <Icon name={"columns"} />
-                                </List.Icon>
+                                </ListHeader.Icon>
                             </Ripple>
                         }
                     >
@@ -223,7 +222,7 @@ const Pagination = (props: Props) => {
     );
 };
 
-const PaginatedList = (props: Props) => {
+const DataList = (props: Props) => {
     return (
         <ListContainer>
             {props.loading && <Loader />}
@@ -254,7 +253,7 @@ const PaginatedList = (props: Props) => {
     );
 };
 
-PaginatedList.defaultProps = {
+DataList.defaultProps = {
     children: null,
     title: null,
     data: null,
@@ -269,4 +268,4 @@ PaginatedList.defaultProps = {
     multiActions: null
 };
 
-export default PaginatedList;
+export default DataList;
