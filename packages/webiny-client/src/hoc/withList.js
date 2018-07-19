@@ -3,7 +3,6 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { compose, lifecycle, withProps } from "recompose";
 import { loadList } from "./../actions";
-import { withRouter } from "./../hoc";
 import { app } from "webiny-client";
 import _ from "lodash";
 
@@ -12,7 +11,6 @@ type WithListParams = {
     name: string,
     entity: string,
     fields: string,
-    withRouter?: boolean,
     page?: number,
     perPage?: number,
     sort?: number,
@@ -20,31 +18,7 @@ type WithListParams = {
     filter?: JSON
 };
 
-const getLoadListParams = ({
-    name,
-    entity,
-    fields,
-    withRouter
-}: WithListParams): WithListParams => {
-    const params: WithListParams = {
-        name,
-        entity,
-        fields
-    };
-
-    if (withRouter) {
-        const { page, perPage, sort, search } = app.router.match.query;
-        params.page = page;
-        params.perPage = perPage;
-        params.sort = sort;
-        params.search = search;
-        // params.filter = filter;
-    }
-
-    return params;
-};
-
-const applyRouteQueryParams = (params: Object) => {
+const redirectToRouteWithQueryParams = (params: Object) => {
     const { perPage, page, sort, search } = params;
     app.router.goToRoute("current", {
         perPage,
@@ -52,6 +26,23 @@ const applyRouteQueryParams = (params: Object) => {
         sort,
         search
     });
+};
+
+const prepareLoadListParams = (withListParams: WithListParams, props: Object) => {
+    const paramsClone = Object.assign({}, withListParams);
+    if (props.router) {
+        const { page, perPage, sort, search } = app.router.match.query;
+        Object.assign(withListParams, {
+            page,
+            perPage,
+            sort,
+            search
+        });
+    } else {
+        // TODO: Assign from store.
+    }
+
+    return paramsClone;
 };
 
 /**
@@ -65,13 +56,14 @@ const getPropKey = (params: WithListParams): string => params.prop || params.nam
 export default (params: WithListParams) => {
     return (BaseComponent: typeof React.Component) => {
         return compose(
-            withRouter(),
             lifecycle({
                 componentDidMount() {
-                    loadList(getLoadListParams(params));
+                    const preparedParams = prepareLoadListParams(params, this.props);
+                    loadList(preparedParams);
                 },
-                componentWillReceiveProps() {
-                    loadList(getLoadListParams(params));
+                componentWillReceiveProps(props) {
+                    const preparedParams = prepareLoadListParams(params, props);
+                    loadList(preparedParams);
                 }
             }),
             connect(state => {
@@ -88,31 +80,32 @@ export default (params: WithListParams) => {
 
                 Object.assign(props[prop], {
                     refresh: () => {
-                        loadList(getLoadListParams(params));
+                        const preparedParams = prepareLoadListParams(params, props);
+                        loadList(preparedParams);
                     },
 
-                    setPerPage: perPage => {
-                        const loadParams = getLoadListParams(params);
-                        loadParams.perPage = perPage;
+                    setPerPage: (perPage: number) => {
+                        const preparedParams = prepareLoadListParams(params, props);
+                        preparedParams.perPage = perPage;
 
-                        if (params.withRouter) {
-                            applyRouteQueryParams(loadParams);
+                        if (props.router) {
+                            redirectToRouteWithQueryParams(preparedParams);
                             return;
                         }
 
-                        loadList(loadParams);
+                        loadList(preparedParams);
                     },
 
                     setPage: (page: number) => {
-                        const loadParams = getLoadListParams(params);
-                        loadParams.page = page;
+                        const preparedParams = prepareLoadListParams(params, props);
+                        preparedParams.page = page;
 
-                        if (params.withRouter) {
-                            applyRouteQueryParams(loadParams);
+                        if (props.router) {
+                            redirectToRouteWithQueryParams(preparedParams);
                             return;
                         }
 
-                        loadList(loadParams);
+                        loadList(preparedParams);
                     },
 
                     setSorters: () => {
