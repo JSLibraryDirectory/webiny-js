@@ -7,6 +7,10 @@ import Elevation from "webiny-client-ui-material/Elevation";
 import Grid from "webiny-client-ui-material/Grid";
 import PaginatedList from "webiny-client-ui-material/PaginatedList";
 
+import List from "webiny-client-ui-material/List";
+import Icon from "webiny-client-ui-material/Icon";
+import Ripple from "webiny-client-ui-material/Ripple";
+
 const t = i18n.namespace("Security.PoliciesList");
 
 const PoliciesList = props => {
@@ -19,13 +23,56 @@ const PoliciesList = props => {
                     {/* TODO: styles must not be set inline. "position: relative" is here because of the loader. */}
                     <Elevation z={1} style={{ background: "white", position: "relative" }}>
                         <PaginatedList
-                            {...props.list}
+                            {...props.SecurityUsers}
                             title={t`Security Policies`}
                             sorters={{
                                 name: t`Name`,
                                 email: t`Email`
                             }}
-                        />
+                        >
+                            {({ data }) => {
+                                return (
+                                    <List>
+                                        {data.map(item => (
+                                            <List.Item key={item.id}>
+                                                <List.Item.Graphic>
+                                                    <img
+                                                        src={
+                                                            "//www.gravatar.com/avatar/" +
+                                                            item.gravatar +
+                                                            "?s=48"
+                                                        }
+                                                    />
+                                                </List.Item.Graphic>
+                                                <List.Item.Text>
+                                                    {item.firstName} {item.lastName}
+                                                    <List.Item.Text.Secondary>
+                                                        {item.email}
+                                                    </List.Item.Text.Secondary>
+                                                </List.Item.Text>
+                                                <List.Item.Meta>
+                                                    <Ripple unbounded>
+                                                        {/*<List.Icon>*/}
+                                                        <Icon
+                                                            name="edit"
+                                                            onClick={() => {
+                                                                console.log("ide redirectara");
+                                                            }}
+                                                        />
+                                                        {/*</List.Icon>*/}
+                                                    </Ripple>
+                                                    <Ripple unbounded>
+                                                        {/*<List.Icon>*/}
+                                                        <Icon name={"times-circle"} />
+                                                        {/*</List.Icon>*/}
+                                                    </Ripple>
+                                                </List.Item.Meta>
+                                            </List.Item>
+                                        ))}
+                                    </List>
+                                );
+                            }}
+                        </PaginatedList>
                     </Elevation>
                 </Grid.Cell>
             </Grid>
