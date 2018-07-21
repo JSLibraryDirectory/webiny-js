@@ -5,11 +5,19 @@ import styled from "react-emotion";
 import classNames from "classnames";
 import Loader from "./Loader";
 
-import Icon from "webiny-client-ui-material/Icon";
 import Checkbox from "webiny-client-ui-material/Checkbox";
 import Menu from "webiny-client-ui-material/Menu";
 import Ripple from "webiny-client-ui-material/Ripple";
 import Grid from "webiny-client-ui-material/Grid";
+
+import {
+    RefreshIcon,
+    DeleteIcon,
+    SortIcon,
+    PreviousPageIcon,
+    NextPageIcon,
+    OptionsIcon
+} from "./icons";
 
 import type { MetaProp, SortersProp } from "./types";
 
@@ -100,7 +108,7 @@ const RefreshButton = (props: Props) => {
         <ListHeader.Item>
             <Ripple unbounded>
                 <ListHeader.Icon>
-                    <Icon onClick={refresh} name={"sync-alt"} />
+                    <RefreshIcon onClick={refresh} />
                 </ListHeader.Icon>
             </Ripple>
         </ListHeader.Item>
@@ -119,7 +127,7 @@ const Sorters = (props: Props) => {
                 handle={
                     <Ripple unbounded>
                         <ListHeader.Icon>
-                            <Icon name={"sort-alpha-up"} />
+                            <SortIcon />
                         </ListHeader.Icon>
                     </Ripple>
                 }
@@ -166,8 +174,7 @@ const Pagination = (props: Props) => {
                     >
                         <Ripple unbounded>
                             <ListHeader.Icon>
-                                <Icon
-                                    name={"angle-left"}
+                                <PreviousPageIcon
                                     onClick={() => {
                                         if (props.setPage && meta.previousPage) {
                                             props.setPage(meta.previousPage);
@@ -185,8 +192,7 @@ const Pagination = (props: Props) => {
                     >
                         <Ripple unbounded>
                             <ListHeader.Icon>
-                                <Icon
-                                    name={"angle-right"}
+                                <NextPageIcon
                                     onClick={() => {
                                         if (props.setPage && meta.nextPage) {
                                             props.setPage(meta.nextPage);
@@ -205,7 +211,7 @@ const Pagination = (props: Props) => {
                         handle={
                             <Ripple unbounded>
                                 <ListHeader.Icon>
-                                    <Icon name={"columns"} />
+                                    <OptionsIcon />
                                 </ListHeader.Icon>
                             </Ripple>
                         }
@@ -227,7 +233,6 @@ const Pagination = (props: Props) => {
 };
 
 const DataList = (props: Props) => {
-
     return (
         <ListContainer>
             <ListHeader>
@@ -252,7 +257,7 @@ const DataList = (props: Props) => {
                     </Grid.Cell>
                 </Grid>
             </ListHeader>
-            {props.loading ? (props.loader || <Loader/>) : props.children && props.children(props)}
+            {props.loading ? props.loader || <Loader /> : props.children && props.children(props)}
         </ListContainer>
     );
 };

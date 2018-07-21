@@ -10,6 +10,12 @@ import Button from "./../Button";
 // $FlowFixMe
 import { List, PropsType } from "./List";
 
+import autoRenew from "./icons/baseline-autorenew-24px.svg";
+import cloudDone from "./icons/baseline-cloud_done-24px.svg";
+import baselineDelete from "./icons/baseline-delete-24px.svg";
+import baselineDone from "./icons/baseline-done-24px.svg";
+import envelope from "./icons/baseline-email-24px.svg";
+
 const story = storiesOf("Components/List", module);
 
 story.add("simple list", () => {
@@ -23,7 +29,7 @@ story.add("simple list", () => {
                     <List>
                         <List.Item>
                             <List.Item.Graphic>
-                                <Icon name="rocket" />
+                                <Icon src={autoRenew} />
                             </List.Item.Graphic>
                             <List.Item.Text>
                                 Rocket
@@ -32,13 +38,13 @@ story.add("simple list", () => {
                                 </List.Item.Text.Secondary>
                             </List.Item.Text>
                             <List.Item.Meta>
-                                <Icon name="info-circle" />
+                                <Icon src={cloudDone} />
                             </List.Item.Meta>
                         </List.Item>
 
                         <List.Item>
                             <List.Item.Graphic>
-                                <Icon name="coffee" />
+                                <Icon src={baselineDelete} />
                             </List.Item.Graphic>
                             <List.Item.Text>
                                 Coffee
@@ -47,12 +53,12 @@ story.add("simple list", () => {
                                 </List.Item.Text.Secondary>
                             </List.Item.Text>
                             <List.Item.Meta>
-                                <Icon name="info-circle" />
+                                <Icon src={baselineDone} />
                             </List.Item.Meta>
                         </List.Item>
                         <List.Item>
                             <List.Item.Graphic>
-                                <Icon name="envelope" />
+                                <Icon src={envelope} />
                             </List.Item.Graphic>
                             <List.Item.Text>
                                 E-mail

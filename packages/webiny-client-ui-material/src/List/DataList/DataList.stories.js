@@ -17,8 +17,7 @@ story.addDecorator(withKnobs);
 story.add("data list", () => {
     const generalOptionsAndCallbacks = {
         refresh: () => {
-            // eslint-disable-next-line
-            alert('Use the "refresh" prop to pass a callback.');
+            console.log(`Implement "refresh" method.`);
         },
         loading: boolean("Loading", false, "Basic"),
         title: text("Title", "A list of all users", "Basic"),
