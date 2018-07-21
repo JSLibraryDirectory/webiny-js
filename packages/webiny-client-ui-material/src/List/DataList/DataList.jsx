@@ -3,13 +3,14 @@ import * as React from "react";
 import _ from "lodash";
 import styled from "react-emotion";
 import classNames from "classnames";
+import Loader from "./Loader";
 
 import Icon from "webiny-client-ui-material/Icon";
 import Checkbox from "webiny-client-ui-material/Checkbox";
 import Menu from "webiny-client-ui-material/Menu";
 import Ripple from "webiny-client-ui-material/Ripple";
 import Grid from "webiny-client-ui-material/Grid";
-import Loader from "webiny-client-ui-material/Loader";
+
 import type { MetaProp, SortersProp } from "./types";
 
 const ListContainer = styled("div")({
@@ -54,6 +55,9 @@ type Props = {
 
     // If true, Loader component will be shown, disallowing any interaction.
     loading: ?boolean,
+
+    // Provide a custom loader. Shown while the content is loading.
+    loader: ?React.Node,
 
     // Provide all pagination data, options and callbacks here.
     meta: ?MetaProp,
@@ -223,9 +227,9 @@ const Pagination = (props: Props) => {
 };
 
 const DataList = (props: Props) => {
+
     return (
         <ListContainer>
-            {props.loading && <Loader />}
             <ListHeader>
                 <Grid>
                     <Grid.Cell span="6">{props.title}</Grid.Cell>
@@ -248,7 +252,7 @@ const DataList = (props: Props) => {
                     </Grid.Cell>
                 </Grid>
             </ListHeader>
-            {props.children && props.children(props)}
+            {props.loading ? (props.loader || <Loader/>) : props.children && props.children(props)}
         </ListContainer>
     );
 };
@@ -265,7 +269,8 @@ DataList.defaultProps = {
     perPageOptions: [10, 25, 50],
 
     sorters: null,
-    multiActions: null
+    multiActions: null,
+    loader: null
 };
 
 export { DataList };

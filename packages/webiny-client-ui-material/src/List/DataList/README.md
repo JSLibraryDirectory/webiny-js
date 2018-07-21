@@ -1,7 +1,7 @@
 # DataList
 
 ### Description
-Use `DataList` component to display data and offer additional actions if needed.
+Use `DataList` component to display paginated data and provide actions for switching pages, filters, and sorters.
 
 ### Import
 ```js
