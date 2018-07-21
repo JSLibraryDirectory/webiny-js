@@ -1,6 +1,5 @@
 // @flow
 import * as React from "react";
-import _ from "lodash";
 import styled from "react-emotion";
 import classNames from "classnames";
 import Loader from "./Loader";
@@ -73,6 +72,12 @@ type Props = {
     // Triggered once the page has been selected.
     setPage: ?Function,
 
+    // Triggered once a sorter has been selected.
+    setSorters: ?Function,
+
+    // Triggered once selected filters are submitted.
+    setFilters: ?Function,
+
     // Triggered when number of entries per page has been changed.
     setPerPage: ?Function,
 
@@ -132,16 +137,16 @@ const Sorters = (props: Props) => {
                     </Ripple>
                 }
             >
-                {_.map(sorters.list, (label, value) => (
+                {sorters.map(sorter => (
                     <Menu.Item
-                        key={value}
+                        key={sorter.label}
                         onClick={() => {
-                            if (sorters && sorters.setSorter) {
-                                sorters.setSorter(value);
+                            if (sorters && props.setSorters) {
+                                props.setSorters(sorter.sorters);
                             }
                         }}
                     >
-                        {label}
+                        {sorter.label}
                     </Menu.Item>
                 ))}
             </Menu>

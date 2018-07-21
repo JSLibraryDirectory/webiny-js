@@ -25,10 +25,24 @@ const PoliciesList = props => {
                         <DataList
                             {...props.PoliciesList}
                             title={t`Security Policies`}
-                            sorters={{
-                                name: t`Name`,
-                                email: t`Email`
-                            }}
+                            sorters={[
+                                {
+                                    label: "Newest to oldest",
+                                    sorters: { createdOn: -1 }
+                                },
+                                {
+                                    label: "Oldest to newest",
+                                    sorters: { createdOn: 1 }
+                                },
+                                {
+                                    label: "Name A-Z",
+                                    sorters: { name: 1 }
+                                },
+                                {
+                                    label: "Name Z-A",
+                                    sorters: { name: -1 }
+                                }
+                            ]}
                         >
                             {({ data }) => {
                                 return (

@@ -13,13 +13,48 @@ type WithDataListParams = {
     fields: string,
     page?: number,
     perPage?: number,
-    sort?: number,
+    sort?: string,
     search?: JSON,
     filter?: JSON
 };
 
+const stringSortersToObject = (stringSorters: string) => {
+    return stringSorters.split(",").reduce((objectSorters, currentSorter) => {
+        const splat = currentSorter.split("-");
+        if (splat.length > 1) {
+            objectSorters[splat[1]] = -1;
+        } else {
+            objectSorters[splat[0]] = 1;
+        }
+        return objectSorters;
+    }, {});
+};
+
+const objectSortersToString = (objectSorters: { [string]: number }) => {
+    return Object.keys(objectSorters).reduce((stringSorters, currentSorterKey) => {
+        // $FlowFixMe - we are sure that the key exists.
+        const order: number = objectSorters[currentSorterKey];
+
+        if (order !== 1) {
+            stringSorters += "-";
+        }
+
+        stringSorters += currentSorterKey;
+
+        return stringSorters;
+    }, "");
+};
+
 const redirectToRouteWithQueryParams = (params: Object) => {
-    const { perPage, page, sort, search } = params;
+    const paramsClone = Object.assign({}, params);
+
+    if (typeof paramsClone.sort === "object") {
+        paramsClone.sort = objectSortersToString(paramsClone.sort);
+    }
+
+    const { perPage, page, sort, search } = paramsClone;
+
+    console.log("cloned", paramsClone);
     app.router.goToRoute("current", {
         perPage,
         page,
@@ -32,12 +67,17 @@ const prepareLoadListParams = (withDataListParams: WithDataListParams, props: Ob
     const paramsClone = Object.assign({}, withDataListParams);
     if (props.router) {
         const { page, perPage, sort, search } = app.router.match.query;
-        Object.assign(withDataListParams, {
+        Object.assign(paramsClone, {
             page,
             perPage,
-            sort,
             search
         });
+
+        // Sorters in query params are listed like for example: "-createdOn,price,name,-somethingElse". We then
+        // convert this syntax to plain object - {createdOn: -1, price: 1, name: 1, somethingElse: -1}.
+        if (typeof sort === "string") {
+            paramsClone.sort = stringSortersToObject(sort);
+        }
     } else {
         // TODO: Assign from store.
     }
@@ -108,14 +148,18 @@ export default (params: WithDataListParams) => {
                         loadList(preparedParams);
                     },
 
-                    setSorters: () => {
-                        console.log("Set sorters triggered.");
+                    setSorters: sorter => {
+                        const preparedParams = prepareLoadListParams(params, props);
+                        preparedParams.sort = sorter;
+
+                        if (props.router) {
+                            redirectToRouteWithQueryParams(preparedParams);
+                            return;
+                        }
+
+                        loadList(preparedParams);
                     }
                 });
-
-                /*props[prop].sorters = {
-                    setSorter
-                }*/
             })
         )(BaseComponent);
     };

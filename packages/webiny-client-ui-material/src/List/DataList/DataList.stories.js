@@ -29,6 +29,9 @@ story.add("data list", () => {
         perPageOptions: array("perPageOptions", [10, 25, 50], ",", "Basic"),
         setPerPage: perPage => {
             console.log(`Implement setPerPage method (selected ${perPage}).`);
+        },
+        setSorters: sorter => {
+            console.log(`Implement setSorters method (selected ${JSON.stringify(sorter)}).`);
         }
     };
 
@@ -71,17 +74,26 @@ story.add("data list", () => {
     );
 
     const sortersProp = {
-        setSorter: sorter => {
-            console.log(`Implement setSorter method (selected ${sorter}).`);
-        },
         list: object(
             "Sorters",
-            {
-                "-createdOn": "Newest to oldest",
-                createdOn: "Oldest to newest",
-                name: "Name A-Z",
-                "-name": "Name Z-A"
-            },
+            [
+                {
+                    label: "Newest to oldest",
+                    sorters: { createdOn: -1 }
+                },
+                {
+                    label: "Oldest to newest",
+                    sorters: { createdOn: 1 }
+                },
+                {
+                    label: "Name A-Z",
+                    sorters: { name: 1 }
+                },
+                {
+                    label: "Name Z-A",
+                    sorters: { name: -1 }
+                }
+            ],
             "Sorters"
         )
     };
@@ -96,7 +108,7 @@ story.add("data list", () => {
                     {...generalOptionsAndCallbacks}
                     data={dataProp}
                     meta={metaProp}
-                    sorters={sortersProp}
+                    sorters={sortersProp.list}
                 >
                     {({ data }) => {
                         return (
