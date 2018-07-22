@@ -6,7 +6,7 @@ import Input from "webiny-client-ui-material/Input";
 import Icon from "webiny-client-ui-material/Icon";
 import Button from "webiny-client-ui-material/Button";
 import {Elevation} from "webiny-client-ui-material/Elevation";
-import Grid from "webiny-client-ui-material/Grid";
+import { Grid, Cell } from "webiny-client-ui-material/Grid";
 import Switch from "webiny-client-ui-material/Switch";
 import { DataList } from "webiny-client-ui-material/List";
 import { withForm } from "webiny-client/hoc";
@@ -36,13 +36,13 @@ class UsersList extends React.Component<{ modules: Object }> {
                             <React.Fragment>
                                 {props.form.loading && <Loader />}
                                 <Grid>
-                                    <Grid.Cell span="6">{t`New User`}</Grid.Cell>
-                                    <Grid.Cell span="6" style={{ textAlign: "right" }}>
+                                    <Cell span="6">{t`New User`}</Cell>
+                                    <Cell span="6" style={{ textAlign: "right" }}>
                                         <Icon name={"trash"} />
-                                    </Grid.Cell>
+                                    </Cell>
                                 </Grid>
                                 <Grid>
-                                    <Grid.Cell span={6}>
+                                    <Cell span={6}>
                                         <h2>Info</h2>
                                         <Bind name="firstName" validators={["required"]}>
                                             <Input label={t`First name`} />
@@ -54,7 +54,7 @@ class UsersList extends React.Component<{ modules: Object }> {
                                             <Input label={t`Email`} description={t`Your email`} />
                                         </Bind>
                                         {/*<Grid>
-                                                        <Grid.Cell span={12}>
+                                                        <Cell span={12}>
                                                             <OptionsData
                                                                 entity="SecurityGroup"
                                                                 fields="id name"
@@ -83,10 +83,10 @@ class UsersList extends React.Component<{ modules: Object }> {
                                                                     </Bind>
                                                                 )}
                                                             </OptionsData>
-                                                        </Grid.Cell>
+                                                        </Cell>
                                                     </Grid>
                                                     <Grid>
-                                                        <Grid.Cell span={12}>
+                                                        <Cell span={12}>
                                                             <OptionsData
                                                                 entity="SecurityPolicy"
                                                                 fields="id name"
@@ -115,10 +115,10 @@ class UsersList extends React.Component<{ modules: Object }> {
                                                                     </Bind>
                                                                 )}
                                                             </OptionsData>
-                                                        </Grid.Cell>
+                                                        </Cell>
                                                     </Grid>*/}
-                                    </Grid.Cell>
-                                    <Grid.Cell span={6}>
+                                    </Cell>
+                                    <Cell span={6}>
                                         <h2>Password</h2>
                                         <Bind name="password" validators={["password"]}>
                                             <Input
@@ -140,21 +140,21 @@ class UsersList extends React.Component<{ modules: Object }> {
                                                 <validator>{t`Passwords do not match`}</validator>
                                             </Input>
                                         </Bind>
-                                    </Grid.Cell>
+                                    </Cell>
                                 </Grid>
                                 <Grid>
-                                    <Grid.Cell span={12}>
+                                    <Cell span={12}>
                                         <Bind name="enabled">
                                             <Switch label={t`Enabled`} />
                                         </Bind>
-                                    </Grid.Cell>
+                                    </Cell>
                                 </Grid>
                                 <Grid>
-                                    <Grid.Cell span={12}>
+                                    <Cell span={12}>
                                         <Button.Primary onClick={form.submit}>
                                             {t`Save user`}
                                         </Button.Primary>
-                                    </Grid.Cell>
+                                    </Cell>
                                 </Grid>
                             </React.Fragment>
                         )}
@@ -179,12 +179,12 @@ class UsersList extends React.Component<{ modules: Object }> {
             <AdminLayout>
                 <Elevation z={1} style={{ backgroundColor: "white" }}>
                     <Grid>
-                        <Grid.Cell span={6} style={{ position: "relative" }}>
+                        <Cell span={6} style={{ position: "relative" }}>
                             <DataList />
-                        </Grid.Cell>
-                        <Grid.Cell span={6} style={{ position: "relative" }}>
+                        </Cell>
+                        <Cell span={6} style={{ position: "relative" }}>
                             {this.renderForm()}
-                        </Grid.Cell>
+                        </Cell>
                     </Grid>
                 </Elevation>
             </AdminLayout>

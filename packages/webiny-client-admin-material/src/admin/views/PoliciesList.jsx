@@ -6,7 +6,7 @@ import { inject, i18n } from "webiny-client";
 import { compose } from "recompose";
 
 import { Elevation } from "webiny-client-ui-material/Elevation";
-import Grid from "webiny-client-ui-material/Grid";
+import { Grid, Cell } from "webiny-client-ui-material/Grid";
 import Ripple from "webiny-client-ui-material/Ripple";
 import { DataList, List } from "webiny-client-ui-material/List";
 import { EditIcon, DeleteIcon } from "webiny-client-ui-material/List/DataList/icons";
@@ -14,14 +14,11 @@ import { EditIcon, DeleteIcon } from "webiny-client-ui-material/List/DataList/ic
 const t = i18n.namespace("Security.PoliciesList");
 
 const PoliciesList = props => {
-
-    console.log(Elevation);
     const { AdminLayout } = props.modules;
-
     return (
         <AdminLayout>
             <Grid>
-                <Grid.Cell span={12}>
+                <Cell span={12}>
                     {/* TODO: styles must not be set inline. "position: relative" is here because of the loader. */}
                     <Elevation z={1} style={{ background: "white", position: "relative" }}>
                         <DataList
@@ -82,7 +79,7 @@ const PoliciesList = props => {
                             }}
                         </DataList>
                     </Elevation>
-                </Grid.Cell>
+                </Cell>
             </Grid>
         </AdminLayout>
     );

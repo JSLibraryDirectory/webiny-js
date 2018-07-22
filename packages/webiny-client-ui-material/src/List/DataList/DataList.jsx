@@ -7,7 +7,7 @@ import Loader from "./Loader";
 import Checkbox from "webiny-client-ui-material/Checkbox";
 import Menu from "webiny-client-ui-material/Menu";
 import Ripple from "webiny-client-ui-material/Ripple";
-import Grid from "webiny-client-ui-material/Grid";
+import { Grid, Cell } from "webiny-client-ui-material/Grid";
 
 import {
     RefreshIcon,
@@ -241,24 +241,24 @@ const DataList = (props: Props) => {
         <ListContainer>
             <ListHeader>
                 <Grid>
-                    <Grid.Cell span="6">{props.title}</Grid.Cell>
-                    <Grid.Cell span="6" style={{ textAlign: "right" }}>
+                    <Cell span="6">{props.title}</Cell>
+                    <Cell span="6" style={{ textAlign: "right" }}>
                         {/* TODO: top actions here. */}
-                    </Grid.Cell>
+                    </Cell>
                 </Grid>
             </ListHeader>
 
             <ListHeader>
                 <Grid>
-                    <Grid.Cell span="6">
+                    <Cell span="6">
                         <MultiActions {...props} />
                         <RefreshButton {...props} />
                         <Sorters {...props} />
-                    </Grid.Cell>
+                    </Cell>
 
-                    <Grid.Cell span="6" style={{ textAlign: "right" }}>
+                    <Cell span="6" style={{ textAlign: "right" }}>
                         <Pagination {...props} />
-                    </Grid.Cell>
+                    </Cell>
                 </Grid>
             </ListHeader>
             {props.loading ? props.loader || <Loader /> : props.children && props.children(props)}

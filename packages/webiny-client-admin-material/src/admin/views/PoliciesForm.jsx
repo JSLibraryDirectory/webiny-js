@@ -7,8 +7,8 @@ import { compose } from "recompose";
 import EntitiesList from "./PoliciesForm/EntitiesList";
 import ApiAccess from "./PoliciesForm/ApiAccess";
 
-import {Elevation} from "webiny-client-ui-material/Elevation";
-import Grid from "webiny-client-ui-material/Grid";
+import { Elevation } from "webiny-client-ui-material/Elevation";
+import { Grid, Cell } from "webiny-client-ui-material/Grid";
 import Input from "webiny-client-ui-material/Input";
 import Button from "webiny-client-ui-material/Button";
 
@@ -23,67 +23,69 @@ class PoliciesForm extends React.Component {
         return (
             <AdminLayout>
                 <Grid>
-                    <Grid.Cell span={12}>
+                    <Cell span={12}>
                         {/* TODO: styles must not be set inline. "position: relative" is here because of the loader. */}
                         <Elevation z={1} style={{ background: "white", position: "relative" }}>
                             <Form {...SecurityPolicyForm}>
                                 {({ model, form, Bind }) => {
                                     return (
                                         <React.Fragment>
-                                            {SecurityPolicyForm.loading && <span>Skeleton TODO</span>}
+                                            {SecurityPolicyForm.loading && (
+                                                <span>Skeleton TODO</span>
+                                            )}
 
                                             <Grid>
-                                                <Grid.Cell span={6}>
+                                                <Cell span={6}>
                                                     <Bind name="name" validators={["required"]}>
                                                         <Input label={t`Name`} />
                                                     </Bind>
-                                                </Grid.Cell>
-                                                <Grid.Cell span={6}>
+                                                </Cell>
+                                                <Cell span={6}>
                                                     <Bind name="slug" validators={["required"]}>
                                                         <Input label={t`Slug`} />
                                                     </Bind>
-                                                </Grid.Cell>
+                                                </Cell>
                                             </Grid>
                                             <Grid>
-                                                <Grid.Cell span={12}>
+                                                <Cell span={12}>
                                                     <Bind
                                                         name="description"
                                                         validators={["required"]}
                                                     >
                                                         <Input label={t`Description`} />
                                                     </Bind>
-                                                </Grid.Cell>
+                                                </Cell>
                                             </Grid>
 
                                             <Grid>
-                                                <Grid.Cell span={12}>
+                                                <Cell span={12}>
                                                     <Tabs size="large">
                                                         <Tabs.Tab label={t`Entity permissions`}>
                                                             <Grid>
-                                                                <Grid.Cell span={12}>
+                                                                <Cell span={12}>
                                                                     <EntitiesList
                                                                         model={model}
                                                                         form={form}
                                                                     />
-                                                                </Grid.Cell>
+                                                                </Cell>
                                                             </Grid>
                                                         </Tabs.Tab>
                                                         <Tabs.Tab label={t`API access`}>
                                                             <Grid>
-                                                                <Grid.Cell span={12}>
+                                                                <Cell span={12}>
                                                                     <ApiAccess
                                                                         model={model}
                                                                         form={form}
                                                                     />
-                                                                </Grid.Cell>
+                                                                </Cell>
                                                             </Grid>
                                                         </Tabs.Tab>
                                                     </Tabs>
-                                                </Grid.Cell>
+                                                </Cell>
                                             </Grid>
 
                                             <Grid>
-                                                <Grid.Cell span={12}>
+                                                <Cell span={12}>
                                                     <Button.Secondary
                                                         type="default"
                                                         onClick={() =>
@@ -100,14 +102,14 @@ class PoliciesForm extends React.Component {
                                                     >
                                                         {t`Save policy`}
                                                     </Button.Primary>
-                                                </Grid.Cell>
+                                                </Cell>
                                             </Grid>
                                         </React.Fragment>
                                     );
                                 }}
                             </Form>
                         </Elevation>
-                    </Grid.Cell>
+                    </Cell>
                 </Grid>
             </AdminLayout>
         );
