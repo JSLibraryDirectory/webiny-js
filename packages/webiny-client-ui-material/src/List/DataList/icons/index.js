@@ -1,6 +1,6 @@
 // @flow
 import * as React from "react";
-import Icon from "webiny-client-ui-material/Icon";
+import { Icon } from "webiny-client-ui-material/Icon";
 
 import refreshIcon from "./baseline-autorenew-24px.svg";
 import penIcon from "./baseline-edit-24px.svg";

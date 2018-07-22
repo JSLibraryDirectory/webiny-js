@@ -5,7 +5,7 @@ import copy from "copy-to-clipboard";
 import elementToString from "react-element-to-jsx-string";
 import prettier from "prettier/standalone";
 import babylon from "prettier/parser-babylon";
-import Icon from "webiny-client-ui-material/Icon";
+import { Icon } from "webiny-client-ui-material/Icon";
 import styled from "react-emotion";
 
 type Props = {

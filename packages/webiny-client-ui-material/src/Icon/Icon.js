@@ -16,4 +16,4 @@ const Icon = (props: Props) => {
     return <RmwcIcon strategy="custom" render={() => <img {...props} />} />;
 };
 
-export default Icon;
+export { Icon };

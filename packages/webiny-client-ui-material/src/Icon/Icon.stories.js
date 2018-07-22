@@ -10,7 +10,7 @@ import baselineDelete from "./svg/baseline-delete-24px.svg";
 import baselineDone from "./svg/baseline-done-24px.svg";
 
 // $FlowFixMe
-import Icon, { PropsType } from "./Icon";
+import { Icon, PropsType } from "./Icon";
 
 const story = storiesOf("Components/Icon", module);
 

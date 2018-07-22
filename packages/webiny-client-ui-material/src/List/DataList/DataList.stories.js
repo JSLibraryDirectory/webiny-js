@@ -3,7 +3,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import Story from "webiny-storybook-utils/Story";
 import Ripple from "webiny-client-ui-material/Ripple";
-import Icon from "webiny-client-ui-material/Icon";
+import { Icon } from "webiny-client-ui-material/Icon";
 import readme from "./../DataList/README.md";
 import { withKnobs, boolean, text, object, array } from "@storybook/addon-knobs";
 
