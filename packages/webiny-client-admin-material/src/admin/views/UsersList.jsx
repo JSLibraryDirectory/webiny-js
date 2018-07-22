@@ -5,7 +5,7 @@ import { compose } from "recompose";
 import Input from "webiny-client-ui-material/Input";
 import Icon from "webiny-client-ui-material/Icon";
 import Button from "webiny-client-ui-material/Button";
-import Elevation from "webiny-client-ui-material/Elevation";
+import {Elevation} from "webiny-client-ui-material/Elevation";
 import Grid from "webiny-client-ui-material/Grid";
 import Switch from "webiny-client-ui-material/Switch";
 import { DataList } from "webiny-client-ui-material/List";

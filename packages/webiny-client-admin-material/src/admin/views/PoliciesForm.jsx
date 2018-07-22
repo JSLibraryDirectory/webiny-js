@@ -1,17 +1,16 @@
 // @flow
 import * as React from "react";
-import { app, i18n, inject } from "webiny-client";
+import { i18n, inject } from "webiny-client";
 import { withForm, withRouter } from "webiny-client/hoc";
 import { compose } from "recompose";
 
 import EntitiesList from "./PoliciesForm/EntitiesList";
 import ApiAccess from "./PoliciesForm/ApiAccess";
 
-import Elevation from "webiny-client-ui-material/Elevation";
+import {Elevation} from "webiny-client-ui-material/Elevation";
 import Grid from "webiny-client-ui-material/Grid";
 import Input from "webiny-client-ui-material/Input";
 import Button from "webiny-client-ui-material/Button";
-import Loader from "webiny-client-ui-material/Loader";
 
 const t = i18n.namespace("Security.PoliciesForm");
 
@@ -21,7 +20,6 @@ class PoliciesForm extends React.Component {
 
         const { SecurityPolicyForm, router } = this.props;
 
-        console.log(SecurityPolicyForm);
         return (
             <AdminLayout>
                 <Grid>
@@ -32,7 +30,7 @@ class PoliciesForm extends React.Component {
                                 {({ model, form, Bind }) => {
                                     return (
                                         <React.Fragment>
-                                            {SecurityPolicyForm.loading && <Loader />}
+                                            {SecurityPolicyForm.loading && <span>Skeleton TODO</span>}
 
                                             <Grid>
                                                 <Grid.Cell span={6}>
@@ -89,7 +87,7 @@ class PoliciesForm extends React.Component {
                                                     <Button.Secondary
                                                         type="default"
                                                         onClick={() =>
-                                                            app.router.goToRoute("Policies.List")
+                                                            router.goToRoute("Policies.List")
                                                         }
                                                     >
                                                         {t`Go back`}
@@ -134,7 +132,6 @@ export default compose(
             "Input",
             "Button",
             "Section",
-            "Loader",
             "Tabs",
             {
                 AdminLayout: "Admin.Layout"

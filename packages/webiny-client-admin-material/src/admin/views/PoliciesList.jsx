@@ -5,7 +5,7 @@ import { withDataList, withRouter } from "webiny-client/hoc";
 import { inject, i18n } from "webiny-client";
 import { compose } from "recompose";
 
-import Elevation from "webiny-client-ui-material/Elevation";
+import { Elevation } from "webiny-client-ui-material/Elevation";
 import Grid from "webiny-client-ui-material/Grid";
 import Ripple from "webiny-client-ui-material/Ripple";
 import { DataList, List } from "webiny-client-ui-material/List";
@@ -14,6 +14,8 @@ import { EditIcon, DeleteIcon } from "webiny-client-ui-material/List/DataList/ic
 const t = i18n.namespace("Security.PoliciesList");
 
 const PoliciesList = props => {
+
+    console.log(Elevation);
     const { AdminLayout } = props.modules;
 
     return (
@@ -70,7 +72,7 @@ const PoliciesList = props => {
                                                         />
                                                     </Ripple>
                                                     <Ripple unbounded>
-                                                        <DeleteIcon/>
+                                                        <DeleteIcon />
                                                     </Ripple>
                                                 </List.Item.Meta>
                                             </List.Item>

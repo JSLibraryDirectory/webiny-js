@@ -10,7 +10,7 @@ import { compose } from "recompose";
 import styled from "react-emotion";
 import _ from "lodash";
 
-import Elevation from "webiny-client-ui-material/Elevation";
+import {Elevation} from "webiny-client-ui-material/Elevation";
 import Button from "webiny-client-ui-material/Button";
 import Input from "webiny-client-ui-material/Input";
 import Grid from "webiny-client-ui-material/Grid";

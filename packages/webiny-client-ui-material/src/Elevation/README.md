@@ -8,5 +8,5 @@
 
 ### Import
 ```js
-import `Elevation` from "webiny-client-ui-material/Elevation";
+import { Elevation } from "webiny-client-ui-material/Elevation";
 ```
