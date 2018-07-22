@@ -6,7 +6,7 @@ import Loader from "./Loader";
 
 import Checkbox from "webiny-client-ui-material/Checkbox";
 import { Menu, MenuItem } from "webiny-client-ui-material/Menu";
-import Ripple from "webiny-client-ui-material/Ripple";
+import { Ripple } from "webiny-client-ui-material/Ripple";
 import { Grid, Cell } from "webiny-client-ui-material/Grid";
 
 import {

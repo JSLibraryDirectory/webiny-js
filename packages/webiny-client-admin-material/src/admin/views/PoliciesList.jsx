@@ -7,7 +7,7 @@ import { compose } from "recompose";
 
 import { Elevation } from "webiny-client-ui-material/Elevation";
 import { Grid, Cell } from "webiny-client-ui-material/Grid";
-import Ripple from "webiny-client-ui-material/Ripple";
+import { Ripple } from "webiny-client-ui-material/Ripple";
 import { DataList, List } from "webiny-client-ui-material/List";
 import { EditIcon, DeleteIcon } from "webiny-client-ui-material/List/DataList/icons";
 

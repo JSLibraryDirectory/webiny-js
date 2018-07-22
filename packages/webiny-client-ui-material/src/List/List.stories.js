@@ -4,7 +4,7 @@ import { storiesOf } from "@storybook/react";
 import Story from "webiny-storybook-utils/Story";
 import readme from "./../List/README.md";
 
-import Icon from "./../Icon";
+import { Icon } from "./../Icon";
 import { ButtonPrimary } from "./../Button";
 
 // $FlowFixMe
