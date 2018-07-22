@@ -10,7 +10,6 @@
 packages/webiny-api/flow-typed/npm
 packages/webiny-client/flow-typed/npm
 packages/webiny-client-security/flow-typed/npm
-packages/webiny-api-security/flow-typed/npm
 packages/webiny-entity-mysql/flow-typed/npm
 packages/webiny-file-storage/flow-typed
 [lints]
@@ -18,6 +17,8 @@ packages/webiny-file-storage/flow-typed
 [options]
 module.file_ext=.js
 module.file_ext=.jsx
+module.file_ext=.mjs
+module.file_ext=.js.flow
 module.file_ext=.md
 module.system.node.resolve_dirname=node_modules
 module.system.node.resolve_dirname=build/node_modules

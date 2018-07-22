@@ -1,22 +1,22 @@
 // @flow
-import type Schema from "./graphql/Schema";
 import { SecurityService } from "./services";
-import { GraphQLUnionType } from "graphql";
+import { registerEntity, Entity } from "./entities";
+import { schema } from "./graphql";
 import createLoginQueries from "./security/graphql/createLoginQueries";
-import createListEntitiesQuery from "./security/graphql/createListEntitiesQuery";
-import overrideCreateApiTokenMutation from "./security/graphql/overrideCreateApiTokenMutation";
-import convertToGraphQL from "./attributes/convertAttributeToGraphQLType";
-import {
-    ApiToken,
-    Entity,
-    File,
-    Image,
-    Group,
-    Groups2Entities,
-    Policy,
-    Policies2Entities,
-    User
-} from "./entities";
+import createSystemQuery from "./security/graphql/createSystemQuery";
+import createIdentityQuery from "./security/graphql/createIdentityQuery";
+
+// Entities and GraphQL types
+import { Group, Groups2Entities, Policies2Entities, Policy } from "./entities/Entity";
+import { GroupType, GroupQueryType, PolicyType, PolicyQueryType } from "./entities/Entity.graphql";
+import ApiToken from "./entities/ApiToken.entity";
+import { ApiTokenType, ApiTokenQueryType } from "./entities/ApiToken.graphql";
+import File from "./entities/File.entity";
+import { FileType, FileQueryType } from "./entities/File.graphql";
+import Image from "./entities/Image.entity";
+import { ImageType, ImageQueryType } from "./entities/Image.graphql";
+import User from "./entities/User.entity";
+import { UserType, UserQueryType } from "./entities/User.graphql";
 
 // Attributes registration functions
 import registerBufferAttribute from "./attributes/registerBufferAttribute";
@@ -134,50 +134,32 @@ export default () => {
                 await security.init();
             }
 
-            api.graphql.schema((schema: Schema) => {
-                schema.addAttributeConverter(convertToGraphQL);
-                schema.registerEntity(ApiToken);
-                schema.registerEntity(File);
-                schema.registerEntity(Image);
-                schema.registerEntity(Group);
-                schema.registerEntity(Groups2Entities);
-                schema.registerEntity(Policy);
-                schema.registerEntity(Policies2Entities);
-                schema.registerEntity(User);
+            schema.addType(ApiTokenType);
+            schema.addType(FileType);
+            schema.addType(ImageType);
+            schema.addType(UserType);
+            schema.addType(GroupType);
+            schema.addType(PolicyType);
 
-                schema.addType(
-                    new GraphQLUnionType({
-                        name: "IdentityType",
-                        types: () =>
-                            api.config.security.identities.map(({ identity: Identity }) => {
-                                return schema.getType(Identity.classId);
-                            }),
-                        resolveType(identity) {
-                            return schema.getType(identity.classId);
-                        }
-                    }),
-                    {
-                        type: "union"
-                    }
-                );
+            schema.addQuery(ApiTokenQueryType);
+            schema.addQuery(FileQueryType);
+            schema.addQuery(ImageQueryType);
+            schema.addQuery(UserQueryType);
+            schema.addQuery(GroupQueryType);
+            schema.addQuery(PolicyQueryType);
 
-                schema.addAttributeConverter(convertToGraphQL);
+            createIdentityQuery(api, api.config, schema);
+            createLoginQueries(api, api.config, schema);
+            createSystemQuery(api, api.config, schema);
 
-                // Create login queries
-
-                createLoginQueries(api, api.config, schema);
-                createListEntitiesQuery(api, api.config, schema);
-                overrideCreateApiTokenMutation(api, api.config, schema);
-            });
-
-            api.entities.registerEntity(ApiToken);
-            api.entities.registerEntity(File);
-            api.entities.registerEntity(Image);
-            api.entities.registerEntity(Group);
-            api.entities.registerEntity(Groups2Entities);
-            api.entities.registerEntity(Policy);
-            api.entities.registerEntity(Policies2Entities);
-            api.entities.registerEntity(User);
+            registerEntity(ApiToken);
+            registerEntity(File);
+            registerEntity(Image);
+            registerEntity(User);
+            registerEntity(Group);
+            registerEntity(Groups2Entities);
+            registerEntity(Policy);
+            registerEntity(Policies2Entities);
 
             next();
         }

@@ -1,33 +1,31 @@
 // @flow
-import { GraphQLInt } from "graphql";
+
+/**
+ * Create a field responsible for fetching a list of records.
+ */
+
+import { GraphQLInt, GraphQLObjectType } from "graphql";
 import GraphQLJSON from "graphql-type-json";
-import pluralize from "pluralize";
 import parseBoolean from "./parseBoolean";
 import { List, SearchInput } from "./types";
 
 import type { Entity } from "webiny-entity";
-import type Schema from "./../../Schema";
 
-export default (entityClass: Class<Entity>, schema: Schema) => {
-    const entityType = schema.getType(entityClass.classId);
-    if (!entityType) {
-        return;
-    }
-
-    schema.query["list" + pluralize.plural(entityClass.classId)] = {
+export default (entityClass: Class<Entity>, entityType: GraphQLObjectType) => {
+    return {
         description: `Get a list of ${entityClass.classId} entities.`,
         type: List(entityType),
         args: {
             page: { type: GraphQLInt },
             perPage: { type: GraphQLInt },
-            filter: { type: GraphQLJSON },
+            where: { type: GraphQLJSON },
             sort: { type: GraphQLJSON },
             search: { type: SearchInput }
         },
-        async resolve(root, args) {
+        async resolve(root: any, args: Object) {
             parseBoolean(args);
 
-            const query = { ...args.filter };
+            const query = { ...args.where };
             if (args.search && args.search.query) {
                 query.$search = {
                     query: args.search.query,
@@ -36,21 +34,21 @@ export default (entityClass: Class<Entity>, schema: Schema) => {
                 };
             }
 
-            const list = await entityClass.find({
+            const data = await entityClass.find({
                 query,
                 page: args.page,
                 perPage: args.perPage,
                 sort: args.sort
             });
 
-            const meta = list.getParams();
-            meta.count = list.length;
-            meta.totalCount = list.getMeta().totalCount;
+            const meta = data.getParams();
+            meta.count = data.length;
+            meta.totalCount = data.getMeta().totalCount;
             meta.totalPages = Math.ceil(meta.totalCount / meta.perPage);
             meta.to = (meta.page - 1) * meta.perPage + meta.count;
             meta.from = meta.to - meta.count + 1;
 
-            return { list, meta };
+            return { data, meta };
         }
     };
 };

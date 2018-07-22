@@ -16,7 +16,6 @@ class Entity extends BaseEntity {
     updatedBy: ?Identity;
     constructor() {
         super();
-        api.entities.applyExtensions(this);
 
         this.attr("ownerClassId")
             .char()

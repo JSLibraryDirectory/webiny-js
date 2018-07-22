@@ -1,11 +1,9 @@
 // @flow
 import invariant from "invariant";
-import { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLNonNull } from "graphql";
-import GraphQLJSON from "graphql-type-json";
-import { ModelError } from "webiny-model";
-import InvalidAttributesError from "./../../graphql/utils/crud/InvalidAttributesError";
-import type Schema from "./../../graphql/Schema";
-import type { Api } from "./../..";
+import { GraphQLObjectType, GraphQLString, GraphQLInt } from "graphql";
+import getFieldsFromType from "../../graphql/getFieldsFromType";
+import type { Schema } from "../../graphql/Schema";
+import type { Api } from "../../index";
 
 const createLoginDataForIdentity = (Identity, schema) => {
     const type = schema.getType(Identity.classId);
@@ -37,68 +35,42 @@ export default (api: Api, config: Object, schema: Schema) => {
         for (let i = 0; i < authenticate.length; i++) {
             const { strategy, expiresOn, field } = authenticate[i];
 
-            if (!field) {
-                continue;
-            }
+            const typeName = Identity.classId + "Query";
 
-            const { args } = strategy;
-            schema.query[field] = {
-                type: createLoginDataForIdentity(Identity, schema),
-                args: args(),
-                async resolve(root, args) {
-                    const identity = await security.sudo(() => {
-                        return security.authenticate(args, Identity, strategy);
-                    });
+            const newType = new GraphQLObjectType({
+                name: typeName,
+                fields: {
+                    ...getFieldsFromType(schema.getQuery(typeName).type),
+                    [field || "authenticate"]: {
+                        type: createLoginDataForIdentity(Identity, schema),
+                        args: strategy.args(),
+                        async resolve(root, args) {
+                            const identity = await security.sudo(() => {
+                                return security.authenticate(args, Identity, strategy);
+                            });
 
-                    // Set identified identity as current.
-                    security.setIdentity(identity);
+                            // Set identified identity as current.
+                            security.setIdentity(identity);
 
-                    const error = `"expiresOn" function must be configured for "${strategy}" strategy!`;
-                    invariant(typeof expiresOn === "function", error);
+                            const error = `"expiresOn" function must be configured for "${strategy}" strategy!`;
+                            invariant(typeof expiresOn === "function", error);
 
-                    let expiration = expiresOn(args);
-                    if (expiration instanceof Date) {
-                        expiration = Math.floor(expiration.getTime() / 1000);
+                            let expiration = expiresOn(args);
+                            if (expiration instanceof Date) {
+                                expiration = Math.floor(expiration.getTime() / 1000);
+                            }
+
+                            return {
+                                identity,
+                                token: await security.createToken(identity, expiration),
+                                expiresOn: expiration
+                            };
+                        }
                     }
-
-                    return {
-                        identity,
-                        token: await security.createToken(identity, expiration),
-                        expiresOn: expiration
-                    };
                 }
-            };
+            });
+
+            schema.addQuery(newType);
         }
     });
-
-    schema.query["getIdentity"] = {
-        type: schema.getType("IdentityType"),
-        resolve() {
-            return api.services.get("security").getIdentity();
-        }
-    };
-
-    schema.mutation["updateIdentity"] = {
-        type: schema.getType("IdentityType"),
-        args: {
-            data: { type: new GraphQLNonNull(GraphQLJSON) }
-        },
-        async resolve(root, args) {
-            const identity = api.services.get("security").getIdentity();
-
-            if (!identity) {
-                throw Error("Identity not found.");
-            }
-
-            try {
-                await identity.populate(args.data).save();
-            } catch (e) {
-                if (e instanceof ModelError && e.code === ModelError.INVALID_ATTRIBUTES) {
-                    throw InvalidAttributesError.from(e);
-                }
-                throw e;
-            }
-            return identity;
-        }
-    };
 };
