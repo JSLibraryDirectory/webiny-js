@@ -11,7 +11,6 @@ import Grid from "webiny-client-ui-material/Grid";
 
 import {
     RefreshIcon,
-    DeleteIcon,
     SortIcon,
     PreviousPageIcon,
     NextPageIcon,

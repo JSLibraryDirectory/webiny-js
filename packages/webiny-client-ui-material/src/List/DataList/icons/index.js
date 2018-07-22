@@ -3,6 +3,7 @@ import * as React from "react";
 import Icon from "webiny-client-ui-material/Icon";
 
 import refreshIcon from "./baseline-autorenew-24px.svg";
+import penIcon from "./baseline-edit-24px.svg";
 import deleteIcon from "./baseline-delete-24px.svg";
 import sortIcon from "./baseline-sort-24px.svg";
 import beforeIcon from "./baseline-navigate_before-24px.svg";
@@ -15,6 +16,10 @@ export const RefreshIcon = (props: Object = {}) => {
 
 export const DeleteIcon = (props: Object = {}) => {
     return <Icon src={deleteIcon} {...props} />;
+};
+
+export const EditIcon = (props: Object = {}) => {
+    return <Icon src={penIcon} {...props} />;
 };
 
 export const SortIcon = (props: Object = {}) => {
