@@ -5,7 +5,7 @@ import Story from "webiny-storybook-utils/Story";
 import readme from "./../List/README.md";
 
 import Icon from "./../Icon";
-import Button from "./../Button";
+import { ButtonPrimary } from "./../Button";
 
 // $FlowFixMe
 import { List, PropsType } from "./List";
@@ -67,7 +67,7 @@ story.add("simple list", () => {
                                 </List.Item.Text.Secondary>
                             </List.Item.Text>
                             <List.Item.Meta>
-                                <Button.Primary>Send</Button.Primary>
+                                <ButtonPrimary>Send</ButtonPrimary>
                             </List.Item.Meta>
                         </List.Item>
                     </List>
@@ -115,9 +115,9 @@ story.add("simple list", () => {
                                 </List.Item.Text.Secondary>
                             </List.Item.Text>
                             <List.Item.Meta>
-                                <Button.Primary>
+                                <ButtonPrimary>
                                     Send
-                                </Button.Primary>
+                                </ButtonPrimary>
                             </List.Item.Meta>
                         </List.Item>
                     </List>

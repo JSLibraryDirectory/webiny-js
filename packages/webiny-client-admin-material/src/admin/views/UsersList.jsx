@@ -4,7 +4,7 @@ import { compose } from "recompose";
 
 import Input from "webiny-client-ui-material/Input";
 import Icon from "webiny-client-ui-material/Icon";
-import Button from "webiny-client-ui-material/Button";
+import { ButtonPrimary } from "webiny-client-ui-material/Button";
 import {Elevation} from "webiny-client-ui-material/Elevation";
 import { Grid, Cell } from "webiny-client-ui-material/Grid";
 import Switch from "webiny-client-ui-material/Switch";
@@ -151,9 +151,9 @@ class UsersList extends React.Component<{ modules: Object }> {
                                 </Grid>
                                 <Grid>
                                     <Cell span={12}>
-                                        <Button.Primary onClick={form.submit}>
+                                        <ButtonPrimary onClick={form.submit}>
                                             {t`Save user`}
-                                        </Button.Primary>
+                                        </ButtonPrimary>
                                     </Cell>
                                 </Grid>
                             </React.Fragment>

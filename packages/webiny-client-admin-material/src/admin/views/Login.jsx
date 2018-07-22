@@ -11,7 +11,7 @@ import styled from "react-emotion";
 import _ from "lodash";
 
 import { Elevation } from "webiny-client-ui-material/Elevation";
-import Button from "webiny-client-ui-material/Button";
+import { ButtonPrimary } from "webiny-client-ui-material/Button";
 import Input from "webiny-client-ui-material/Input";
 import { Grid, Cell } from "webiny-client-ui-material/Grid";
 
@@ -107,9 +107,9 @@ class Login extends React.Component<any, any> {
 
                                 <Grid>
                                     <Cell span={12}>
-                                        <Button.Primary raised onClick={form.submit}>
+                                        <ButtonPrimary raised onClick={form.submit}>
                                             {t`Submit`}
-                                        </Button.Primary>
+                                        </ButtonPrimary>
                                     </Cell>
                                 </Grid>
                             </Elevation>

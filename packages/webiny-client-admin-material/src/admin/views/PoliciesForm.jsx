@@ -10,7 +10,7 @@ import ApiAccess from "./PoliciesForm/ApiAccess";
 import { Elevation } from "webiny-client-ui-material/Elevation";
 import { Grid, Cell } from "webiny-client-ui-material/Grid";
 import Input from "webiny-client-ui-material/Input";
-import Button from "webiny-client-ui-material/Button";
+import { ButtonPrimary, ButtonSecondary } from "webiny-client-ui-material/Button";
 
 const t = i18n.namespace("Security.PoliciesForm");
 
@@ -86,22 +86,22 @@ class PoliciesForm extends React.Component {
 
                                             <Grid>
                                                 <Cell span={12}>
-                                                    <Button.Secondary
+                                                    <ButtonSecondary
                                                         type="default"
                                                         onClick={() =>
                                                             router.goToRoute("Policies.List")
                                                         }
                                                     >
                                                         {t`Go back`}
-                                                    </Button.Secondary>
+                                                    </ButtonSecondary>
                                                     &nbsp;
-                                                    <Button.Primary
+                                                    <ButtonPrimary
                                                         type="primary"
                                                         onClick={form.submit}
                                                         align="right"
                                                     >
                                                         {t`Save policy`}
-                                                    </Button.Primary>
+                                                    </ButtonPrimary>
                                                 </Cell>
                                             </Grid>
                                         </React.Fragment>
@@ -132,7 +132,6 @@ export default compose(
             "FormError",
             "View",
             "Input",
-            "Button",
             "Section",
             "Tabs",
             {

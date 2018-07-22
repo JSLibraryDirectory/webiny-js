@@ -2,7 +2,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import Story from "webiny-storybook-utils/Story";
-import Button from "./../Button";
+import { ButtonPrimary } from "./../Button";
 import readme from "./../Menu/README.md";
 
 // $FlowFixMe
@@ -16,7 +16,7 @@ story.add("usage", () => {
             <Story.Readme>{readme}</Story.Readme>
             <Story.Props>{PropsType}</Story.Props>
             <Story.Sandbox title={"A simple menu, triggered with a button"}>
-                <Menu handle={<Button.Primary>Open menu</Button.Primary>}>
+                <Menu handle={<ButtonPrimary>Open menu</ButtonPrimary>}>
                     <MenuItem
                         onClick={() => {
                             console.log("Apple selected!");
