@@ -5,7 +5,7 @@ import classNames from "classnames";
 import Loader from "./Loader";
 
 import Checkbox from "webiny-client-ui-material/Checkbox";
-import Menu from "webiny-client-ui-material/Menu";
+import { Menu, MenuItem } from "webiny-client-ui-material/Menu";
 import Ripple from "webiny-client-ui-material/Ripple";
 import { Grid, Cell } from "webiny-client-ui-material/Grid";
 
@@ -137,7 +137,7 @@ const Sorters = (props: Props) => {
                 }
             >
                 {sorters.map(sorter => (
-                    <Menu.Item
+                    <MenuItem
                         key={sorter.label}
                         onClick={() => {
                             if (sorters && props.setSorters) {
@@ -146,7 +146,7 @@ const Sorters = (props: Props) => {
                         }}
                     >
                         {sorter.label}
-                    </Menu.Item>
+                    </MenuItem>
                 ))}
             </Menu>
         </ListHeader.Item>
@@ -222,12 +222,12 @@ const Pagination = (props: Props) => {
                     >
                         {props.setPerPage &&
                             props.perPageOptions.map(perPage => (
-                                <Menu.Item
+                                <MenuItem
                                     key={perPage}
                                     onClick={() => props.setPerPage && props.setPerPage(perPage)}
                                 >
                                     {perPage}
-                                </Menu.Item>
+                                </MenuItem>
                             ))}
                     </Menu>
                 </ListHeader.Item>

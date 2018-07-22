@@ -19,7 +19,7 @@ type Props = FormComponentProps & {
     // Makes the Select have a visual box.
     box?: boolean,
 
-    // One or more Menu.Item components.
+    // One or more Select.Option or Select.Option.Group components.
     children: React.ChildrenArray<React.Element<typeof Select.Option | typeof Select.Option.Group>>,
 
     // Props for the root element. By default, additional props spread to the native select element.

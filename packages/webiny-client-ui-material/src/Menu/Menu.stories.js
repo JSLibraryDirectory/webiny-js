@@ -6,7 +6,7 @@ import Button from "./../Button";
 import readme from "./../Menu/README.md";
 
 // $FlowFixMe
-import Menu, { PropsType } from "./Menu";
+import { Menu, MenuItem, PropsType } from "./Menu";
 
 const story = storiesOf("Components/Menu", module);
 
@@ -17,15 +17,15 @@ story.add("usage", () => {
             <Story.Props>{PropsType}</Story.Props>
             <Story.Sandbox title={"A simple menu, triggered with a button"}>
                 <Menu handle={<Button.Primary>Open menu</Button.Primary>}>
-                    <Menu.Item
+                    <MenuItem
                         onClick={() => {
                             console.log("Apple selected!");
                         }}
                     >
                         Apple
-                    </Menu.Item>
-                    <Menu.Item>Banana</Menu.Item>
-                    <Menu.Item>Watermelon</Menu.Item>
+                    </MenuItem>
+                    <MenuItem>Banana</MenuItem>
+                    <MenuItem>Watermelon</MenuItem>
                 </Menu>
             </Story.Sandbox>
         </Story>
