@@ -7,7 +7,7 @@ import { Icon } from "webiny-client-ui-material/Icon";
 import { ButtonPrimary } from "webiny-client-ui-material/Button";
 import { Elevation } from "webiny-client-ui-material/Elevation";
 import { Grid, Cell } from "webiny-client-ui-material/Grid";
-import Switch from "webiny-client-ui-material/Switch";
+import { Switch } from "webiny-client-ui-material/Switch";
 import { DataList } from "webiny-client-ui-material/List";
 import { withForm } from "webiny-client/hoc";
 

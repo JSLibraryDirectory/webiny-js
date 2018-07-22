@@ -8,5 +8,5 @@
 
 ### Import
 ```js
-import Switch from "webiny-client-ui-material/Switch";
+import { Switch } from "webiny-client-ui-material/Switch";
 ```

@@ -50,4 +50,4 @@ class Switch extends React.Component<Props> {
     }
 }
 
-export default Switch;
+export { Switch };
