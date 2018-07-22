@@ -2,79 +2,99 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import Story from "webiny-storybook-utils/Story";
-import List from "./../List";
-import Ripple from "./../Ripple";
-import Icon from "./../Icon";
-import readme from "./../PaginatedList/README.md";
-import { withKnobs, boolean, text, object } from "@storybook/addon-knobs";
+import { Ripple } from "webiny-client-ui-material/Ripple";
+import { Icon } from "webiny-client-ui-material/Icon";
+import readme from "./../DataList/README.md";
+import { withKnobs, boolean, text, object, array } from "@storybook/addon-knobs";
 
 // $FlowFixMe
-import PaginatedList, { PropsType } from "./PaginatedList";
+import { DataList, PropsType } from "./DataList";
+import { List } from "./../List";
 
-const story = storiesOf("Components/PaginatedList", module);
+const story = storiesOf("Components/List", module);
 story.addDecorator(withKnobs);
 
-story.add("usage", () => {
-    const props = {
+story.add("data list", () => {
+    const generalOptionsAndCallbacks = {
         refresh: () => {
-            // eslint-disable-next-line
-            alert('Use the "refresh" prop to pass a callback.');
+            console.log(`Implement "refresh" method.`);
         },
         loading: boolean("Loading", false, "Basic"),
         title: text("Title", "A list of all users", "Basic"),
         multiActions: boolean("Multi actions", false, "Basic"),
-        sorters: object(
+
+        setPage: page => {
+            console.log(`Implement setPage method (selected ${page}).`);
+        },
+        perPageOptions: array("perPageOptions", [10, 25, 50], ",", "Basic"),
+        setPerPage: perPage => {
+            console.log(`Implement setPerPage method (selected ${perPage}).`);
+        },
+        setSorters: sorter => {
+            console.log(`Implement setSorters method (selected ${JSON.stringify(sorter)}).`);
+        }
+    };
+
+    const dataProp = object(
+        "Data",
+        [
+            {
+                id: "A",
+                firstName: "John",
+                lastName: "Doe",
+                email: "john.doe@webiny.com"
+            },
+            {
+                id: "B",
+                firstName: "Jane",
+                lastName: "Doe",
+                email: "jane.doe@webiny.com"
+            },
+            {
+                id: "C",
+                firstName: "Foo",
+                lastName: "Bar",
+                email: "foo.bar@webiny.com"
+            }
+        ],
+        "Data"
+    );
+
+    const metaProp = object(
+        "Meta",
+        {
+            totalPages: 1,
+            totalCount: 3,
+            from: 1,
+            to: 3,
+            previousPage: null,
+            nextPage: null
+        },
+        "Meta"
+    );
+
+    const sortersProp = {
+        list: object(
             "Sorters",
-            {
-                "-createdOn": "Newest to oldest",
-                createdOn: "Oldest to newest",
-                name: "Name A-Z",
-                "-name": "Name Z-A"
-            },
-            "Sorters"
-        ),
-        data: object(
-            "Data",
-            {
-                list: [
-                    {
-                        id: "A",
-                        firstName: "John",
-                        lastName: "Doe",
-                        email: "john.doe@webiny.com"
-                    },
-                    {
-                        id: "B",
-                        firstName: "Jane",
-                        lastName: "Doe",
-                        email: "jane.doe@webiny.com"
-                    },
-                    {
-                        id: "C",
-                        firstName: "Foo",
-                        lastName: "Bar",
-                        email: "foo.bar@webiny.com"
-                    }
-                ],
-                meta: {
-                    totalPages: 1,
-                    totalCount: 3,
-                    from: 1,
-                    to: 3
+            [
+                {
+                    label: "Newest to oldest",
+                    sorters: { createdOn: -1 }
+                },
+                {
+                    label: "Oldest to newest",
+                    sorters: { createdOn: 1 }
+                },
+                {
+                    label: "Name A-Z",
+                    sorters: { name: 1 }
+                },
+                {
+                    label: "Name Z-A",
+                    sorters: { name: -1 }
                 }
-            },
-            "Data"
-        ),
-        actions: null,
-        pagination: object(
-            "Pagination",
-            {
-                totalPages: 1,
-                totalCount: 3,
-                from: 1,
-                to: 3
-            },
-            "Pagination"
+            ],
+            "Sorters"
         )
     };
 
@@ -84,11 +104,16 @@ story.add("usage", () => {
             <Story.Props>{PropsType}</Story.Props>
 
             <Story.Sandbox>
-                <PaginatedList {...props}>
+                <DataList
+                    {...generalOptionsAndCallbacks}
+                    data={dataProp}
+                    meta={metaProp}
+                    sorters={sortersProp.list}
+                >
                     {({ data }) => {
                         return (
                             <List>
-                                {data.list.map(item => (
+                                {data.map(item => (
                                     <List.Item key={item.id}>
                                         <List.Item.Graphic>
                                             <img
@@ -111,7 +136,7 @@ story.add("usage", () => {
                                                 <Icon
                                                     name="edit"
                                                     onClick={() => {
-                                                        console.log("ide redirectara");
+                                                        console.log("Redirect user to form.");
                                                     }}
                                                 />
                                                 {/*</List.Icon>*/}
@@ -127,7 +152,7 @@ story.add("usage", () => {
                             </List>
                         );
                     }}
-                </PaginatedList>
+                </DataList>
             </Story.Sandbox>
         </Story>
     );

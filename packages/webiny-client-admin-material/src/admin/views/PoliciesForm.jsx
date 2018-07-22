@@ -1,144 +1,142 @@
 // @flow
-import React from "react";
-import { app, i18n, inject } from "webiny-client";
+import * as React from "react";
+import { i18n, inject } from "webiny-client";
+import { withForm, withRouter } from "webiny-client/hoc";
+import { compose } from "recompose";
+
 import EntitiesList from "./PoliciesForm/EntitiesList";
 import ApiAccess from "./PoliciesForm/ApiAccess";
 
+import { Elevation } from "webiny-client-ui-material/Elevation";
+import { Grid, Cell } from "webiny-client-ui-material/Grid";
+import { Input } from "webiny-client-ui-material/Input";
+import { ButtonPrimary, ButtonSecondary } from "webiny-client-ui-material/Button";
+
 const t = i18n.namespace("Security.PoliciesForm");
 
-@inject({
-    modules: [
-        "Form",
-        "FormData",
-        "OptionsData",
-        "FormError",
-        "View",
-        "Input",
-        "Button",
-        "Grid",
-        "Section",
-        "Loader",
-        "Tabs",
-        {
-            AdminLayout: "Admin.Layout"
-        }
-    ]
-})
 class PoliciesForm extends React.Component {
     render() {
-        const {
-            AdminLayout,
-            Form,
-            FormData,
-            FormError,
-            View,
-            Grid,
-            Input,
-            Button,
-            Loader,
-            Tabs
-        } = this.props.modules;
+        const { AdminLayout, Form, Tabs } = this.props.modules;
+
+        const { SecurityPolicyForm, router } = this.props;
 
         return (
             <AdminLayout>
-                <FormData
-                    entity="SecurityPolicy"
-                    withRouter
-                    fields="id name slug description permissions"
-                    onSubmitSuccess="Policies.List"
-                    onCancel="Policies.List"
-                    onSuccessMessage={({ model }) => {
-                        return (
-                            <span>
-                                {t`Policy {policy} was saved successfully!`({
-                                    policy: <strong>{model.name}</strong>
-                                })}
-                            </span>
-                        );
-                    }}
-                >
-                    {({ model, onSubmit, invalidFields, error, loading }) => (
-                        <Form model={model} onSubmit={onSubmit} invalidFields={invalidFields}>
-                            {({ model, form, Bind }) => {
-                                return (
-                                    <View.Form>
-                                        <View.Header
-                                            title={
-                                                model.id
-                                                    ? t`Security - Edit Policy`
-                                                    : t`Security - Create Policy`
-                                            }
-                                        />
-                                        {error && (
-                                            <View.Error>
-                                                <FormError error={error} />
-                                            </View.Error>
-                                        )}
-                                        <View.Body>
-                                            {loading && <Loader />}
+                <Grid>
+                    <Cell span={12}>
+                        {/* TODO: styles must not be set inline. "position: relative" is here because of the loader. */}
+                        <Elevation z={1} style={{ background: "white", position: "relative" }}>
+                            <Form {...SecurityPolicyForm}>
+                                {({ model, form, Bind }) => {
+                                    return (
+                                        <React.Fragment>
+                                            {SecurityPolicyForm.loading && (
+                                                <span>Skeleton TODO</span>
+                                            )}
 
-                                            <Grid.Row>
-                                                <Grid.Col all={6}>
+                                            <Grid>
+                                                <Cell span={6}>
                                                     <Bind name="name" validators={["required"]}>
                                                         <Input label={t`Name`} />
                                                     </Bind>
-                                                </Grid.Col>
-                                                <Grid.Col all={6}>
+                                                </Cell>
+                                                <Cell span={6}>
                                                     <Bind name="slug" validators={["required"]}>
                                                         <Input label={t`Slug`} />
                                                     </Bind>
-                                                </Grid.Col>
-                                            </Grid.Row>
-                                            <Grid.Row>
-                                                <Grid.Col all={12}>
-                                                    <Bind name="description" validators={["required"]}>
+                                                </Cell>
+                                            </Grid>
+                                            <Grid>
+                                                <Cell span={12}>
+                                                    <Bind
+                                                        name="description"
+                                                        validators={["required"]}
+                                                    >
                                                         <Input label={t`Description`} />
                                                     </Bind>
-                                                </Grid.Col>
-                                            </Grid.Row>
+                                                </Cell>
+                                            </Grid>
 
-                                            <Tabs size="large">
-                                                <Tabs.Tab label={t`Entity permissions`}>
-                                                    <Grid.Row>
-                                                        <Grid.Col all={12}>
-                                                            <EntitiesList
-                                                                model={model}
-                                                                form={form}
-                                                            />
-                                                        </Grid.Col>
-                                                    </Grid.Row>
-                                                </Tabs.Tab>
-                                                <Tabs.Tab label={t`API access`}>
-                                                    <Grid.Row>
-                                                        <Grid.Col all={12}>
-                                                            <ApiAccess model={model} form={form} />
-                                                        </Grid.Col>
-                                                    </Grid.Row>
-                                                </Tabs.Tab>
-                                            </Tabs>
-                                        </View.Body>
-                                        <View.Footer>
-                                            <Button
-                                                type="default"
-                                                onClick={() => app.router.goToRoute("Policies.List")}
-                                                label={t`Go back`}
-                                            />
-                                            <Button
-                                                type="primary"
-                                                onClick={form.submit}
-                                                label={t`Save policy`}
-                                                align="right"
-                                            />
-                                        </View.Footer>
-                                    </View.Form>
-                                );
-                            }}
-                        </Form>
-                    )}
-                </FormData>
+                                            <Grid>
+                                                <Cell span={12}>
+                                                    <Tabs size="large">
+                                                        <Tabs.Tab label={t`Entity permissions`}>
+                                                            <Grid>
+                                                                <Cell span={12}>
+                                                                    <EntitiesList
+                                                                        model={model}
+                                                                        form={form}
+                                                                    />
+                                                                </Cell>
+                                                            </Grid>
+                                                        </Tabs.Tab>
+                                                        <Tabs.Tab label={t`API access`}>
+                                                            <Grid>
+                                                                <Cell span={12}>
+                                                                    <ApiAccess
+                                                                        model={model}
+                                                                        form={form}
+                                                                    />
+                                                                </Cell>
+                                                            </Grid>
+                                                        </Tabs.Tab>
+                                                    </Tabs>
+                                                </Cell>
+                                            </Grid>
+
+                                            <Grid>
+                                                <Cell span={12}>
+                                                    <ButtonSecondary
+                                                        type="default"
+                                                        onClick={() =>
+                                                            router.goToRoute("Policies.List")
+                                                        }
+                                                    >
+                                                        {t`Go back`}
+                                                    </ButtonSecondary>
+                                                    &nbsp;
+                                                    <ButtonPrimary
+                                                        type="primary"
+                                                        onClick={form.submit}
+                                                        align="right"
+                                                    >
+                                                        {t`Save policy`}
+                                                    </ButtonPrimary>
+                                                </Cell>
+                                            </Grid>
+                                        </React.Fragment>
+                                    );
+                                }}
+                            </Form>
+                        </Elevation>
+                    </Cell>
+                </Grid>
             </AdminLayout>
         );
     }
 }
 
-export default PoliciesForm;
+export default compose(
+    withRouter(),
+    withForm({
+        id: "5b33441f46e6da560ac21ff7",
+        name: "SecurityPolicyForm",
+        entity: "SecurityPolicy",
+        fields: "id name slug description permissions"
+    }),
+    inject({
+        modules: [
+            "Form",
+            "FormData",
+            "OptionsData",
+            "FormError",
+            "View",
+            "Input",
+            "Section",
+            "Tabs",
+            {
+                AdminLayout: "Admin.Layout"
+            }
+        ]
+    })
+)(PoliciesForm);

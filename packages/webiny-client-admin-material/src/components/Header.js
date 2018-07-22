@@ -1,7 +1,7 @@
 // @flow
 import React, { createElement, isValidElement } from "react";
 import { app, inject } from "webiny-client";
-import Icon from "webiny-client-ui-material/Icon";
+import { Icon } from "webiny-client-ui-material/Icon";
 
 import {
     TopAppBar,

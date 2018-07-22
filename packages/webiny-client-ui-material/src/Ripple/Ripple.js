@@ -27,4 +27,4 @@ const Ripple = (props: Props) => {
     );
 };
 
-export default Ripple;
+export { Ripple };

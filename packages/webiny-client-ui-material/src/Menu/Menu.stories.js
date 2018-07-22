@@ -2,11 +2,11 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import Story from "webiny-storybook-utils/Story";
-import Button from "./../Button";
+import { ButtonPrimary } from "./../Button";
 import readme from "./../Menu/README.md";
 
 // $FlowFixMe
-import Menu, { PropsType } from "./Menu";
+import { Menu, MenuItem, PropsType } from "./Menu";
 
 const story = storiesOf("Components/Menu", module);
 
@@ -16,16 +16,16 @@ story.add("usage", () => {
             <Story.Readme>{readme}</Story.Readme>
             <Story.Props>{PropsType}</Story.Props>
             <Story.Sandbox title={"A simple menu, triggered with a button"}>
-                <Menu handle={<Button.Primary>Open menu</Button.Primary>}>
-                    <Menu.Item
+                <Menu handle={<ButtonPrimary>Open menu</ButtonPrimary>}>
+                    <MenuItem
                         onClick={() => {
                             console.log("Apple selected!");
                         }}
                     >
                         Apple
-                    </Menu.Item>
-                    <Menu.Item>Banana</Menu.Item>
-                    <Menu.Item>Watermelon</Menu.Item>
+                    </MenuItem>
+                    <MenuItem>Banana</MenuItem>
+                    <MenuItem>Watermelon</MenuItem>
                 </Menu>
             </Story.Sandbox>
         </Story>

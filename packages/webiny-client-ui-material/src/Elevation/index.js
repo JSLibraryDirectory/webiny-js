@@ -1,2 +1,2 @@
 // @flow
-export { default } from "./Elevation";
+export { default as Elevation } from "./Elevation";

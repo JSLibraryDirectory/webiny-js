@@ -25,7 +25,7 @@ type Props = FormComponentProps & {
  * @returns {*}
  * @constructor
  */
-const Default = (props: Props) => {
+const ButtonDefault = (props: Props) => {
     const { onClick, children, small } = props;
     return (
         <R.Button dense={small} onClick={onClick}>
@@ -34,15 +34,13 @@ const Default = (props: Props) => {
     );
 };
 
-Default.displayName = "Button.Default";
-
 /**
  * Shows primary button, eg. for submitting forms.
  * @param props
  * @returns {*}
  * @constructor
  */
-const Primary = (props: Props) => {
+const ButtonPrimary = (props: Props) => {
     const { onClick, children, small = false, flat = false } = props;
     return (
         <R.Button raised={!flat} dense={small} unelevated={flat} onClick={onClick}>
@@ -51,15 +49,13 @@ const Primary = (props: Props) => {
     );
 };
 
-Primary.displayName = "Button.Primary";
-
 /**
  * Shows a secondary button - eg. for doing a reset on a form.
  * @param props
  * @returns {*}
  * @constructor
  */
-const Secondary = (props: Props) => {
+const ButtonSecondary = (props: Props) => {
     const { onClick, children, small = false } = props;
 
     return (
@@ -69,15 +65,13 @@ const Secondary = (props: Props) => {
     );
 };
 
-Secondary.displayName = "Button.Secondary";
-
 /**
  * A floating button, shown on the side of the screen, typically used for creating new content or accessing settings.
  * @param props
  * @returns {*}
  * @constructor
  */
-const Floating = (props: Props) => {
+const ButtonFloating = (props: Props) => {
     const { onClick, children, small = false } = props;
     return (
         <Fab mini={small} onClick={onClick}>
@@ -86,22 +80,12 @@ const Floating = (props: Props) => {
     );
 };
 
-Floating.displayName = "Button.Floating";
-
 /**
  * Shows an icon, suitable to be shown inside of a button.
  * @param props
  * @returns {*}
  * @constructor
  */
-const Icon = (props: any) => <FontAwesomeIcon {...props} className={"mdc-button__icon"} />;
+const ButtonIcon = (props: any) => <FontAwesomeIcon {...props} className={"mdc-button__icon"} />;
 
-Icon.displayName = "Button.Icon";
-
-export default {
-    Default,
-    Primary,
-    Secondary,
-    Floating,
-    Icon
-};
+export { ButtonDefault, ButtonPrimary, ButtonSecondary, ButtonFloating, ButtonIcon };

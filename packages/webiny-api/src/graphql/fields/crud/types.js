@@ -29,7 +29,9 @@ const ListMeta = new GraphQLObjectType({
         page: { type: GraphQLInt },
         perPage: { type: GraphQLInt },
         from: { type: GraphQLInt },
-        to: { type: GraphQLInt }
+        to: { type: GraphQLInt },
+        previousPage: { type: GraphQLInt },
+        nextPage: { type: GraphQLInt }
     })
 });
 

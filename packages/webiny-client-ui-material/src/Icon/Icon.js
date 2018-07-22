@@ -2,10 +2,8 @@
 import * as React from "react";
 import { Icon as RmwcIcon } from "rmwc/Icon";
 
-import FontAwesomeIcon from "@fortawesome/react-fontawesome";
-
 type Props = {
-    name: string
+    src: string
 };
 
 /**
@@ -15,12 +13,7 @@ type Props = {
  * @constructor
  */
 const Icon = (props: Props) => {
-    return (
-        <RmwcIcon
-            strategy="custom"
-            render={() => <FontAwesomeIcon {...props} icon={props.name} />}
-        />
-    );
+    return <RmwcIcon strategy="custom" render={() => <img {...props} />} />;
 };
 
-export default Icon;
+export { Icon };

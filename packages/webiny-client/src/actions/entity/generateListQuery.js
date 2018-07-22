@@ -21,11 +21,13 @@ const generateListQuery = (params: ListQueryParams) => {
                     meta {
                         count
                         totalCount
-                        totalPages
-                        page
-                        perPage
                         from
                         to
+                        page
+                        totalPages
+                        perPage
+                        nextPage
+                        previousPage
                     }
                 }
             }

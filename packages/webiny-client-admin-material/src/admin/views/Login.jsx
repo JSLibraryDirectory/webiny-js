@@ -10,10 +10,10 @@ import { compose } from "recompose";
 import styled from "react-emotion";
 import _ from "lodash";
 
-import Elevation from "webiny-client-ui-material/Elevation";
-import Button from "webiny-client-ui-material/Button";
-import Input from "webiny-client-ui-material/Input";
-import Grid from "webiny-client-ui-material/Grid";
+import { Elevation } from "webiny-client-ui-material/Elevation";
+import { ButtonPrimary } from "webiny-client-ui-material/Button";
+import { Input } from "webiny-client-ui-material/Input";
+import { Grid, Cell } from "webiny-client-ui-material/Grid";
 
 const t = i18n.namespace("Webiny.Admin.Auth.Login");
 
@@ -60,28 +60,28 @@ class Login extends React.Component<any, any> {
                                 {authentication.inProgress && <Loader />}
 
                                 <Grid>
-                                    <Grid.Cell span={12}>
+                                    <Cell span={12}>
                                         <img src={logoOrange} width="180" height="58" />
-                                    </Grid.Cell>
+                                    </Cell>
                                 </Grid>
 
                                 <Grid>
-                                    <Grid.Cell span={12}>
+                                    <Cell span={12}>
                                         <h2>{t`Sign In`}</h2>
                                         <p>{t`to continue to Webiny`}</p>
-                                    </Grid.Cell>
+                                    </Cell>
                                 </Grid>
 
                                 {authentication.error && (
                                     <Grid>
-                                        <Grid.Cell span={12}>
+                                        <Cell span={12}>
                                             {authentication.error.message}
-                                        </Grid.Cell>
+                                        </Cell>
                                     </Grid>
                                 )}
 
                                 <Grid>
-                                    <Grid.Cell span={12}>
+                                    <Cell span={12}>
                                         <Bind name="username" validators={["required", "email"]}>
                                             <Input
                                                 placeholder={t`Enter e-mail`}
@@ -89,11 +89,11 @@ class Login extends React.Component<any, any> {
                                                 label={"E-mail address"}
                                             />
                                         </Bind>
-                                    </Grid.Cell>
+                                    </Cell>
                                 </Grid>
 
                                 <Grid>
-                                    <Grid.Cell span={12}>
+                                    <Cell span={12}>
                                         <Bind name="password" validators={["required", "password"]}>
                                             <Input
                                                 placeholder={"Password"}
@@ -102,15 +102,15 @@ class Login extends React.Component<any, any> {
                                                 type={"password"}
                                             />
                                         </Bind>
-                                    </Grid.Cell>
+                                    </Cell>
                                 </Grid>
 
                                 <Grid>
-                                    <Grid.Cell span={12}>
-                                        <Button.Primary raised onClick={form.submit}>
+                                    <Cell span={12}>
+                                        <ButtonPrimary raised onClick={form.submit}>
                                             {t`Submit`}
-                                        </Button.Primary>
-                                    </Grid.Cell>
+                                        </ButtonPrimary>
+                                    </Cell>
                                 </Grid>
                             </Elevation>
                         </LoginContent>

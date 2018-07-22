@@ -3,7 +3,7 @@ import React from "react";
 import _ from "lodash";
 import { app, inject } from "webiny-client";
 import Drawer from "webiny-client-ui-material/Drawer";
-import List from "webiny-client-ui-material/List";
+import { List } from "webiny-client-ui-material/List";
 
 @inject({
     modules: [

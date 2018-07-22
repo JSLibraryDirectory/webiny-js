@@ -1,5 +1,5 @@
 import React from "react";
-import Input from "../index";
+import { Input } from "../index";
 import "jest-dom/extend-expect";
 import { render, cleanup } from "react-testing-library";
 

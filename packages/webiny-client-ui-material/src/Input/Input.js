@@ -116,4 +116,4 @@ class Input extends React.Component<Props> {
     }
 }
 
-export default Input;
+export { Input };

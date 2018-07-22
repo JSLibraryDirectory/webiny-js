@@ -77,4 +77,4 @@ List.Item.Meta = function ListItemMeta(props: { children: React.Node }) {
     return <span className="mdc-list-item__meta">{props.children}</span>;
 };
 
-export default List;
+export { List };

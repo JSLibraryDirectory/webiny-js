@@ -5,14 +5,14 @@ import validation from "./validation";
 
 class Form extends React.Component {
     static defaultProps = {
-        model: {},
+        data: {},
         disabled: false,
         validateOnFirstSubmit: false,
         onSubmit: null
     };
 
     state = {
-        model: {},
+        data: {},
         wasSubmitted: false,
         validation: {}
     };
@@ -22,10 +22,10 @@ class Form extends React.Component {
     lastRender = [];
 
     componentWillMount() {
-        this.setState({ model: _.cloneDeep(this.props.model) });
+        this.setState({ data: _.cloneDeep(this.props.data) });
     }
 
-    componentWillReceiveProps({ model, invalidFields = {} }) {
+    componentWillReceiveProps({ data, invalidFields = {} }) {
         this.setState(({ validation }) => {
             _.each(invalidFields, (message, name) => {
                 validation[name] = {
@@ -39,9 +39,9 @@ class Form extends React.Component {
             };
         });
 
-        if (!_.isEqual(model, this.props.model)) {
+        if (!_.isEqual(data, this.props.data)) {
             this.setState(() => {
-                return { model: _.cloneDeep(model) };
+                return { data: _.cloneDeep(data) };
             });
         }
     }
@@ -79,9 +79,9 @@ class Form extends React.Component {
         
         return this.validate().then(valid => {
             if (valid) {
-                const model = this.__removeKeys(this.state.model);
+                const data = this.__removeKeys(this.state.data);
                 if (this.props.onSubmit) {
-                    return this.props.onSubmit(model);
+                    return this.props.onSubmit(data);
                 }
             }
             return this.onInvalid();
@@ -100,7 +100,7 @@ class Form extends React.Component {
                 continue;
             }
 
-            const hasValue = !!_.get(this.state.model, name);
+            const hasValue = !!_.get(this.state.data, name);
             const isInputValid = _.get(this.state.validation, name + ".isValid");
 
             const shouldValidate = !!(
@@ -125,14 +125,14 @@ class Form extends React.Component {
         if ((this.props.validateOnFirstSubmit && !this.state.wasSubmitted) || !this.inputs[name]) {
             return Promise.resolve(null);
         }
-        const value = _.get(this.state.model, name);
+        const value = _.get(this.state.data, name);
         const { validators, validationMessages } = this.inputs[name];
         const hasValidators = _.keys(validators).length;
 
         // Validate input
         const formData = {
             inputs: this.inputs,
-            model: { ...this.state.model }
+            data: { ...this.state.data }
         };
 
         return Promise.resolve(validation.validate(value, validators, formData))
@@ -238,7 +238,7 @@ class Form extends React.Component {
         // If Form has a `disabled` prop we must evaluate it to see if form input needs to be disabled
         if (this.props.disabled) {
             const inputDisabledByForm = _.isFunction(this.props.disabled)
-                ? this.props.disabled({ model: { ...this.state.model } })
+                ? this.props.disabled({ data: { ...this.state.data } })
                 : this.props.disabled;
             // Only override the input prop if the entire Form is disabled
             if (inputDisabledByForm) {
@@ -259,7 +259,7 @@ class Form extends React.Component {
         // Assign value and onChange props
         const ls = linkState(
             this,
-            name === "*" ? "model" : "model." + name,
+            name === "*" ? "data" : "data." + name,
             changeCallback,
             defaultValue
         );
@@ -267,9 +267,9 @@ class Form extends React.Component {
         const onChange = (newValue, cb) => {
             // When linkState is done processing the value change...
             return ls.onChange(newValue, cb).then(value => {
-                // call the Form onChange with updated model
+                // call the Form onChange with updated data
                 if (_.isFunction(this.props.onChange)) {
-                    this.props.onChange({ ...this.state.model }, this);
+                    this.props.onChange({ ...this.state.data }, this);
                 }
 
                 // Execute onAfterChange
@@ -326,7 +326,7 @@ class Form extends React.Component {
         return (
             <webiny-form-container onKeyDown={this.__onKeyDown}>
                 {children.call(this, {
-                    model: _.cloneDeep(this.state.model),
+                    data: _.cloneDeep(this.state.data),
                     form: this,
                     submit: this.submit,
                     Bind: this.registerComponent

@@ -31,7 +31,9 @@ const listEntities = createAction(ENTITY_LIST, {
             onSuccess,
             onError
         } = action.payload;
+
         const generatedQuery = generateListQuery({ entity, fields });
+
         graphqlQuery({
             ...generatedQuery,
             variables: { page, perPage, sort, filter, search },

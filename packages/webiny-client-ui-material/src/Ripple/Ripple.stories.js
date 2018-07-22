@@ -3,11 +3,11 @@ import * as React from "react";
 import { storiesOf } from "@storybook/react";
 import Story from "webiny-storybook-utils/Story";
 import readme from "./../Ripple/README.md";
-import Icon from "./../Icon";
+import { Icon } from "./../Icon";
 import { withKnobs, boolean } from "@storybook/addon-knobs";
 
 // $FlowFixMe
-import Ripple, { PropsType } from "./Ripple";
+import { Ripple, PropsType } from "./Ripple";
 
 const story = storiesOf("Components/Ripple", module);
 story.addDecorator(withKnobs);

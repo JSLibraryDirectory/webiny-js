@@ -8,40 +8,41 @@ type WithFormParams = {
     name: string,
     entity: string,
     fields: string,
-    id: string
+    id: string,
+    prop?: string
 };
 
+/**
+ * All list data is passed into child components via specific prop. Be default, "name" parameter will be
+ * used to determine its name. Alternatively, "prop" parameter can be used to specify a different name.
+ * @param params
+ * @returns {*}
+ */
+const getPropKey = (params: WithFormParams): string => params.prop || params.name;
+
 // TODO: return type must be more precise.
-export default ({ name, entity, fields, id }: WithFormParams): Function => {
+export default (params: WithFormParams): Function => {
     return BaseComponent => {
         return compose(
             connect(state => {
-                return { form: _.get(state, `forms.${name}`, {}) };
+                const prop = getPropKey(params);
+                return { [prop]: _.get(state, `forms.${params.name}`, {}) };
             }),
             lifecycle({
                 componentDidMount() {
-                    id &&
-                        loadForm({
-                            id,
-                            name,
-                            entity,
-                            fields
-                        });
+                    params.id && loadForm(params);
                 }
             }),
             withProps(props => {
-                props.form.submit = ({ data }) => {
-                    submitForm({
-                        data,
-                        name,
-                        entity,
-                        fields
-                    });
-                };
-
-                props.form.reset = () => {
-                    resetForm({ name });
-                };
+                const prop = getPropKey(params);
+                Object.assign(props[prop], {
+                    submit: ({ data }) => {
+                        submitForm({ ...params, ...data });
+                    },
+                    reset: () => {
+                        resetForm(params);
+                    }
+                });
             })
         )(BaseComponent);
     };
