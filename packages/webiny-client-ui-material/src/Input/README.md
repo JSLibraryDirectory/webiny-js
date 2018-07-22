@@ -9,5 +9,5 @@ Additionally, with `rows` prop, it can also be turned into a text area, to store
 
 ### Import
 ```js
-import Input from "webiny-client-ui-material/Input";
+import { Input } from "webiny-client-ui-material/Input";
 ```

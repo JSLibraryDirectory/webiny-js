@@ -9,7 +9,7 @@ import ApiAccess from "./PoliciesForm/ApiAccess";
 
 import { Elevation } from "webiny-client-ui-material/Elevation";
 import { Grid, Cell } from "webiny-client-ui-material/Grid";
-import Input from "webiny-client-ui-material/Input";
+import { Input } from "webiny-client-ui-material/Input";
 import { ButtonPrimary, ButtonSecondary } from "webiny-client-ui-material/Button";
 
 const t = i18n.namespace("Security.PoliciesForm");

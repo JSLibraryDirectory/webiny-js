@@ -2,7 +2,7 @@
 import * as React from "react";
 import { compose } from "recompose";
 
-import Input from "webiny-client-ui-material/Input";
+import { Input } from "webiny-client-ui-material/Input";
 import Icon from "webiny-client-ui-material/Icon";
 import { ButtonPrimary } from "webiny-client-ui-material/Button";
 import {Elevation} from "webiny-client-ui-material/Elevation";

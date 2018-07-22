@@ -12,7 +12,7 @@ import _ from "lodash";
 
 import { Elevation } from "webiny-client-ui-material/Elevation";
 import { ButtonPrimary } from "webiny-client-ui-material/Button";
-import Input from "webiny-client-ui-material/Input";
+import { Input } from "webiny-client-ui-material/Input";
 import { Grid, Cell } from "webiny-client-ui-material/Grid";
 
 const t = i18n.namespace("Webiny.Admin.Auth.Login");

@@ -8,7 +8,7 @@ import readme from "./../Input/README.md";
 import { Form } from "webiny-form";
 
 // $FlowFixMe
-import Input, { PropsType } from "./Input";
+import { Input, PropsType } from "./Input";
 
 const story = storiesOf("Components/Input", module);
 story.addDecorator(withKnobs);
