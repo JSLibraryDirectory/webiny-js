@@ -37,7 +37,7 @@ export default (params: WithFormParams): Function => {
                 const prop = getPropKey(params);
                 Object.assign(props[prop], {
                     submit: ({ data }) => {
-                        submitForm({ ...params, ...data });
+                        submitForm({ ...params, data });
                     },
                     reset: () => {
                         resetForm(params);

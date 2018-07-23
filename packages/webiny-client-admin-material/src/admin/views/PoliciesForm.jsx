@@ -4,19 +4,20 @@ import { i18n, inject } from "webiny-client";
 import { withForm, withRouter } from "webiny-client/hoc";
 import { compose } from "recompose";
 
-import EntitiesList from "./PoliciesForm/EntitiesList";
-import ApiAccess from "./PoliciesForm/ApiAccess";
-
 import { Elevation } from "webiny-client-ui-material/Elevation";
+import { Tabs, Tab } from "webiny-client-ui-material/Tabs";
 import { Grid, Cell } from "webiny-client-ui-material/Grid";
 import { Input } from "webiny-client-ui-material/Input";
 import { ButtonPrimary, ButtonSecondary } from "webiny-client-ui-material/Button";
+
+import EntitiesList from "./PoliciesForm/EntitiesList";
+import ApiAccess from "./PoliciesForm/ApiAccess";
 
 const t = i18n.namespace("Security.PoliciesForm");
 
 class PoliciesForm extends React.Component {
     render() {
-        const { AdminLayout, Form, Tabs } = this.props.modules;
+        const { AdminLayout, Form } = this.props.modules;
 
         const { SecurityPolicyForm, router } = this.props;
 
@@ -26,8 +27,13 @@ class PoliciesForm extends React.Component {
                     <Cell span={12}>
                         {/* TODO: styles must not be set inline. "position: relative" is here because of the loader. */}
                         <Elevation z={1} style={{ background: "white", position: "relative" }}>
-                            <Form {...SecurityPolicyForm}>
-                                {({ model, form, Bind }) => {
+                            <Form
+                                {...SecurityPolicyForm}
+                                onSubmit={data => {
+                                    SecurityPolicyForm.submit({ data });
+                                }}
+                            >
+                                {({ data, form, Bind }) => {
                                     return (
                                         <React.Fragment>
                                             {SecurityPolicyForm.loading && (
@@ -60,26 +66,26 @@ class PoliciesForm extends React.Component {
                                             <Grid>
                                                 <Cell span={12}>
                                                     <Tabs size="large">
-                                                        <Tabs.Tab label={t`Entity permissions`}>
+                                                        <Tab label={t`Entity permissions`}>
                                                             <Grid>
                                                                 <Cell span={12}>
                                                                     <EntitiesList
-                                                                        model={model}
+                                                                        model={data}
                                                                         form={form}
                                                                     />
                                                                 </Cell>
                                                             </Grid>
-                                                        </Tabs.Tab>
-                                                        <Tabs.Tab label={t`API access`}>
+                                                        </Tab>
+                                                        <Tab label={t`API access`}>
                                                             <Grid>
                                                                 <Cell span={12}>
                                                                     <ApiAccess
-                                                                        model={model}
+                                                                        model={data}
                                                                         form={form}
                                                                     />
                                                                 </Cell>
                                                             </Grid>
-                                                        </Tabs.Tab>
+                                                        </Tab>
                                                     </Tabs>
                                                 </Cell>
                                             </Grid>
@@ -131,9 +137,7 @@ export default compose(
             "OptionsData",
             "FormError",
             "View",
-            "Input",
             "Section",
-            "Tabs",
             {
                 AdminLayout: "Admin.Layout"
             }

@@ -4,35 +4,37 @@ import TogglePermissionButton from "./../components/TogglePermissionButton";
 import _ from "lodash";
 import { i18n, inject } from "webiny-client";
 const t = i18n.namespace("Security.EntitiesList");
+import { Input } from "webiny-client-ui-material/Input";
+import { Grid, Cell } from "webiny-client-ui-material/Grid";
 
 const entityOperationPath = (classId, permissionClass, operation) => {
     return `permissions.entities.${classId}.${permissionClass}.operations.${operation}`;
 };
 
 @inject({
-    modules: ["List", "ListData", "Grid", "Input", "Loader"]
+    modules: ["List", "ListData", "Loader"]
 })
 class EntitiesList extends React.Component {
-    renderCrudTogglePermissionButtons({ permissionClass, $this, data }) {
-        const { model } = this.props.form.state;
+    renderCrudTogglePermissionButtons({ permissionClass, $this, fieldData }) {
+        const { data } = this.props.form.state;
         return ["create", "read", "update", "delete"].map(operation => {
             const paths = {
-                current: entityOperationPath(data.classId, permissionClass.key, operation),
-                others: entityOperationPath(data.classId, "other", operation)
+                current: entityOperationPath(fieldData.classId, permissionClass.key, operation),
+                others: entityOperationPath(fieldData.classId, "other", operation)
             };
 
             return (
                 <TogglePermissionButton
                     key={`${permissionClass.key}_${operation}`}
                     label={operation.charAt(0).toUpperCase()}
-                    value={_.get(model, paths.current)}
+                    value={_.get(data, paths.current)}
                     onClick={async () => {
                         this.props.form.setState(
                             state => {
-                                if (_.get(state.model, paths.current)) {
-                                    _.unset(state.model, paths.current);
+                                if (_.get(state.data, paths.current)) {
+                                    _.unset(state.data, paths.current);
                                 } else {
-                                    _.set(state.model, paths.current, true);
+                                    _.set(state.data, paths.current, true);
                                 }
                                 return state;
                             },
@@ -49,7 +51,7 @@ class EntitiesList extends React.Component {
     }
 
     renderList() {
-        const { Input, Grid, List, ListData, Loader } = this.props.modules;
+        const { List, ListData, Loader } = this.props.modules;
         const Table = List.Table;
 
         return (
@@ -66,15 +68,16 @@ class EntitiesList extends React.Component {
                         <List {...listProps}>
                             <List.FormFilters>
                                 {({ apply }) => (
-                                    <Grid.Row>
-                                        <Grid.Col all={12}>
+                                    <Grid>
+                                        <Cell span={12}>
                                             <Input
+                                                fullWidth
                                                 name="search.query"
                                                 placeholder={t`Search by name or slug`}
                                                 onEnter={apply()}
                                             />
-                                        </Grid.Col>
-                                    </Grid.Row>
+                                        </Cell>
+                                    </Grid>
                                 )}
                             </List.FormFilters>
                             <Table>
@@ -101,11 +104,11 @@ class EntitiesList extends React.Component {
                                                 align={"center"}
                                                 label={permissionClass.label}
                                             >
-                                                {({ $this, data }) =>
+                                                {({ $this, data: fieldData }) =>
                                                     this.renderCrudTogglePermissionButtons({
                                                         permissionClass,
                                                         $this,
-                                                        data
+                                                        fieldData
                                                     })
                                                 }
                                             </Table.Field>
@@ -122,6 +125,7 @@ class EntitiesList extends React.Component {
 
     render() {
         const { ListData, Loader } = this.props.modules;
+
         return (
             <ListData
                 withRouter
