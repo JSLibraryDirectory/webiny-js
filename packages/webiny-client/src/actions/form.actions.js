@@ -82,7 +82,6 @@ const submitForm = createAction(FORM_SUBMIT, {
         const { name } = action.payload;
         setFormLoading({ name, loading: true });
 
-        console.log(action.payload);
         saveEntity({
             ...action.payload,
             onSuccess: data => {
