@@ -1,5 +1,6 @@
 // @flow
 import * as React from "react";
+import ReactDOM from "react-dom";
 import {
     Dialog as RmwcDialog,
     DialogSurface,
@@ -24,15 +25,32 @@ type Props = {
  * @returns {*}
  * @constructor
  */
-const Dialog = (props: Props) => {
-    // Let's pass "permanent" / "persistent" / "temporary" flags as "mode" prop instead.
-    return (
-        <RmwcDialog {...props}>
-            <DialogSurface>{props.children}</DialogSurface>
-            <DialogBackdrop />
-        </RmwcDialog>
-    );
-};
+class Dialog extends React.Component<Props> {
+    constructor() {
+        super();
+
+        this.container = document.getElementById("dialog-container");
+
+        if (!this.container) {
+            this.container = document.createElement("div");
+            this.container.setAttribute("id", "dialog-container");
+            document.body.appendChild(this.container);
+        }
+    }
+
+    render() {
+        const { children, ...props } = this.props;
+
+        // Let's pass "permanent" / "persistent" / "temporary" flags as "mode" prop instead.
+        return ReactDOM.createPortal(
+            <RmwcDialog {...props}>
+                <DialogSurface>{children}</DialogSurface>
+                <DialogBackdrop />
+            </RmwcDialog>,
+            this.container
+        );
+    }
+}
 
 /**
  * Dialog's header, which can accept Dialog.Header.Title component or any other set of components.
