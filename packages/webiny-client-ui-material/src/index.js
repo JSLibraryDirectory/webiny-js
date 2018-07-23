@@ -1,8 +1,6 @@
 // @flow
 
-export { List, DataList } from "./List";
-
-// TODO: no default exports.
+export * from "./List";
 export * from "./Button";
 export * from "./Checkbox";
 export * from "./Dialog";
