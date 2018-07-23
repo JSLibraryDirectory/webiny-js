@@ -23,20 +23,23 @@ type State = {
  * Use ConfirmationDialog component to display a list of choices, once the handler is triggered.
  */
 class ConfirmationDialog extends React.Component<Props, State> {
-    callbacks: {};
-
-    state = {
-        show: false
+    static defaultProps = {
+        title: "Confirmation",
+        message: "Are you sure you want to continue?"
     };
 
-    defaultProps = {
-        title: null,
-        message: null
+    callbacks: {};
+    state = {
+        show: false
     };
 
     showConfirmation = (onAccept, onCancel) => {
         this.callbacks = { onAccept, onCancel };
         this.setState({ show: true });
+    };
+
+    hideConfirmation = () => {
+        this.setState({ show: false });
     };
 
     render() {
@@ -48,26 +51,29 @@ class ConfirmationDialog extends React.Component<Props, State> {
                     </Dialog.Header>
                     <Dialog.Body>{this.props.message}</Dialog.Body>
                     <Dialog.Footer>
-                        <Dialog.Accept
-                            onClick={() => {
-                                const { onAccept } = this.callbacks;
-                                if (typeof onAccept === "function") {
-                                    onAccept();
-                                }
-                            }}
-                        >
-                            Confirm
-                        </Dialog.Accept>
                         <Dialog.Cancel
-                            onClick={() => {
+                            onClick={async () => {
                                 const { onCancel } = this.callbacks;
                                 if (typeof onCancel === "function") {
-                                    onCancel();
+                                    await onCancel();
+                                    this.hideConfirmation();
                                 }
                             }}
                         >
                             Cancel
                         </Dialog.Cancel>
+
+                        <Dialog.Accept
+                            onClick={async () => {
+                                const { onAccept } = this.callbacks;
+                                if (typeof onAccept === "function") {
+                                    await onAccept();
+                                    this.hideConfirmation();
+                                }
+                            }}
+                        >
+                            Confirm
+                        </Dialog.Accept>
                     </Dialog.Footer>
                 </Dialog>
                 {this.props.children({
