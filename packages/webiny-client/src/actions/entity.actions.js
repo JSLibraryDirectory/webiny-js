@@ -5,7 +5,8 @@ import {
     generateListQuery,
     generateFindOneQuery,
     generateUpdateQuery,
-    generateCreateQuery
+    generateCreateQuery,
+    generateDeleteQuery
 } from "./entity";
 
 const PREFIX = "[ENTITY]";
@@ -15,6 +16,7 @@ export const ENTITY_FIND = `${PREFIX} Find`;
 export const ENTITY_SAVE = `${PREFIX} Save`;
 export const ENTITY_CREATE = `${PREFIX} Create`;
 export const ENTITY_UPDATE = `${PREFIX} Update`;
+export const ENTITY_DELETE = `${PREFIX} Delete`;
 
 const listEntities = createAction(ENTITY_LIST, {
     middleware({ action, next }) {
@@ -114,8 +116,6 @@ const updateEntity = createAction(ENTITY_UPDATE, {
         const { entity, fields, onSuccess, onError, data } = action.payload;
         const generatedQuery = generateUpdateQuery({ entity, fields });
 
-        console.log(generatedQuery);
-
         graphqlMutation({
             ...generatedQuery,
             variables: { data, id: data.id },
@@ -133,4 +133,27 @@ const updateEntity = createAction(ENTITY_UPDATE, {
     }
 });
 
-export { listEntities, findOneEntity, createEntity, updateEntity, saveEntity };
+const deleteEntity = createAction(ENTITY_DELETE, {
+    middleware({ action, next }) {
+        next(action);
+        const { entity, fields, onSuccess, onError, id } = action.payload;
+        const generatedQuery = generateDeleteQuery({ entity, fields });
+
+        graphqlMutation({
+            ...generatedQuery,
+            variables: { id },
+            onSuccess: data => {
+                if (typeof onSuccess === "function") {
+                    onSuccess({ ...data.data });
+                }
+            },
+            onError: error => {
+                if (typeof onError === "function") {
+                    onError({ ...error });
+                }
+            }
+        });
+    }
+});
+
+export { listEntities, findOneEntity, createEntity, updateEntity, saveEntity, deleteEntity };
