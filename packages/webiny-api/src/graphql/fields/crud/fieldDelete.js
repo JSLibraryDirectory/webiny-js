@@ -1,17 +1,20 @@
 // @flow
+
+/**
+ * Create a field responsible for deletion of a record.
+ */
+
 import { GraphQLString, GraphQLBoolean, GraphQLNonNull } from "graphql";
-
 import type { Entity } from "webiny-entity";
-import type Schema from "./../../Schema";
 
-export default (entityClass: Class<Entity>, schema: Schema) => {
-    schema.mutation["delete" + entityClass.classId] = {
+export default (entityClass: Class<Entity>) => {
+    return {
         description: `Delete a single ${entityClass.classId} entity.`,
         type: GraphQLBoolean,
         args: {
             id: { type: new GraphQLNonNull(GraphQLString) }
         },
-        async resolve(root, args) {
+        async resolve(root: any, args: Object) {
             const entity = await entityClass.findById(args.id);
             if (!entity) {
                 throw Error(`Entity with id "${args.id}" not found.`);

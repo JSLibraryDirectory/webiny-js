@@ -2,7 +2,7 @@
 import Identity from "./Identity.entity";
 import { api } from "./../index";
 
-class ApiToken extends Identity {
+export default class ApiToken extends Identity {
     name: string;
     description: string;
     token: string;
@@ -24,5 +24,3 @@ class ApiToken extends Identity {
 
 ApiToken.classId = "SecurityApiToken";
 ApiToken.storageClassId = "Security_ApiTokens";
-
-export default ApiToken;

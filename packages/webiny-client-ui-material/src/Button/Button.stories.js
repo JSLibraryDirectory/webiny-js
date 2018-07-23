@@ -6,7 +6,14 @@ import Story from "webiny-storybook-utils/Story";
 import readme from "./../Button/README.md";
 
 // $FlowFixMe
-import { ButtonPrimary, ButtonSecondary, ButtonDefault, ButtonFloating, ButtonIcon, PropsType } from "./Button";
+import {
+    ButtonPrimary,
+    ButtonSecondary,
+    ButtonDefault,
+    ButtonFloating,
+    ButtonIcon,
+    PropsType
+} from "./Button";
 
 const story = storiesOf("Components/Button", module);
 story.addDecorator(withKnobs);

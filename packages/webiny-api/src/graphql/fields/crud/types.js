@@ -39,7 +39,7 @@ const List = (type: GraphQLObjectType) => {
     return new GraphQLObjectType({
         name: type.toString() + "List",
         fields: () => ({
-            list: { type: new GraphQLList(type) },
+            data: { type: new GraphQLList(type) },
             meta: { type: ListMeta }
         })
     });

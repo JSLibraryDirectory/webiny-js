@@ -88,10 +88,4 @@ const ButtonFloating = (props: Props) => {
  */
 const ButtonIcon = (props: any) => <FontAwesomeIcon {...props} className={"mdc-button__icon"} />;
 
-export {
-    ButtonDefault,
-    ButtonPrimary,
-    ButtonSecondary,
-    ButtonFloating,
-    ButtonIcon
-};
+export { ButtonDefault, ButtonPrimary, ButtonSecondary, ButtonFloating, ButtonIcon };

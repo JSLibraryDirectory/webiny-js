@@ -8,7 +8,7 @@ import mdbid from "mdbid";
 import type { IFileData } from "webiny-file-storage/types";
 import { Entity } from "./Entity";
 
-class File extends Entity {
+export default class File extends Entity {
     storage: Storage;
     storageFolder: string;
     tags: Array<string>;
@@ -186,5 +186,3 @@ class File extends Entity {
 
 File.classId = "File";
 File.storageClassId = "Files";
-
-export default File;

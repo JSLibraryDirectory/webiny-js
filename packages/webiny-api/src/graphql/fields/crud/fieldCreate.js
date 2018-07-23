@@ -1,22 +1,24 @@
 // @flow
-import { GraphQLNonNull } from "graphql";
+
+/**
+ * Create a field responsible for creation of a new record.
+ */
+
+import { GraphQLNonNull, GraphQLObjectType } from "graphql";
 import GraphQLJSON from "graphql-type-json";
 import { ModelError } from "webiny-model";
 import InvalidAttributesError from "./InvalidAttributesError";
 
 import type { Entity } from "webiny-entity";
-import type Schema from "./../../Schema";
 
-export default (entityClass: Class<Entity>, schema: Schema) => {
-    const entityType = schema.getType(entityClass.classId);
-
-    schema.mutation["create" + entityClass.classId] = {
+export default (entityClass: Class<Entity>, entityType: GraphQLObjectType) => {
+    return {
         description: `Create a single ${entityClass.classId} entity.`,
         type: entityType,
         args: {
             data: { type: new GraphQLNonNull(GraphQLJSON) }
         },
-        async resolve(root, args) {
+        async resolve(root: any, args: Object) {
             const entity = new entityClass();
             if (!entity) {
                 throw Error(`Entity with id "${args.id}" not found.`);

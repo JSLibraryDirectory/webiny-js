@@ -30,21 +30,19 @@ export default (params: WithFormParams): Function => {
             }),
             lifecycle({
                 componentDidMount() {
-                    params.id &&
-                        loadForm(params);
+                    params.id && loadForm(params);
                 }
             }),
             withProps(props => {
                 const prop = getPropKey(params);
                 Object.assign(props[prop], {
-                    submit : ({ data }) => {
+                    submit: ({ data }) => {
                         submitForm({ ...params, ...data });
                     },
-                    reset : () => {
+                    reset: () => {
                         resetForm(params);
                     }
-                })
-
+                });
             })
         )(BaseComponent);
     };

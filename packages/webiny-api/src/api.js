@@ -2,8 +2,7 @@
 import cls from "cls-hooked";
 import compose from "webiny-compose";
 import { ServiceManager } from "webiny-service-manager";
-import GraphQL from "./graphql/GraphQL";
-import EntityManager from "./entities/EntityManager";
+import { schema } from "./graphql";
 import createHandler from "./graphql/createHandler";
 import chalk from "chalk";
 import type { AppType, LambdaEvent } from "./../types";
@@ -11,17 +10,13 @@ import type { AppType, LambdaEvent } from "./../types";
 class Api {
     handler: Function;
     config: Object;
-    graphql: GraphQL;
     services: ServiceManager;
-    entities: EntityManager;
     namespace: cls$Namespace;
     apps: Array<AppType>;
 
     constructor() {
         this.config = {};
-        this.graphql = new GraphQL();
         this.services = new ServiceManager();
-        this.entities = new EntityManager();
         this.apps = [];
     }
 
@@ -136,8 +131,14 @@ class Api {
             }
         });
 
+        const params: Object = { api: this };
+
+        if (hook === "init") {
+            params.schema = schema;
+        }
+
         try {
-            await compose(hooks)({ api: this });
+            await compose(hooks)(params);
         } catch (e) {
             this.log(`An error occurred in the "${hook}" process:\n${e.stack}`, "error");
             process.exit(1);

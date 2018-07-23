@@ -5,7 +5,7 @@ import { Identity } from "./../entities";
 type IdentityOptions = {
     strategy?: Object,
     expiresOn?: Function,
-    field?: String
+    field?: string
 };
 
 export default (entity: Identity, options: IdentityOptions = {}) => {
@@ -18,7 +18,7 @@ export default (entity: Identity, options: IdentityOptions = {}) => {
         identity.authenticate = [
             {
                 expiresOn: args => addDays(new Date(), args.remember ? 30 : 1),
-                field: "authenticate" + entity.classId.replace(".", ""),
+                field: "authenticate",
                 ...options
             }
         ];
