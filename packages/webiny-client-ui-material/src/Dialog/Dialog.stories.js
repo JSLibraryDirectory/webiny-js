@@ -33,12 +33,10 @@ story.add("usage", () => {
                         </Dialog.Header>
                         <Dialog.Body>Are you sure you want to delete?</Dialog.Body>
                         <Dialog.Footer>
-                            <Dialog.Footer.Button onClick={() => console.log("Cancel")} cancel>
+                            <Dialog.Cancel onClick={() => console.log("Cancel")}>
                                 Cancel
-                            </Dialog.Footer.Button>
-                            <Dialog.Footer.Button onClick={() => console.log("Accept")} accept>
-                                OK
-                            </Dialog.Footer.Button>
+                            </Dialog.Cancel>
+                            <Dialog.Accept onClick={() => console.log("Accept")}>OK</Dialog.Accept>
                         </Dialog.Footer>
                     </Dialog>
                 </Story.Sandbox.Example>
@@ -50,8 +48,8 @@ story.add("usage", () => {
                         </Dialog.Header>
                         <Dialog.Body>Are you sure you want to delete?</Dialog.Body>
                         <Dialog.Footer>
-                            <Dialog.Footer.Button onClick={() => console.log("Cancel")} cancel>Cancel</Dialog.Footer.Button>
-                            <Dialog.Footer.Button onClick={() => console.log("Accept")} accept>OK</Dialog.Footer.Button>
+                            <Dialog.Cancel onClick={() => console.log("Cancel")}>Cancel</Dialog.Cancel>
+                            <Dialog.Accept onClick={() => console.log("Accept")}>OK</Dialog.Accept>
                         </Dialog.Footer>
                     </Dialog>
                     `}
