@@ -2,8 +2,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { compose, lifecycle, withProps } from "recompose";
-import { loadList } from "./../actions";
-import { app } from "webiny-client";
+import { loadList, deleteEntity } from "./../actions";
 import _ from "lodash";
 
 type WithDataListParams = {
@@ -45,7 +44,7 @@ const objectSortersToString = (objectSorters: { [string]: number }) => {
     }, "");
 };
 
-const redirectToRouteWithQueryParams = (params: Object) => {
+const redirectToRouteWithQueryParams = (params: Object, props) => {
     const paramsClone = Object.assign({}, params);
 
     if (typeof paramsClone.sort === "object") {
@@ -54,8 +53,7 @@ const redirectToRouteWithQueryParams = (params: Object) => {
 
     const { perPage, page, sort, search } = paramsClone;
 
-    console.log("cloned", paramsClone);
-    app.router.goToRoute("current", {
+    props.router.goToRoute("current", {
         perPage,
         page,
         sort,
@@ -66,7 +64,7 @@ const redirectToRouteWithQueryParams = (params: Object) => {
 const prepareLoadListParams = (withDataListParams: WithDataListParams, props: Object) => {
     const paramsClone = Object.assign({}, withDataListParams);
     if (props.router) {
-        const { page, perPage, sort, search } = app.router.match.query;
+        const { page, perPage, sort, search } = props.router.match.query;
         Object.assign(paramsClone, {
             page,
             perPage,
@@ -124,12 +122,25 @@ export default (params: WithDataListParams) => {
                         loadList(preparedParams);
                     },
 
+                    delete: id => {
+                        const { entity, fields, name } = params;
+                        deleteEntity({
+                            entity,
+                            fields,
+                            name,
+                            id,
+                            onSuccess: () => {
+                                props[prop].refresh();
+                            }
+                        });
+                    },
+
                     setPerPage: (perPage: number) => {
                         const preparedParams = prepareLoadListParams(params, props);
                         preparedParams.perPage = perPage;
 
                         if (props.router) {
-                            redirectToRouteWithQueryParams(preparedParams);
+                            redirectToRouteWithQueryParams(preparedParams, props);
                             return;
                         }
 
@@ -141,7 +152,7 @@ export default (params: WithDataListParams) => {
                         preparedParams.page = page;
 
                         if (props.router) {
-                            redirectToRouteWithQueryParams(preparedParams);
+                            redirectToRouteWithQueryParams(preparedParams, props);
                             return;
                         }
 
@@ -153,7 +164,7 @@ export default (params: WithDataListParams) => {
                         preparedParams.sort = sorter;
 
                         if (props.router) {
-                            redirectToRouteWithQueryParams(preparedParams);
+                            redirectToRouteWithQueryParams(preparedParams, props);
                             return;
                         }
 
