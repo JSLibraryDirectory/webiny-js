@@ -14,7 +14,7 @@ type Props = {
 const TopProgressBar = (props: Props) => {
     return props.children({
         start: nprogress.start,
-        done: nprogress.done
+        finish: nprogress.done
     });
 };
 
