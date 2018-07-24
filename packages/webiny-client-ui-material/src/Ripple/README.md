@@ -8,5 +8,5 @@
 
 ### Import
 ```js
-import `Ripple` from "webiny-client-ui-material/Ripple";
+import Ripple from "webiny-client-ui-material/Ripple";
 ```
