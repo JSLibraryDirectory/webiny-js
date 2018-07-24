@@ -1,20 +1,13 @@
 // @flow
 import React from "react";
 import { inject } from "webiny-client";
+import TopProgressBar from "./../TopProgressBar";
+import { compose } from "recompose";
 
 /**
  * AdminLayout is the main container that will hold all other components.
  * This component is the first one to render in the <body> element.
  */
-@inject({
-    modules: [
-        {
-            Header: "Admin.Header",
-            Navigation: "Admin.Navigation",
-            Footer: "Admin.Footer"
-        }
-    ]
-})
 class AdminLayout extends React.Component {
     render() {
         const { Navigation, Header, Footer } = this.props.modules;
@@ -23,7 +16,8 @@ class AdminLayout extends React.Component {
             <div className="master minimized">
                 <Header />
                 <Navigation />
-                <div style={{width: "80%", margin: '0 auto', paddingTop: 100}}>
+                <TopProgressBar />
+                <div style={{ width: "80%", margin: "0 auto", paddingTop: 100 }}>
                     <div>{this.props.children}</div>
                 </div>
                 <Footer />
@@ -32,4 +26,14 @@ class AdminLayout extends React.Component {
     }
 }
 
-export default AdminLayout;
+export default compose(
+    inject({
+        modules: [
+            {
+                Header: "Admin.Header",
+                Navigation: "Admin.Navigation",
+                Footer: "Admin.Footer"
+            }
+        ]
+    })
+)(AdminLayout);

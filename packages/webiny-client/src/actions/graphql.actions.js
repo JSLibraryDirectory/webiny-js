@@ -28,7 +28,6 @@ export const graphqlError = createAction(GRAPHQL_ERROR);
 export const graphqlStart = createAction(GRAPHQL_START, {
     selector: "graphql.activeOperationsCount",
     reducer({ state = 0 }) {
-        console.log('inc', Number(state) + 1);
         return Number(state) + 1;
     }
 });

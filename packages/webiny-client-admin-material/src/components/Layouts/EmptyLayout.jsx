@@ -1,16 +1,14 @@
 // @flow
-import React from 'react';
-import { inject } from 'webiny-client';
+import React from "react";
+import TopProgressBar from "./../TopProgressBar";
 
-@inject()
 class EmptyLayout extends React.Component {
     render() {
         return (
             <div className="master minimized">
+                <TopProgressBar />
                 <div className="master-content">
-                    <div className="container-fluid">
-                        {this.props.children}
-                    </div>
+                    <div className="container-fluid">{this.props.children}</div>
                 </div>
             </div>
         );
