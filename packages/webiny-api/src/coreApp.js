@@ -5,18 +5,16 @@ import { schema } from "./graphql";
 import createLoginQueries from "./security/graphql/createLoginQueries";
 import createSystemQuery from "./security/graphql/createSystemQuery";
 import createIdentityQuery from "./security/graphql/createIdentityQuery";
+import createSecurityField from "./security/graphql/createSecurityField";
 
 // Entities and GraphQL types
-import { Group, Groups2Entities, Policies2Entities, Policy } from "./entities/Entity";
-import { GroupType, GroupQueryType, PolicyType, PolicyQueryType } from "./entities/Entity.graphql";
-import ApiToken from "./entities/ApiToken.entity";
-import { ApiTokenType, ApiTokenQueryType } from "./entities/ApiToken.graphql";
-import File from "./entities/File.entity";
-import { FileType, FileQueryType } from "./entities/File.graphql";
-import Image from "./entities/Image.entity";
-import { ImageType, ImageQueryType } from "./entities/Image.graphql";
-import User from "./entities/User.entity";
-import { UserType, UserQueryType } from "./entities/User.graphql";
+import { Group, Groups2Entities, Policies2Entities, Policy } from "./entities/Entity/Entity";
+import ApiToken from "./entities/ApiToken/ApiToken.entity";
+import File from "./entities/File/File.entity";
+import { FileType, FileQueryField } from "./entities/File/File.graphql";
+import Image from "./entities/Image/Image.entity";
+import { ImageType, ImageQueryField } from "./entities/Image/Image.graphql";
+import User from "./entities/User/User.entity";
 
 // Attributes registration functions
 import registerBufferAttribute from "./attributes/registerBufferAttribute";
@@ -134,20 +132,12 @@ export default () => {
                 await security.init();
             }
 
-            schema.addType(ApiTokenType);
             schema.addType(FileType);
             schema.addType(ImageType);
-            schema.addType(UserType);
-            schema.addType(GroupType);
-            schema.addType(PolicyType);
+            schema.addQueryField(FileQueryField);
+            schema.addQueryField(ImageQueryField);
 
-            schema.addQuery(ApiTokenQueryType);
-            schema.addQuery(FileQueryType);
-            schema.addQuery(ImageQueryType);
-            schema.addQuery(UserQueryType);
-            schema.addQuery(GroupQueryType);
-            schema.addQuery(PolicyQueryType);
-
+            createSecurityField(schema);
             createIdentityQuery(api, api.config, schema);
             createLoginQueries(api, api.config, schema);
             createSystemQuery(api, api.config, schema);

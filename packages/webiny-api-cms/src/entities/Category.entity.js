@@ -7,8 +7,10 @@ class Category extends Entity {
     slug: string;
     url: string;
     pages: Array<Page>;
+
     constructor() {
         super();
+
         this.attr("title")
             .char()
             .setValidators("required");
