@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel src -d dist --source-maps",
     "build:watch": "babel src -d dist --watch --source-maps",
-    "develop": "cross-env NODE_ENV=development sls offline start --port 9000",
+    "develop": "cross-env NODE_ENV=development SLS_DEBUG=* sls offline start --port 9000",
     "develop:debug": "cross-env NODE_ENV=development SLS_DEBUG=* node --inspect=9005 `which serverless` offline start -s dev --port 9000",
     "clean":  "rimraf node_modules/graphql* node_modules/webiny-* node_modules/mysql",
     "postinstall": "yarn clean"
