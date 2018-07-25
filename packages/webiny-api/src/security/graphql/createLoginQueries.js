@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable */
 import invariant from "invariant";
 import { GraphQLObjectType, GraphQLString, GraphQLInt } from "graphql";
 import getFieldsFromType from "../../graphql/getFieldsFromType";
@@ -35,12 +36,10 @@ export default (api: Api, config: Object, schema: Schema) => {
         for (let i = 0; i < authenticate.length; i++) {
             const { strategy, expiresOn, field } = authenticate[i];
 
-            const typeName = Identity.classId + "Query";
-
             const newType = new GraphQLObjectType({
-                name: typeName,
+                name: Identity.classId,
                 fields: {
-                    ...getFieldsFromType(schema.getQuery(typeName).type),
+                    ...getFieldsFromType(schema.getType(Identity.classId)),
                     [field || "authenticate"]: {
                         type: createLoginDataForIdentity(Identity, schema),
                         args: strategy.args(),
@@ -70,7 +69,8 @@ export default (api: Api, config: Object, schema: Schema) => {
                 }
             });
 
-            schema.addQuery(newType);
+            // TODO: think of a way to merge existing types
+            //schema.addType(newType);
         }
     });
 };

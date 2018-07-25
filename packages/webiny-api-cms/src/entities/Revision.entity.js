@@ -1,7 +1,6 @@
 // @flow
 import { Entity } from "webiny-api/entities";
 import Page from "./Page.entity";
-import WidgetModel from "./Widget.model";
 
 class Revision extends Entity {
     page: Page;
@@ -9,7 +8,7 @@ class Revision extends Entity {
     slug: string;
     title: string;
     settings: Object;
-    content: Array<WidgetModel>;
+    content: Object;
     active: boolean;
     constructor() {
         super();
@@ -31,7 +30,7 @@ class Revision extends Entity {
         this.attr("settings").object();
 
         this.attr("content")
-            .models(WidgetModel)
+            .object()
             .onSet(widgets => {
                 return widgets.map(widget => {
                     if (widget.origin) {

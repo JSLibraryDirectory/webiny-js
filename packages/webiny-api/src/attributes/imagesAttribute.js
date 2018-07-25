@@ -2,7 +2,7 @@
 import type { EntityCollection } from "webiny-entity";
 import FilesAttribute from "./filesAttribute";
 import type { ImageProcessor } from "../../types";
-import type { ImagePresets } from "../entities/Image.entity";
+import type { ImagePresets } from "../entities/Image/Image.entity";
 
 class ImagesAttribute extends FilesAttribute {
     processor: ImageProcessor;

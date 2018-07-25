@@ -24,18 +24,18 @@ export class Schema {
         return this.types[type];
     }
 
-    addQuery(type: GraphQLObjectType) {
-        this.query[type.name] = { type };
+    addQueryField(field: Object) {
+        this.query[field.name] = field;
     }
 
-    getQuery(type: string) {
-        if (!this.query[type]) {
-            throw Error(`Query not found: ${type}`);
+    getQueryField(field: string) {
+        if (!this.query[field]) {
+            throw Error(`Query not found: ${field}`);
         }
-        return this.query[type];
+        return this.query[field];
     }
 
-    addMutation(type: GraphQLObjectType) {
+    addMutationField(type: GraphQLObjectType) {
         this.mutation[type.name] = { type };
     }
 
