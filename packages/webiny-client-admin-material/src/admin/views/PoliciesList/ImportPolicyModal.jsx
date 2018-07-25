@@ -48,7 +48,6 @@ class ImportPolicyModal extends React.Component {
                         <Form
                             model={model}
                             onSubmit={({ data }) => {
-                                console.log("ide");
                                 return onSubmit(JSON.parse(data));
                             }}
                             invalidFields={invalidFields}

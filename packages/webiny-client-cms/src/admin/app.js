@@ -1,3 +1,4 @@
+// @flow
 import React from "react";
 import { i18n } from "webiny-client";
 import { Menu } from "webiny-client-admin";
@@ -6,6 +7,7 @@ import PageManagerContainer from "./views/pages/PageManagerContainer";
 import PageEditor from "./views/pages/PageEditor";
 import CategoryList from "./views/categories/CategoryList";
 import registerWidgets from "./widgets/register";
+import pagesIcon from "./assets/images/icons/baseline-pages-24px.svg";
 
 const t = i18n.namespace("Cms.Admin.Menu");
 
@@ -21,7 +23,7 @@ export default () => {
         });
 
         app.services.get("menu").add(
-            <Menu order="1" label={t`Content`} icon={["fas", "file-alt"]}>
+            <Menu order="1" label={t`Content`} icon={pagesIcon}>
                 <Menu order={0} label={t`Pages`} route="Cms.Page.List" />
                 <Menu order={1} label={t`Categories`} route="Cms.Category.List" />
                 <Menu order={2} label={t`Menus`} route="Cms.Menu.List" />

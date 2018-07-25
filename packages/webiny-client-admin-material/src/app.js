@@ -6,6 +6,7 @@ import Menu from "./components/Menu";
 import { i18n } from "webiny-client";
 import React from "react";
 import "./admin/actions";
+import securityIcon from "./assets/images/icons/baseline-security-24px.svg";
 
 const t = i18n.namespace("Admin.App");
 
@@ -114,7 +115,7 @@ export default () => {
             const securityManager = "webiny-security-manager";
 
             app.services.get("menu").add(
-                <Menu label={t`Security`} icon="user-secret">
+                <Menu label={t`Security`} icon={securityIcon}>
                     <Menu label={t`Identities`} group={securityManager}>
                         <Menu label={t`Users`} route="Users.List" />
                         <Menu label={t`API Tokens`} route="ApiTokens.List" />

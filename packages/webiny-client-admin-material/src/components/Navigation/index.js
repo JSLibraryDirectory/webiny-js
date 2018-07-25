@@ -1,123 +1,100 @@
 // @flow
 import React from "react";
-import _ from "lodash";
-import { app, inject } from "webiny-client";
+import { inject, app } from "webiny-client";
 import Drawer from "webiny-client-ui-material/Drawer";
 import { List } from "webiny-client-ui-material/List";
+import { Icon } from "webiny-client-ui-material/Icon";
+import { connect } from "react-redux";
+import { compose } from "recompose";
+import _ from "lodash";
+import { toggleMenu } from "./../../actions/menu.actions";
+import utils from "./utils";
 
-@inject({
-    modules: [
-        "Link",
-        {
-            Desktop: "Admin.Navigation.Desktop",
-            Mobile: "Admin.Navigation.Mobile"
-        }
-    ]
-})
+const menu = app.services.get("menu");
+
 class Navigation extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            user: null,
-            highlight: null,
-            display: window.outerWidth > 768 ? "desktop" : "mobile"
+        /**
+         * Menu renderer passed to <Menu>.
+         * Note that `this` is still bound to `Desktop` class since we are passing an arrow function.
+         */
+        this.renderer = menu => {
+            const props = _.clone(menu.props);
+            if (!utils.canAccess(props)) {
+                return null;
+            }
+
+            const children = React.Children.toArray(props.children);
+            const hasChildren = children.length > 0;
+            const { Link } = this.props.modules;
+
+            const linkProps = {
+                key: props.id,
+                label: props.label,
+                children: props.label
+            };
+
+            let childMenuItems = null;
+            if (hasChildren) {
+                // Build array of child items and check their access roles.
+                childMenuItems = children.map((child, i) => {
+                    if (!utils.canAccess(child.props)) {
+                        return null;
+                    }
+
+                    return React.cloneElement(child, { key: i, render: this.renderer });
+                });
+
+                // If no child items are there to render - hide parent menu as well.
+                if (!childMenuItems.filter(item => !_.isNil(item)).length) {
+                    return null;
+                }
+            }
+
+            return (
+                <React.Fragment>
+                    <List>
+                        <List.Item key={props.id}>
+                            {props.icon && (
+                                <List.Item.Graphic>
+                                    <Icon src={props.icon} />
+                                </List.Item.Graphic>
+                            )}
+                            <List.Item.Text>
+                                {utils.getLink(props.route, Link, linkProps)}
+                            </List.Item.Text>
+                        </List.Item>
+                    </List>
+                    {hasChildren && childMenuItems}
+                </React.Fragment>
+            );
         };
-
-        this.auth = app.security;
-        this.checkDisplayInterval = null;
-
-        window.menu = open => {
-            this.setState({ open });
-        };
-    }
-
-    componentDidMount() {
-        if (this.auth) {
-            // Navigation is rendered based on user roles so we need to watch for changes
-            this.unwatch = this.auth.onIdentity(identity => {
-                this.setState({ user: identity });
-            });
-
-            this.setState({ user: this.auth.identity });
-        }
-
-        this.checkDisplayInterval = setInterval(() => {
-            this.setState({ display: window.outerWidth > 768 ? "desktop" : "mobile" });
-        }, 500);
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.checkDisplayInterval);
-
-        // Release data cursors
-        this.unwatch && this.unwatch();
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return !_.isEqual(this.state, nextState);
     }
 
     render() {
         return (
-            <Drawer mode="temporary" open={this.state.open}>
+            <Drawer mode="temporary" open={this.props.showMenu} onClose={toggleMenu}>
                 <Drawer.Header>Main Menu</Drawer.Header>
                 <Drawer.Content>
-                    <div>
-                        <List>
-                            <List.Item>
-                                <List.Item.Text>Users</List.Item.Text>
-                            </List.Item>
-
-                            <List.Item>
-                                <List.Item.Text>Companies</List.Item.Text>
-                            </List.Item>
-
-                            <List.Item>
-                                <List.Item.Text>
-                                    Brands
-                                    <List.Item.Text.Secondary>
-                                        2 new brands
-                                    </List.Item.Text.Secondary>
-                                </List.Item.Text>
-                            </List.Item>
-
-                            <List.Item>
-                                <List.Item.Text>ACL</List.Item.Text>
-                            </List.Item>
-                            <List.Item>
-                                <List.Item.Text>Settings</List.Item.Text>
-                            </List.Item>
-
-                            <List.Item>
-                                <List.Item.Text>
-                                    <div onClick={() => this.setState({ open: false })}>
-                                        Hide menu
-                                    </div>
-                                </List.Item.Text>
-                            </List.Item>
-                        </List>
-                    </div>
+                    {menu.getMenu().map(menu =>
+                        React.cloneElement(menu, {
+                            key: menu.props.id,
+                            render: this.renderer
+                        })
+                    )}
                 </Drawer.Content>
             </Drawer>
         );
     }
-    __render() {
-        if (this.props.render) {
-            return this.props.render.call(this);
-        }
-
-        const { Desktop, Mobile } = this.props.modules;
-        const props = {
-            highlight: this.state.highlight
-        };
-
-        if (this.state.display === "mobile") {
-            return <Mobile {...props} />;
-        }
-
-        return <Desktop {...props} />;
-    }
 }
 
-export default Navigation;
+export default compose(
+    inject({
+        modules: ["Link"]
+    }),
+    connect(state => ({
+        showMenu: _.get(state, "admin.showMenu")
+    }))
+)(Navigation);
