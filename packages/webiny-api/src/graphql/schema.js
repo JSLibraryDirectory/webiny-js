@@ -1,5 +1,6 @@
 // @flow
 import { GraphQLObjectType, GraphQLInputObjectType, GraphQLSchema } from "graphql";
+import getFieldsFromType from "./getFieldsFromType";
 
 export class Schema {
     query: Object;
@@ -37,6 +38,15 @@ export class Schema {
 
     addMutationField(type: GraphQLObjectType) {
         this.mutation[type.name] = { type };
+    }
+
+    extend(type: string, extension: Function) {
+        const fields = getFieldsFromType(this.getType(type));
+
+        this.types[type] = new GraphQLObjectType({
+            name: type,
+            fields: extension(fields)
+        });
     }
 
     getGraphQLSchema() {

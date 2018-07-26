@@ -2,7 +2,6 @@
 /* eslint-disable */
 import invariant from "invariant";
 import { GraphQLObjectType, GraphQLString, GraphQLInt } from "graphql";
-import getFieldsFromType from "../../graphql/getFieldsFromType";
 import type { Schema } from "../../graphql/Schema";
 import type { Api } from "../../index";
 
@@ -34,43 +33,37 @@ export default (api: Api, config: Object, schema: Schema) => {
 
         // For each strategy...
         for (let i = 0; i < authenticate.length; i++) {
-            const { strategy, expiresOn, field } = authenticate[i];
+            const { strategy, expiresOn, type, field } = authenticate[i];
 
-            const newType = new GraphQLObjectType({
-                name: Identity.classId,
-                fields: {
-                    ...getFieldsFromType(schema.getType(Identity.classId)),
-                    [field || "authenticate"]: {
-                        type: createLoginDataForIdentity(Identity, schema),
-                        args: strategy.args(),
-                        async resolve(root, args) {
-                            const identity = await security.sudo(() => {
-                                return security.authenticate(args, Identity, strategy);
-                            });
+            schema.extend(type, fields => ({
+                ...fields,
+                [field || "authenticate"]: {
+                    type: createLoginDataForIdentity(Identity, schema),
+                    args: strategy.args(),
+                    async resolve(root, args) {
+                        const identity = await security.sudo(() => {
+                            return security.authenticate(args, Identity, strategy);
+                        });
 
-                            // Set identified identity as current.
-                            security.setIdentity(identity);
+                        // Set identified identity as current.
+                        security.setIdentity(identity);
 
-                            const error = `"expiresOn" function must be configured for "${strategy}" strategy!`;
-                            invariant(typeof expiresOn === "function", error);
+                        const error = `"expiresOn" function must be configured for "${strategy}" strategy!`;
+                        invariant(typeof expiresOn === "function", error);
 
-                            let expiration = expiresOn(args);
-                            if (expiration instanceof Date) {
-                                expiration = Math.floor(expiration.getTime() / 1000);
-                            }
-
-                            return {
-                                identity,
-                                token: await security.createToken(identity, expiration),
-                                expiresOn: expiration
-                            };
+                        let expiration = expiresOn(args);
+                        if (expiration instanceof Date) {
+                            expiration = Math.floor(expiration.getTime() / 1000);
                         }
+
+                        return {
+                            identity,
+                            token: await security.createToken(identity, expiration),
+                            expiresOn: expiration
+                        };
                     }
                 }
-            });
-
-            // TODO: think of a way to merge existing types
-            //schema.addType(newType);
+            }));
         }
     });
 };

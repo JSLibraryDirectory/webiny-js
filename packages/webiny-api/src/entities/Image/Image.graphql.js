@@ -8,7 +8,7 @@ import {
     GraphQLBoolean
 } from "graphql";
 
-import { crudFields, createField } from "../../graphql";
+import { crudFields, createField, schema } from "../../graphql";
 import Image from "./Image.entity";
 
 export const ImageType = new GraphQLObjectType({
@@ -32,11 +32,9 @@ export const ImageType = new GraphQLObjectType({
     }
 });
 
-const ImageQueryType = new GraphQLObjectType({
+export const ImageQueryType = new GraphQLObjectType({
     name: "Images",
-    fields: {
-        ...crudFields(Image, ImageType)
-    }
+    fields: () => crudFields(Image, schema.getType(ImageType.name))
 });
 
-export const ImageQueryField = createField({ type: ImageQueryType });
+export const ImageQueryField = () => createField(schema.getType(ImageQueryType.name));

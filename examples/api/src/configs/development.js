@@ -44,7 +44,7 @@ export default () => ({
         enabled: false,
         token: { secret: "MyS3cr3tK3Y" },
         identities: [
-            createIdentity(User, { strategy: credentialsStrategy() }),
+            createIdentity(User, { strategy: credentialsStrategy(), type: "SecurityUsers" }),
             createIdentity(ApiToken)
         ]
     }

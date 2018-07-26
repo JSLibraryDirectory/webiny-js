@@ -1,6 +1,6 @@
 // @flow
 import { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLList } from "graphql";
-import { crudFields, createField } from "../../graphql";
+import { crudFields, createField, schema } from "../../graphql";
 import File from "./File.entity";
 
 export const FileType = new GraphQLObjectType({
@@ -18,9 +18,9 @@ export const FileType = new GraphQLObjectType({
     }
 });
 
-const FileQueryType = new GraphQLObjectType({
+export const FileQueryType = new GraphQLObjectType({
     name: "Files",
-    fields: crudFields(File, FileType)
+    fields: () => crudFields(File, schema.getType(FileType.name))
 });
 
-export const FileQueryField = createField({ type: FileQueryType });
+export const FileQueryField = () => createField(schema.getType(FileQueryType.name));

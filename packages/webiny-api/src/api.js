@@ -105,7 +105,7 @@ class Api {
 
     async init() {
         const { default: coreApp } = await import("./coreApp");
-        this.use(coreApp());
+        this.apps.unshift(coreApp());
 
         if (Object.keys(this.config).length === 0) {
             this.log(
