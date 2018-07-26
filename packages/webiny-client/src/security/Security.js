@@ -30,9 +30,14 @@ class Security {
                     }`;
                 });
 
-                return gql`{ me: getIdentity {
-                    ${fields.join("\n")}  
-                 } }`;
+                return gql`
+                    {
+                        Me {
+                          get {
+                            ${fields.join("\\n")}  
+                          }
+                        }   
+                    }`;
             },
             onLogout: () => {
                 // Override to do something
@@ -72,23 +77,16 @@ class Security {
             );
 
             // Attempt to login
-            const {
-                data: { me },
-                errors
-            } = await app.graphql.query({
+            const { data, errors } = await app.graphql.query({
                 query: strategyConfig.query,
                 variables: payload
             });
 
+            const me = _.get(data, "Security.Users.authenticate");
+
             if (errors) {
                 const { message, code, data } = errors[0];
                 return Promise.reject(new SecurityError(message, code, data));
-            }
-
-            // If token is not found in the response - resolve using the loaded data
-            // without triggering authentication (this is possible in cases like 2FactorAuth, etc.)
-            if (!me.token) {
-                return Promise.resolve(me);
             }
 
             // Set token cookie
@@ -129,7 +127,7 @@ class Security {
             return Promise.reject(new SecurityError(message, code, data));
         }
 
-        this.identity = data.me;
+        this.identity = data.Me.get;
         const { id, email } = this.identity;
         debug(`Loaded user %o with id %o`, email, id);
         this.callbacks.onIdentity.map(cb => cb(this.identity));

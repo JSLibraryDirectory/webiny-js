@@ -96,7 +96,7 @@ export default compose(
     withRouter(),
     withDataList({
         name: "PoliciesList",
-        entity: "SecurityPolicy",
+        type: "Security.Policies",
         fields: "id name description createdOn"
     }),
     inject({

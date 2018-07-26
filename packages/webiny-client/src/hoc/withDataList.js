@@ -2,13 +2,13 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { compose, lifecycle, withProps } from "recompose";
-import { loadList, deleteEntity } from "./../actions";
+import { loadList, deleteType } from "./../actions";
 import _ from "lodash";
 
 type WithDataListParams = {
     prop?: string,
     name: string,
-    entity: string,
+    type: string,
     fields: string,
     page?: number,
     perPage?: number,
@@ -108,7 +108,7 @@ export default (params: WithDataListParams) => {
                 const prop = getPropKey(params);
                 return {
                     [prop]: {
-                        data: _.get(state, `lists.${params.name}.data.list`, []),
+                        data: _.get(state, `lists.${params.name}.data.data`, []),
                         meta: _.get(state, `lists.${params.name}.data.meta`, {})
                     }
                 };
@@ -123,9 +123,9 @@ export default (params: WithDataListParams) => {
                     },
 
                     delete: id => {
-                        const { entity, fields, name } = params;
-                        deleteEntity({
-                            entity,
+                        const { type, fields, name } = params;
+                        deleteType({
+                            type,
                             fields,
                             name,
                             id,

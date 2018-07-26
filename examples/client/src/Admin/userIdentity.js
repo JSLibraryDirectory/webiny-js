@@ -21,6 +21,21 @@ export default {
         {
             strategy: "credentials",
             query: gql`
+                {
+                  Security {
+                    Users {
+                      authenticate(username: "admin@webiny.com", password:"12345678") {
+                         identity {
+                            ${identityFields}
+                        }
+                        token
+                        expiresOn
+                      }
+                    }
+                  }
+                }
+            `,
+            quer2y: gql`
                 query login($username: String!, $password: String!, $remember: Boolean) {
                     me: authenticateSecurityUser(
                         username: $username

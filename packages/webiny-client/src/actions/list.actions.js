@@ -1,6 +1,6 @@
 // @flow
 import { createAction } from "./../redux";
-import { listEntities } from ".";
+import { list } from ".";
 
 const PREFIX = "[LIST]";
 
@@ -26,11 +26,11 @@ const loadList = createAction(LIST_LOAD, {
     middleware({ action, next }) {
         next(action);
 
-        const { name, entity, fields, page, perPage, sort, search } = action.payload;
+        const { name, type, fields, page, perPage, sort, search } = action.payload;
         setListLoading({ name, loading: true });
 
-        listEntities({
-            entity,
+        list({
+            type,
             fields,
             page,
             perPage,

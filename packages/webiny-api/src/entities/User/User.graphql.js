@@ -1,18 +1,19 @@
 // @flow
-import { GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLID } from "graphql";
+import { GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLID, GraphQLList } from "graphql";
 import User from "./User.entity";
 import { crudFields, createField, schema } from "../../graphql";
 
 export const UserType = new GraphQLObjectType({
     name: "SecurityUser",
-    fields: {
+    fields: () => ({
         id: { type: GraphQLID },
         email: { type: GraphQLString },
         firstName: { type: GraphQLString },
         lastName: { type: GraphQLString },
         gravatar: { type: GraphQLString },
-        enabled: { type: GraphQLBoolean }
-    }
+        enabled: { type: GraphQLBoolean },
+        groups: { type: new GraphQLList(schema.getType("SecurityGroup")) }
+    })
 });
 
 export const UserQueryType = new GraphQLObjectType({

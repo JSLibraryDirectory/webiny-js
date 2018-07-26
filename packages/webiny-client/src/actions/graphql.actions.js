@@ -6,6 +6,7 @@ import GraphQLError from "./../graphql/Error";
 const generateApi = (promise, dataKey) => {
     return promise
         .then(({ data }) => {
+            console.log(data);
             return data[dataKey];
         })
         .catch(error => {
@@ -40,26 +41,18 @@ export const graphqlFinish = createAction(GRAPHQL_FINISH, {
 });
 
 export const graphqlQuery = createAction(GRAPHQL_QUERY, {
-    middleware({ action, next }) {
+    async middleware({ action, next }) {
         next(action);
 
         graphqlStart();
-        const { query, variables, methodName, onSuccess, onError } = action.payload;
-        generateApi(app.graphql.query({ query, variables }), methodName)
-            .then(data => {
-                graphqlFinish();
-                graphqlSuccess(data);
-                if (onSuccess) {
-                    onSuccess({ data });
-                }
-            })
-            .catch(error => {
-                graphqlFinish();
-                graphqlError(error);
-                if (onError) {
-                    onError({ error });
-                }
-            });
+        const { query, variables, onSuccess } = action.payload;
+        const response = await app.graphql.query({ query, variables });
+
+        graphqlFinish();
+        graphqlSuccess(response);
+        if (onSuccess) {
+            onSuccess(response);
+        }
     }
 });
 

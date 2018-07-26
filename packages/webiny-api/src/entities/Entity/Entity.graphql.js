@@ -1,5 +1,5 @@
 // @flow
-import { GraphQLObjectType, GraphQLString, GraphQLList } from "graphql";
+import { GraphQLObjectType, GraphQLString, GraphQLList, GraphQLID } from "graphql";
 import GraphQLJSON from "graphql-type-json";
 import { Group, Policy } from "./Entity";
 import { crudFields, createField, schema } from "../../graphql";
@@ -8,7 +8,9 @@ import { crudFields, createField, schema } from "../../graphql";
 export const PolicyType = new GraphQLObjectType({
     name: "SecurityPolicy",
     fields: {
+        id: { type: GraphQLID },
         name: { type: GraphQLString },
+        createdOn: { type: GraphQLString },
         slug: { type: GraphQLString },
         description: { type: GraphQLString },
         permissions: { type: GraphQLJSON }
