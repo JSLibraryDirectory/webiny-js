@@ -19,9 +19,6 @@ export class Schema {
     }
 
     getType(type: string) {
-        if (!this.types[type]) {
-            throw Error(`Type not found: ${type}`);
-        }
         return this.types[type];
     }
 
@@ -30,9 +27,6 @@ export class Schema {
     }
 
     getQueryField(field: string) {
-        if (!this.query[field]) {
-            throw Error(`Query not found: ${field}`);
-        }
         return this.query[field];
     }
 

@@ -1,4 +1,5 @@
 // @flow
+import get from "lodash/get";
 import { SecurityService } from "./services";
 import { registerEntity, Entity } from "./entities";
 import { schema } from "./graphql";
@@ -132,17 +133,19 @@ export default () => {
                 await security.init();
             }
 
-            schema.addType(FileType);
-            schema.addType(FileQueryType);
-            schema.addType(ImageType);
-            schema.addType(ImageQueryType);
-            schema.addQueryField(FileQueryField());
-            schema.addQueryField(ImageQueryField());
+            if (get(api.config, "graphql.defaultFields", true) !== false) {
+                schema.addType(FileType);
+                schema.addType(FileQueryType);
+                schema.addType(ImageType);
+                schema.addType(ImageQueryType);
+                schema.addQueryField(FileQueryField());
+                schema.addQueryField(ImageQueryField());
 
-            createSecurityField(schema);
-            createIdentityQuery(api, api.config, schema);
-            createLoginQueries(api, api.config, schema);
-            createSystemQuery(api, api.config, schema);
+                createSecurityField(schema);
+                createIdentityQuery(api, api.config, schema);
+                createLoginQueries(api, api.config, schema);
+                createSystemQuery(api, api.config, schema);
+            }
 
             registerEntity(ApiToken);
             registerEntity(File);
