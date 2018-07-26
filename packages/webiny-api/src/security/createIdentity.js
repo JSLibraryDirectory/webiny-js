@@ -5,7 +5,8 @@ import { Identity } from "./../entities";
 type IdentityOptions = {
     strategy?: Object,
     expiresOn?: Function,
-    field?: string
+    field?: string,
+    type: string
 };
 
 export default (entity: Identity, options: IdentityOptions = {}) => {

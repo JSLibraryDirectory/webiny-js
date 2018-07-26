@@ -2,8 +2,9 @@
 import { GraphQLObjectType, GraphQLString, GraphQLList } from "graphql";
 import GraphQLJSON from "graphql-type-json";
 import { Group, Policy } from "./Entity";
-import { crudFields, createField } from "../../graphql";
+import { crudFields, createField, schema } from "../../graphql";
 
+//  Policy graphql types and fields
 export const PolicyType = new GraphQLObjectType({
     name: "SecurityPolicy",
     fields: {
@@ -14,13 +15,14 @@ export const PolicyType = new GraphQLObjectType({
     }
 });
 
-const PolicyQueryType = new GraphQLObjectType({
+export const PolicyQueryType = new GraphQLObjectType({
     name: "SecurityPolicies",
-    fields: crudFields(Policy, PolicyType)
+    fields: () => crudFields(Policy, schema.getType(PolicyType.name))
 });
 
-export const PolicyQueryField = createField({ type: PolicyQueryType });
+export const PolicyQueryField = () => createField(schema.getType(PolicyQueryType.name));
 
+//  Group graphql types and fields
 export const GroupType = new GraphQLObjectType({
     name: "SecurityGroup",
     fields: {
@@ -31,9 +33,9 @@ export const GroupType = new GraphQLObjectType({
     }
 });
 
-const GroupQueryType = new GraphQLObjectType({
+export const GroupQueryType = new GraphQLObjectType({
     name: "SecurityGroups",
-    fields: crudFields(Group, GroupType)
+    fields: () => crudFields(Group, schema.getType(GroupType.name))
 });
 
-export const GroupQueryField = createField({ type: GroupQueryType });
+export const GroupQueryField = () => createField(schema.getType(GroupQueryType.name));

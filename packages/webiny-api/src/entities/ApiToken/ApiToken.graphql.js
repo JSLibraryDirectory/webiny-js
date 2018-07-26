@@ -4,7 +4,7 @@ import GraphQLJSON from "graphql-type-json";
 import ApiToken from "./ApiToken.entity";
 import { ModelError } from "webiny-model";
 import InvalidAttributesError from "./../../graphql/fields/crud/InvalidAttributesError";
-import { crudFields, createField } from "../../graphql";
+import { crudFields, createField, schema } from "../../graphql";
 
 export const ApiTokenType = new GraphQLObjectType({
     name: ApiToken.classId,
@@ -15,10 +15,10 @@ export const ApiTokenType = new GraphQLObjectType({
     })
 });
 
-const ApiTokenQueryType = new GraphQLObjectType({
+export const ApiTokenQueryType = new GraphQLObjectType({
     name: "SecurityApiTokens",
-    fields: {
-        ...crudFields(ApiToken, ApiTokenType),
+    fields: () => ({
+        ...crudFields(ApiToken, schema.getType(ApiTokenType.name)),
         create: {
             description: `Create a single ${ApiToken.classId} entity.`,
             type: ApiTokenType,
@@ -40,7 +40,7 @@ const ApiTokenQueryType = new GraphQLObjectType({
                 return entity;
             }
         }
-    }
+    })
 });
 
-export const ApiTokenQueryField = createField({ type: ApiTokenQueryType });
+export const ApiTokenQueryField = () => createField(schema.getType(ApiTokenQueryType.name));

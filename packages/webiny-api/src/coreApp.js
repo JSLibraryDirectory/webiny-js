@@ -1,4 +1,5 @@
 // @flow
+import get from "lodash/get";
 import { SecurityService } from "./services";
 import { registerEntity, Entity } from "./entities";
 import { schema } from "./graphql";
@@ -11,9 +12,9 @@ import createSecurityField from "./security/graphql/createSecurityField";
 import { Group, Groups2Entities, Policies2Entities, Policy } from "./entities/Entity/Entity";
 import ApiToken from "./entities/ApiToken/ApiToken.entity";
 import File from "./entities/File/File.entity";
-import { FileType, FileQueryField } from "./entities/File/File.graphql";
+import { FileType, FileQueryType, FileQueryField } from "./entities/File/File.graphql";
 import Image from "./entities/Image/Image.entity";
-import { ImageType, ImageQueryField } from "./entities/Image/Image.graphql";
+import { ImageType, ImageQueryType, ImageQueryField } from "./entities/Image/Image.graphql";
 import User from "./entities/User/User.entity";
 
 // Attributes registration functions
@@ -132,15 +133,19 @@ export default () => {
                 await security.init();
             }
 
-            schema.addType(FileType);
-            schema.addType(ImageType);
-            schema.addQueryField(FileQueryField);
-            schema.addQueryField(ImageQueryField);
+            if (get(api.config, "graphql.defaultFields", true) !== false) {
+                schema.addType(FileType);
+                schema.addType(FileQueryType);
+                schema.addType(ImageType);
+                schema.addType(ImageQueryType);
+                schema.addQueryField(FileQueryField());
+                schema.addQueryField(ImageQueryField());
 
-            createSecurityField(schema);
-            createIdentityQuery(api, api.config, schema);
-            createLoginQueries(api, api.config, schema);
-            createSystemQuery(api, api.config, schema);
+                createSecurityField(schema);
+                createIdentityQuery(api, api.config, schema);
+                createLoginQueries(api, api.config, schema);
+                createSystemQuery(api, api.config, schema);
+            }
 
             registerEntity(ApiToken);
             registerEntity(File);
