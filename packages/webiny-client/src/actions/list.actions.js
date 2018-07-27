@@ -1,6 +1,6 @@
 // @flow
 import { createAction } from "./../redux";
-import { list } from ".";
+import { typeList } from ".";
 
 const PREFIX = "[LIST]";
 
@@ -29,7 +29,7 @@ const loadList = createAction(LIST_LOAD, {
         const { name, type, fields, page, perPage, sort, search } = action.payload;
         setListLoading({ name, loading: true });
 
-        list({
+        typeList({
             type,
             fields,
             page,

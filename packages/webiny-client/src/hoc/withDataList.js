@@ -2,7 +2,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { compose, lifecycle, withProps } from "recompose";
-import { loadList, deleteType } from "./../actions";
+import { loadList, typeDelete } from "./../actions";
 import _ from "lodash";
 
 type WithDataListParams = {
@@ -124,7 +124,7 @@ export default (params: WithDataListParams) => {
 
                     delete: id => {
                         const { type, fields, name } = params;
-                        deleteType({
+                        typeDelete({
                             type,
                             fields,
                             name,

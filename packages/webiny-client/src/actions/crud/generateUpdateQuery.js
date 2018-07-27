@@ -3,12 +3,12 @@ import gql from "graphql-tag";
 import _ from "lodash";
 
 type UpdateParams = {
-    entity: string,
+    type: string,
     fields: string
 };
 
 const generateUpdateQuery = (params: UpdateParams) => {
-    const methodName = "update" + params.entity;
+    const methodName = "update" + params.type;
 
     const mutation = gql`
        mutation ${_.upperFirst(methodName)}($id: String!, $data: JSON!) {

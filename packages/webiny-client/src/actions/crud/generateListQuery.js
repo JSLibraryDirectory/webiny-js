@@ -1,6 +1,6 @@
 // @flow
 import gql from "graphql-tag";
-import pluralize from "pluralize";
+import _ from "lodash";
 
 type ListQueryParams = {
     type: string,
@@ -8,39 +8,35 @@ type ListQueryParams = {
 };
 
 const generateListQuery = (params: ListQueryParams) => {
-    console.log(params);
-    const methodName = "list" + pluralize.plural(params.type);
-
-    const query = gql`
-            query listBajas($filter: JSON, $sort: JSON, $page: Int, $perPage: Int, $search: SearchInput) {
-                Security {
-                  Policies {
-                      list(filter: $filter, sort: $sort, page: $page, perPage: $perPage, search: $search) {
-                        data {
-                            ${params.fields}
-                        }
-                        meta {
-                            count
-                            totalCount
-                            from
-                            to
-                            page
-                            totalPages
-                            perPage
-                            nextPage
-                            previousPage
-                        }
-                    }
-                  }  
-                }
-                
+    let query = `
+        list(filter: $filter, sort: $sort, page: $page, perPage: $perPage, search: $search) {
+            data {
+                ${params.fields}
             }
-        `;
+            meta {
+                count
+                totalCount
+                from
+                to
+                page
+                totalPages
+                perPage
+                nextPage
+                previousPage
+            }
+        }
+    `;
 
-    return {
-        methodName,
-        query
-    };
+    query = JSON.stringify(_.set({}, params.type, " { {fields} }"))
+        .replace(/"/g, " ")
+        .replace(/:/g, " ")
+        .replace("{fields}", query);
+
+    query = `query typeList($filter: JSON, $sort: JSON, $page: Int, $perPage: Int, $search: SearchInput) ${query}`;
+
+    return gql`
+        ${query}
+    `;
 };
 
 export default generateListQuery;

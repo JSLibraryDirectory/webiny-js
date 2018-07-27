@@ -3,7 +3,7 @@ import { createAction } from "./../redux";
 import { graphqlQuery, graphqlMutation } from ".";
 import {
     generateListQuery,
-    generateFindOneQuery,
+    generateOneQuery,
     generateUpdateQuery,
     generateCreateQuery,
     generateDeleteQuery
@@ -13,14 +13,14 @@ import _ from "lodash";
 
 const PREFIX = "[CRUD]";
 
-export const CRUD_LIST = `${PREFIX} List`;
-export const CRUD_FIND = `${PREFIX} Find`;
-export const CRUD_SAVE = `${PREFIX} Save`;
-export const CRUD_CREATE = `${PREFIX} Create`;
-export const CRUD_UPDATE = `${PREFIX} Update`;
-export const CRUD_DELETE = `${PREFIX} Delete`;
+export const TYPE_LIST = `${PREFIX} List`;
+export const TYPE_ONE = `${PREFIX} Find`;
+export const TYPE_SAVE = `${PREFIX} Save`;
+export const TYPE_CREATE = `${PREFIX} Create`;
+export const TYPE_UPDATE = `${PREFIX} Update`;
+export const TYPE_DELETE = `${PREFIX} Delete`;
 
-const list = createAction(CRUD_LIST, {
+const typeList = createAction(TYPE_LIST, {
     middleware({ action, next }) {
         next(action);
 
@@ -36,15 +36,14 @@ const list = createAction(CRUD_LIST, {
             onError
         } = action.payload;
 
-        const generatedQuery = generateListQuery({ type, fields });
+        const query = generateListQuery({ type, fields });
 
         graphqlQuery({
-            ...generatedQuery,
+            query,
             variables: { page, perPage, sort, filter, search },
             onSuccess: response => {
                 const data = _.get(response, ["data", type, "list"].join("."));
                 if (typeof onSuccess === "function") {
-                    console.log('saljem data', data);
                     onSuccess(data);
                 }
             },
@@ -57,12 +56,12 @@ const list = createAction(CRUD_LIST, {
     }
 });
 
-const findOneCrud = createAction(CRUD_FIND, {
+const typeOne = createAction(TYPE_ONE, {
     middleware({ action, next }) {
         next(action);
 
-        const { crud, fields, variables, onSuccess, onError } = action.payload;
-        const generatedQuery = generateFindOneQuery({ crud, fields });
+        const { type, fields, variables, onSuccess, onError } = action.payload;
+        const generatedQuery = generateOneQuery({ type, fields });
         graphqlQuery({
             ...generatedQuery,
             variables,
@@ -80,22 +79,22 @@ const findOneCrud = createAction(CRUD_FIND, {
     }
 });
 
-const saveCrud = createAction(CRUD_SAVE, {
+const typeSave = createAction(TYPE_SAVE, {
     middleware({ action, next }) {
         next(action);
         if (action.payload.data.id) {
-            updateCrud(action.payload);
+            typeUpdate(action.payload);
         } else {
-            createCrud(action.payload);
+            typeCreate(action.payload);
         }
     }
 });
 
-const createCrud = createAction(CRUD_CREATE, {
+const typeCreate = createAction(TYPE_CREATE, {
     middleware({ action, next }) {
         next(action);
-        const { crud, fields, onSuccess, onError, data } = action.payload;
-        const generatedQuery = generateCreateQuery({ crud, fields });
+        const { type, fields, onSuccess, onError, data } = action.payload;
+        const generatedQuery = generateCreateQuery({ type, fields });
 
         graphqlMutation({
             ...generatedQuery,
@@ -114,11 +113,11 @@ const createCrud = createAction(CRUD_CREATE, {
     }
 });
 
-const updateCrud = createAction(CRUD_UPDATE, {
+const typeUpdate = createAction(TYPE_UPDATE, {
     middleware({ action, next }) {
         next(action);
-        const { crud, fields, onSuccess, onError, data } = action.payload;
-        const generatedQuery = generateUpdateQuery({ crud, fields });
+        const { type, fields, onSuccess, onError, data } = action.payload;
+        const generatedQuery = generateUpdateQuery({ type, fields });
 
         graphqlMutation({
             ...generatedQuery,
@@ -137,14 +136,14 @@ const updateCrud = createAction(CRUD_UPDATE, {
     }
 });
 
-const deleteCrud = createAction(CRUD_DELETE, {
+const typeDelete = createAction(TYPE_DELETE, {
     middleware({ action, next }) {
         next(action);
-        const { crud, fields, onSuccess, onError, id } = action.payload;
-        const generatedQuery = generateDeleteQuery({ crud, fields });
+        const { type, fields, onSuccess, onError, id } = action.payload;
+        const query = generateDeleteQuery({ type, fields });
 
-        graphqlMutation({
-            ...generatedQuery,
+        graphqlQuery({
+            query,
             variables: { id },
             onSuccess: data => {
                 if (typeof onSuccess === "function") {
@@ -160,4 +159,4 @@ const deleteCrud = createAction(CRUD_DELETE, {
     }
 });
 
-export { list, findOneCrud, createCrud, updateCrud, saveCrud, deleteCrud };
+export { typeList, typeOne, typeCreate, typeUpdate, typeSave, typeDelete };

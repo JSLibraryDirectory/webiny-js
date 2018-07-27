@@ -3,11 +3,11 @@ import gql from "graphql-tag";
 import _ from "lodash";
 
 type FindOneParams = {
-    entity: string,
+    type: string,
     fields: string
 };
 const generateListQuery = (params: FindOneParams) => {
-    const methodName = "get" + params.entity;
+    const methodName = "get" + params.type;
     const query = gql`
         query ${_.upperFirst(methodName)}($id: String!) {
             ${methodName}(id: $id) {

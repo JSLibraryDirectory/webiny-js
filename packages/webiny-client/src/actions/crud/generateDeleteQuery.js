@@ -3,22 +3,21 @@ import gql from "graphql-tag";
 import _ from "lodash";
 
 type DeleteParams = {
-    entity: string,
+    type: string,
     fields: string
 };
 
 const generateListQuery = (params: DeleteParams) => {
-    const methodName = "delete" + params.entity;
-    const mutation = gql`
-           mutation ${_.upperFirst(methodName)}($id: String!) {
-            ${methodName}(id: $id)
-        }
-    `;
+    let query = JSON.stringify(_.set({}, params.type, " { {fields} }"))
+        .replace(/"/g, " ")
+        .replace(/:/g, " ")
+        .replace("{fields}", `delete(id: $id)`);
 
-    return {
-        methodName,
-        mutation
-    };
+    query = `query deleteType ($id: String!) ${query}`;
+
+    return gql`
+        ${query}
+    `;
 };
 
 export default generateListQuery;
