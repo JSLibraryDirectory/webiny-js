@@ -12,5 +12,5 @@ when validating forms which span across two or more tabs.
 
 ### Import
 ```js
-import Tabs from "webiny-client-ui-material/Tabs";
+import { Tabs, Tab, TabIcon } from "webiny-client-ui-material/Tabs";
 ```
