@@ -8,8 +8,6 @@ import { withKnobs, boolean, text, object, array } from "@storybook/addon-knobs"
 // $FlowFixMe
 import { DataList, PropsType } from "./DataList";
 
-import baselineDelete from "./icons/baseline-delete-24px.svg";
-import baselineEdit from "./icons/baseline-edit-24px.svg";
 import { DeleteIcon, EditIcon } from "./icons";
 import { List } from "./../List";
 
@@ -134,13 +132,11 @@ story.add("data list", () => {
                                         </List.Item.Text>
                                         <List.Item.Meta>
                                             <DeleteIcon
-                                                src={baselineEdit}
                                                 onClick={() => {
                                                     console.log("Redirect user to form.");
                                                 }}
                                             />
                                             <EditIcon
-                                                src={baselineDelete}
                                                 onClick={() => {
                                                     console.log("Show confirmation dialog.");
                                                 }}
@@ -181,13 +177,11 @@ story.add("data list", () => {
                                         </List.Item.Text>
                                         <List.Item.Meta>
                                                 <DeleteIcon
-                                                    src={baselineEdit}
                                                     onClick={() => {
                                                         console.log("Redirect user to form.");
                                                     }}
                                                 />
                                                 <EditIcon
-                                                    src={baselineDelete}
                                                     onClick={() => {
                                                         console.log("Show confirmation dialog.");
                                                     }}
