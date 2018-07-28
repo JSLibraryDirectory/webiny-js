@@ -45,7 +45,7 @@ class ConfirmationDialog extends React.Component<Props, State> {
     render() {
         return (
             <React.Fragment>
-                <Dialog open={this.state.show}>
+                <Dialog open={this.state.show} onClose={this.hideConfirmation}>
                     <Dialog.Header>
                         <Dialog.Header.Title>{this.props.title}</Dialog.Header.Title>
                     </Dialog.Header>
@@ -56,7 +56,6 @@ class ConfirmationDialog extends React.Component<Props, State> {
                                 const { onCancel } = this.callbacks;
                                 if (typeof onCancel === "function") {
                                     await onCancel();
-                                    this.hideConfirmation();
                                 }
                             }}
                         >
@@ -68,7 +67,6 @@ class ConfirmationDialog extends React.Component<Props, State> {
                                 const { onAccept } = this.callbacks;
                                 if (typeof onAccept === "function") {
                                     await onAccept();
-                                    this.hideConfirmation();
                                 }
                             }}
                         >
