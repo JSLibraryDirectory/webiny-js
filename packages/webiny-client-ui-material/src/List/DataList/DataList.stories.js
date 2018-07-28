@@ -2,13 +2,15 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import Story from "webiny-storybook-utils/Story";
-import { Ripple } from "webiny-client-ui-material/Ripple";
-import { Icon } from "webiny-client-ui-material/Icon";
 import readme from "./../DataList/README.md";
 import { withKnobs, boolean, text, object, array } from "@storybook/addon-knobs";
 
 // $FlowFixMe
 import { DataList, PropsType } from "./DataList";
+
+import baselineDelete from "./icons/baseline-delete-24px.svg";
+import baselineEdit from "./icons/baseline-edit-24px.svg";
+import { DeleteIcon, EditIcon } from "./icons";
 import { List } from "./../List";
 
 const story = storiesOf("Components/List", module);
@@ -42,19 +44,25 @@ story.add("data list", () => {
                 id: "A",
                 firstName: "John",
                 lastName: "Doe",
-                email: "john.doe@webiny.com"
+                email: "john.doe@webiny.com",
+                gravatar:
+                    "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
             },
             {
                 id: "B",
                 firstName: "Jane",
                 lastName: "Doe",
-                email: "jane.doe@webiny.com"
+                email: "jane.doe@webiny.com",
+                gravatar:
+                    "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=identicon&f=y"
             },
             {
                 id: "C",
                 firstName: "Foo",
                 lastName: "Bar",
-                email: "foo.bar@webiny.com"
+                email: "foo.bar@webiny.com",
+                gravatar:
+                    "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=retro&f=y"
             }
         ],
         "Data"
@@ -104,14 +112,55 @@ story.add("data list", () => {
             <Story.Props>{PropsType}</Story.Props>
 
             <Story.Sandbox>
-                <DataList
-                    {...generalOptionsAndCallbacks}
-                    data={dataProp}
-                    meta={metaProp}
-                    sorters={sortersProp.list}
-                >
-                    {({ data }) => {
-                        return (
+                <Story.Sandbox.Example>
+                    <DataList
+                        {...generalOptionsAndCallbacks}
+                        data={dataProp}
+                        meta={metaProp}
+                        sorters={sortersProp.list}
+                    >
+                        {({ data }) => (
+                            <List>
+                                {data.map(item => (
+                                    <List.Item key={item.id}>
+                                        <List.Item.Graphic>
+                                            <img src={item.gravatar} />
+                                        </List.Item.Graphic>
+                                        <List.Item.Text>
+                                            {item.firstName} {item.lastName}
+                                            <List.Item.Text.Secondary>
+                                                {item.email}
+                                            </List.Item.Text.Secondary>
+                                        </List.Item.Text>
+                                        <List.Item.Meta>
+                                            <DeleteIcon
+                                                src={baselineEdit}
+                                                onClick={() => {
+                                                    console.log("Redirect user to form.");
+                                                }}
+                                            />
+                                            <EditIcon
+                                                src={baselineDelete}
+                                                onClick={() => {
+                                                    console.log("Show confirmation dialog.");
+                                                }}
+                                            />
+                                        </List.Item.Meta>
+                                    </List.Item>
+                                ))}
+                            </List>
+                        )}
+                    </DataList>
+                </Story.Sandbox.Example>
+                <Story.Sandbox.Code>
+                    {`
+                        <DataList
+                        {...generalOptionsAndCallbacks}
+                        data={${JSON.stringify(dataProp, null, 2)}}
+                        meta={${JSON.stringify(metaProp, null, 2)}}
+                        sorters={${JSON.stringify(sortersProp.list, null, 2)}}
+                    >
+                      {({ data }) => (
                             <List>
                                 {data.map(item => (
                                     <List.Item key={item.id}>
@@ -131,28 +180,26 @@ story.add("data list", () => {
                                             </List.Item.Text.Secondary>
                                         </List.Item.Text>
                                         <List.Item.Meta>
-                                            <Ripple unbounded>
-                                                {/*<List.Icon>*/}
-                                                <Icon
-                                                    name="edit"
+                                                <DeleteIcon
+                                                    src={baselineEdit}
                                                     onClick={() => {
                                                         console.log("Redirect user to form.");
                                                     }}
                                                 />
-                                                {/*</List.Icon>*/}
-                                            </Ripple>
-                                            <Ripple unbounded>
-                                                {/*<List.Icon>*/}
-                                                <Icon name={"times-circle"} />
-                                                {/*</List.Icon>*/}
-                                            </Ripple>
+                                                <EditIcon
+                                                    src={baselineDelete}
+                                                    onClick={() => {
+                                                        console.log("Show confirmation dialog.");
+                                                    }}
+                                                />
                                         </List.Item.Meta>
                                     </List.Item>
                                 ))}
                             </List>
-                        );
-                    }}
-                </DataList>
+                        )}
+                    </DataList>
+                    `}
+                </Story.Sandbox.Code>
             </Story.Sandbox>
         </Story>
     );
