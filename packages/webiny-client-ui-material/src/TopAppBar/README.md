@@ -8,5 +8,10 @@ Use `TopAppBar` component to display title, navigation or additional actions for
 
 ### Import
 ```js
-import TopAppBar from "webiny-client-ui-material/TopAppBar";
+import {
+    TopAppBar,
+    TopAppBarSection,
+    TopAppBarActionItem,
+    TopAppBarTitle
+} from "webiny-client-ui-material/TopAppBar";
 ```
