@@ -7,19 +7,22 @@ type FindOneParams = {
     fields: string
 };
 const generateListQuery = (params: FindOneParams) => {
-    const methodName = "get" + params.type;
-    const query = gql`
-        query ${_.upperFirst(methodName)}($id: String!) {
-            ${methodName}(id: $id) {
-                ${params.fields}
-            }
+    let query = `
+        one(id: $id) {
+            ${params.fields}
         }
     `;
 
-    return {
-        methodName,
-        query
-    };
+    query = JSON.stringify(_.set({}, params.type, " { {fields} }"))
+        .replace(/"/g, " ")
+        .replace(/:/g, " ")
+        .replace("{fields}", query);
+
+    query = `query one($id: String!) ${query}`;
+    console.log(query);
+    return gql`
+        ${query}
+    `;
 };
 
 export default generateListQuery;

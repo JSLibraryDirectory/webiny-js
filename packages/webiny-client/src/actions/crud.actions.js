@@ -61,13 +61,14 @@ const typeOne = createAction(TYPE_ONE, {
         next(action);
 
         const { type, fields, variables, onSuccess, onError } = action.payload;
-        const generatedQuery = generateOneQuery({ type, fields });
+        const query = generateOneQuery({ type, fields });
         graphqlQuery({
-            ...generatedQuery,
+            query,
             variables,
-            onSuccess: data => {
+            onSuccess: response => {
+                const data = _.get(response, ["data", type, "one"].join("."));
                 if (typeof onSuccess === "function") {
-                    onSuccess({ ...data.data });
+                    onSuccess(data);
                 }
             },
             onError: error => {

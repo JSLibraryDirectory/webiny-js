@@ -1,6 +1,6 @@
 // @flow
 import { createAction } from "./../redux";
-import { findOneEntity, saveEntity } from ".";
+import { typeOne, typeSave } from ".";
 
 const PREFIX = "[FORM]";
 
@@ -36,10 +36,10 @@ const resetForm = createAction(FORM_RESET, {
 const loadForm = createAction(FORM_LOAD, {
     middleware({ action, next }) {
         next(action);
-        const { name, entity, fields, id } = action.payload;
+        const { name, type, fields, id } = action.payload;
         setFormLoading({ name, loading: true });
-        findOneEntity({
-            entity,
+        typeOne({
+            type,
             fields,
             variables: { id },
             onSuccess: data => {
@@ -82,7 +82,7 @@ const submitForm = createAction(FORM_SUBMIT, {
         const { name } = action.payload;
         setFormLoading({ name, loading: true });
 
-        saveEntity({
+        typeSave({
             ...action.payload,
             onSuccess: data => {
                 submitFormSuccess({ data, name });
