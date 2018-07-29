@@ -122,16 +122,18 @@ export default (params: WithDataListParams) => {
                         loadList(preparedParams);
                     },
 
-                    delete: id => {
+                    delete: (id, options = {}) => {
                         const { type, fields, name } = params;
                         typeDelete({
                             type,
                             fields,
                             name,
                             id,
-                            onSuccess: () => {
-                                props[prop].refresh();
-                            }
+                            onSuccess:
+                                options.onSuccess ||
+                                (() => {
+                                    props[prop].refresh();
+                                })
                         });
                     },
 
