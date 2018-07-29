@@ -1,255 +1,121 @@
 // @flow
-import React from "react";
-import { app, i18n, inject } from "webiny-client";
-import compose from "recompose/compose";
-import { connect } from "react-redux";
+import * as React from "react";
+import { i18n, inject } from "webiny-client";
+import { withForm, withRouter } from "webiny-client/hoc";
+import { compose } from "recompose";
+
+import { Elevation } from "webiny-client-ui-material/Elevation";
+import { Tabs, Tab } from "webiny-client-ui-material/Tabs";
+import { Grid, Cell } from "webiny-client-ui-material/Grid";
+import { Input } from "webiny-client-ui-material/Input";
+import { ButtonPrimary, ButtonSecondary } from "webiny-client-ui-material/Button";
 
 const t = i18n.namespace("Security.ApiTokensForm");
 
 class ApiTokensForm extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            searchQuery: {}
-        };
-    }
-
-    componentDidMount() {
-        if (!this.props.data) {
-            loadApiToken({});
-        }
-    }
-
     render() {
-        const {
-            modules: {
-                Alert,
-                AdminLayout,
-                Form,
-                FormData,
-                FormError,
-                OptionsData,
-                Section,
-                View,
-                Grid,
-                Input,
-                Button,
-                Textarea,
-                Loader,
-                AutoCompleteList,
-                Copy
-            }
-        } = this.props;
+        const { AdminLayout, Form } = this.props.modules;
 
-        const onSubmitSuccess = app.router.getParams().id ? "ApiTokens.List" : null;
+        const { SecurityApiTokenForm, router } = this.props;
 
         return (
             <AdminLayout>
-                <FormData
-                    entity="SecurityApiToken"
-                    withRouter
-                    fields="id name token description groups { id name } policies { id name }"
-                    onSubmitSuccess={onSubmitSuccess}
-                    onCancel="ApiTokens.List"
-                    defaultModel={{ groups: [], policies: [] }}
-                >
-                    {({ model, onSubmit, loading, invalidFields, error }) => (
-                        <Form
-                            model={model}
-                            onSubmit={model =>
-                                submitEntityForm({ entity: "SecurityApiToken", data: model, onSuccess })
-                            }
-                            invalidFields={invalidFields}
-                        >
-                            {({ model, form, Bind }) => {
-                                return (
-                                    <View.Form>
-                                        <View.Header
-                                            title={
-                                                model.id
-                                                    ? t`Security - Edit API Token`
-                                                    : t`Security - Create API Token`
-                                            }
-                                        />
-                                        {error && (
-                                            <View.Error>
-                                                <FormError error={error} />
-                                            </View.Error>
-                                        )}
-                                        <View.Body>
-                                            {model.id && (
-                                                <Alert type="info" title={t`Success`}>
-                                                    {t`To disable API token, you must delete it.`}
-                                                </Alert>
-                                            )}
+                <Grid>
+                    <Cell span={12}>
+                        {/* TODO: styles must not be set inline. "position: relative" is here because of the loader. */}
+                        <Elevation z={1} style={{ background: "white", position: "relative" }}>
+                            <Form
+                                {...SecurityApiTokenForm}
+                                onSubmit={data => {
+                                    SecurityApiTokenForm.submit({ data });
+                                }}
+                            >
+                                {({ form, Bind }) => {
+                                    return (
+                                        <React.Fragment>
+                                            <Grid>
+                                                <Cell span={6}>
+                                                    <Bind name="name" validators={["required"]}>
+                                                        <Input fullWidth label={t`Name`} />
+                                                    </Bind>
+                                                </Cell>
+                                            </Grid>
+                                            <Grid>
+                                                <Cell span={12}>
+                                                    <Bind
+                                                        name="description"
+                                                        validators={["required"]}
+                                                    >
+                                                        <Input rows={4} fullWidth label={t`Description`} />
+                                                    </Bind>
+                                                </Cell>
+                                            </Grid>
 
-                                            {loading && <Loader />}
-                                            <Grid.Row>
-                                                <Grid.Col all={6}>
-                                                    <Section title={t`Info`} />
-                                                    <Grid.Row>
-                                                        <Grid.Col all={12}>
-                                                            <Bind
-                                                                name="name"
-                                                                validators={["required"]}
-                                                            >
-                                                                <Input label={t`Name`} />
-                                                            </Bind>
-                                                        </Grid.Col>
-                                                    </Grid.Row>
-                                                    <Grid.Row>
-                                                        <Grid.Col all={12}>
-                                                            <Bind name="description">
-                                                                <Textarea
-                                                                    label={t`Short description`}
-                                                                />
-                                                            </Bind>
-                                                        </Grid.Col>
-                                                    </Grid.Row>
-                                                </Grid.Col>
-
-                                                <Grid.Col all={6}>
-                                                    <Section title={t`Roles and policies`} />
-                                                    <Grid.Row>
-                                                        <Grid.Col all={12}>
-                                                            <Grid.Row>
-                                                                <Grid.Col all={12}>
-                                                                    <OptionsData
-                                                                        entity="SecurityGroup"
-                                                                        fields="id name"
-                                                                        labelField="name"
-                                                                        perPage={10}
-                                                                        search={{
-                                                                            fields: ["name"],
-                                                                            query: this.state
-                                                                                .searchQuery.group
-                                                                        }}
-                                                                    >
-                                                                        {({ options }) => (
-                                                                            <Bind name="groups">
-                                                                                <AutoCompleteList
-                                                                                    options={
-                                                                                        options
-                                                                                    }
-                                                                                    label={t`Groups`}
-                                                                                    onSearch={query => {
-                                                                                        this.setState(
-                                                                                            state => {
-                                                                                                state.searchQuery.group = query;
-                                                                                                return state;
-                                                                                            }
-                                                                                        );
-                                                                                    }}
-                                                                                />
-                                                                            </Bind>
-                                                                        )}
-                                                                    </OptionsData>
-                                                                </Grid.Col>
-                                                            </Grid.Row>
-                                                        </Grid.Col>
-                                                    </Grid.Row>
-
-                                                    <Grid.Row>
-                                                        <Grid.Col all={12}>
-                                                            <OptionsData
-                                                                entity="SecurityPolicy"
-                                                                fields="id name"
-                                                                labelField="name"
-                                                                perPage={10}
-                                                                search={{
-                                                                    fields: ["name"],
-                                                                    query: this.state.searchQuery
-                                                                        .policy
-                                                                }}
-                                                            >
-                                                                {({ options }) => (
-                                                                    <Bind name="policies">
-                                                                        <AutoCompleteList
-                                                                            options={options}
-                                                                            label={t`Policies`}
-                                                                            onSearch={query => {
-                                                                                this.setState(
-                                                                                    state => {
-                                                                                        state.searchQuery.policy = query;
-                                                                                        return state;
-                                                                                    }
-                                                                                );
-                                                                            }}
-                                                                        />
-                                                                    </Bind>
-                                                                )}
-                                                            </OptionsData>
-                                                        </Grid.Col>
-                                                    </Grid.Row>
-                                                </Grid.Col>
-                                            </Grid.Row>
-
-                                            <Grid.Row>
-                                                <Grid.Col all={12}>
-                                                    <Section title={t`API Token`} />
+                                            <Grid>
+                                                <Cell span={12}>
                                                     <Bind name="token">
-                                                        <Copy.Input
+                                                        <Input
+                                                            rows={5}
+                                                            fullWidth
                                                             label={t`Token`}
                                                             placeholder={t`To receive a token, you must save it first.`}
                                                             disabled
                                                             description={t`Sent via "Authorization" header. Generated automatically and cannot be changed.`}
                                                         />
                                                     </Bind>
-                                                </Grid.Col>
-                                            </Grid.Row>
-                                        </View.Body>
-                                        <View.Footer>
-                                            <Button
-                                                type="default"
-                                                onClick={() =>
-                                                    app.router.goToRoute("ApiTokens.List")
-                                                }
-                                                label={t`Go back`}
-                                            />
-                                            <Button
-                                                type="primary"
-                                                onClick={form.submit}
-                                                label={t`Save API Token`}
-                                                align="right"
-                                            />
-                                        </View.Footer>
-                                    </View.Form>
-                                );
-                            }}
-                        </Form>
-                    )}
-                </FormData>
+                                                </Cell>
+                                            </Grid>
+
+                                            <Grid>
+                                                <Cell span={12}>
+                                                    <ButtonSecondary
+                                                        type="default"
+                                                        onClick={() =>
+                                                            router.goToRoute("ApiTokens.List")
+                                                        }
+                                                    >
+                                                        {t`Go back`}
+                                                    </ButtonSecondary>
+                                                    &nbsp;
+                                                    <ButtonPrimary
+                                                        type="primary"
+                                                        onClick={form.submit}
+                                                        align="right"
+                                                    >
+                                                        {t`Save API Token`}
+                                                    </ButtonPrimary>
+                                                </Cell>
+                                            </Grid>
+                                        </React.Fragment>
+                                    );
+                                }}
+                            </Form>
+                        </Elevation>
+                    </Cell>
+                </Grid>
             </AdminLayout>
         );
     }
 }
 
-const stateToProps = state => ({
-    ...(state.security.apiTokens.form || {})
-});
-
 export default compose(
+    withRouter(),
+    withForm({
+        name: "SecurityApiTokenForm",
+        type: "Security.ApiTokens",
+        fields: "id name slug description token permissions"
+    }),
     inject({
         modules: [
-            "View",
             "Form",
             "FormData",
-            "FormError",
-            "Grid",
-            "Input",
-            "Textarea",
-            "Button",
-            "Section",
-            "Loader",
             "OptionsData",
-            "AutoCompleteList",
-            "Link",
-            "Alert",
-            "Copy",
+            "FormError",
+            "View",
+            "Section",
             {
                 AdminLayout: "Admin.Layout"
             }
         ]
-    }),
-    connect(stateToProps)
+    })
 )(ApiTokensForm);
