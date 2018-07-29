@@ -1,5 +1,5 @@
 // @flow
-import { GraphQLObjectType, GraphQLString, GraphQLNonNull } from "graphql";
+import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLID } from "graphql";
 import GraphQLJSON from "graphql-type-json";
 import ApiToken from "./ApiToken.entity";
 import { ModelError } from "webiny-model";
@@ -9,7 +9,11 @@ import { crudFields, createField, schema } from "../../graphql";
 export const ApiTokenType = new GraphQLObjectType({
     name: ApiToken.classId,
     fields: () => ({
+        id: { type: GraphQLID },
         name: { type: GraphQLString },
+        permissions: { type: GraphQLJSON },
+        slug: { type: GraphQLString },
+        createdOn: { type: GraphQLString },
         description: { type: GraphQLString },
         token: { type: GraphQLString }
     })
