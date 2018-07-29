@@ -69,20 +69,20 @@ class PoliciesForm extends React.Component {
                                                         <Tab label={t`Entity permissions`}>
                                                             <Grid>
                                                                 <Cell span={12}>
-                                                                    <EntitiesList
+                                                                    {/*<EntitiesList
                                                                         model={data}
                                                                         form={form}
-                                                                    />
+                                                                    />*/}
                                                                 </Cell>
                                                             </Grid>
                                                         </Tab>
                                                         <Tab label={t`API access`}>
                                                             <Grid>
                                                                 <Cell span={12}>
-                                                                    <ApiAccess
+                                                                  {/*  <ApiAccess
                                                                         model={data}
                                                                         form={form}
-                                                                    />
+                                                                    />*/}
                                                                 </Cell>
                                                             </Grid>
                                                         </Tab>
@@ -125,9 +125,8 @@ class PoliciesForm extends React.Component {
 export default compose(
     withRouter(),
     withForm({
-        id: "5b33441f46e6da560ac21ff7",
         name: "SecurityPolicyForm",
-        entity: "SecurityPolicy",
+        type: "Security.Policies",
         fields: "id name slug description permissions"
     }),
     inject({

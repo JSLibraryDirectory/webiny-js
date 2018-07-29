@@ -20,6 +20,7 @@ class UsersList extends React.Component<{ modules: Object }> {
 
         const invalidFields = {};
 
+        return null;
         const FormComponent = props => {
             const { data } = props.form;
 

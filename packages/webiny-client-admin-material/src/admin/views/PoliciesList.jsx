@@ -6,10 +6,10 @@ import { compose } from "recompose";
 
 import { Elevation } from "webiny-client-ui-material/Elevation";
 import { Grid, Cell } from "webiny-client-ui-material/Grid";
-import { Ripple } from "webiny-client-ui-material/Ripple";
 import { ConfirmationDialog } from "webiny-client-ui-material/ConfirmationDialog";
 import { DataList, List } from "webiny-client-ui-material/List";
 import { EditIcon, DeleteIcon } from "webiny-client-ui-material/List/DataList/icons";
+import { withSnackbar } from "webiny-client-admin-material/hoc";
 
 const t = i18n.namespace("Security.PoliciesList");
 
@@ -56,29 +56,38 @@ const PoliciesList = props => {
                                                 </List.Item.Text.Secondary>
                                             </List.Item.Text>
                                             <List.Item.Meta>
-                                                <Ripple unbounded>
-                                                    <EditIcon
-                                                        name="edit"
-                                                        onClick={() => {
-                                                            router.goToRoute("Policies.Edit", {
-                                                                id: item.id
-                                                            });
-                                                        }}
-                                                    />
-                                                </Ripple>
-                                                <Ripple unbounded>
-                                                    <ConfirmationDialog>
-                                                        {({ showConfirmation }) => (
-                                                            <DeleteIcon
-                                                                onClick={() => {
-                                                                    showConfirmation(() => {
-                                                                        PoliciesList.delete(item.id);
+                                                <EditIcon
+                                                    name="edit"
+                                                    onClick={() =>
+                                                        router.goToRoute("Policies.Edit", {
+                                                            id: item.id
+                                                        })
+                                                    }
+                                                />
+                                                <ConfirmationDialog>
+                                                    {({ showConfirmation }) => (
+                                                        <DeleteIcon
+                                                            onClick={() => {
+                                                                showConfirmation(() => {
+                                                                    PoliciesList.delete(item.id, {
+                                                                        onSuccess: () => {
+                                                                            PoliciesList.refresh();
+                                                                            // TODO
+                                                                            /*props.showSnackbar(
+                                                                                t`Policy {name} deleted.`(
+                                                                                    {
+                                                                                        name:
+                                                                                            item.name
+                                                                                    }
+                                                                                )
+                                                                            );*/
+                                                                        }
                                                                     });
-                                                                }}
-                                                            />
-                                                        )}
-                                                    </ConfirmationDialog>
-                                                </Ripple>
+                                                                });
+                                                            }}
+                                                        />
+                                                    )}
+                                                </ConfirmationDialog>
                                             </List.Item.Meta>
                                         </List.Item>
                                     ))}
@@ -93,6 +102,7 @@ const PoliciesList = props => {
 };
 
 export default compose(
+    withSnackbar(),
     withRouter(),
     withDataList({
         name: "PoliciesList",
