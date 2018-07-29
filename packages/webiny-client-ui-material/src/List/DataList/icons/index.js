@@ -27,6 +27,14 @@ export const DeleteIcon = (props: Object = {}) => {
     );
 };
 
+export const CreateIcon = (props: Object = {}) => {
+    return (
+        <Ripple unbounded>
+            <Icon src={penIcon} {...props} />
+        </Ripple>
+    );
+};
+
 export const EditIcon = (props: Object = {}) => {
     return (
         <Ripple unbounded>
