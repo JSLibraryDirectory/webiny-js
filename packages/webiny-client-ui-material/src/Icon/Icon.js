@@ -1,10 +1,20 @@
 // @flow
 import * as React from "react";
-import { Icon as RmwcIcon } from "rmwc/Icon";
+import { css } from "emotion";
 
 type Props = {
     src: string
 };
+
+const webinyIcon = css(
+    {},
+    {
+        "&.mdc-button__icon": {
+            marginLeft: 0,
+            width: "inherit"
+        }
+    }
+);
 
 /**
  * Use Icon component to display an icon.
@@ -13,7 +23,8 @@ type Props = {
  * @constructor
  */
 const Icon = (props: Props) => {
-    return <RmwcIcon strategy="custom" render={() => <img {...props} />} />;
+    console.log(props);
+    return React.cloneElement(props.icon, { className: "mdc-button__icon " + webinyIcon });
 };
 
 export { Icon };

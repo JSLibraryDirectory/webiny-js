@@ -2,6 +2,7 @@
 import * as React from "react";
 import type { FormComponentProps } from "./../types";
 import type Radio from "./Radio";
+import { webinyRadioHelperText, webinyRadioTitle } from "./Radio.styles";
 
 type Props = FormComponentProps & {
     // Form element's label.
@@ -23,7 +24,12 @@ class RadioGroup extends React.Component<Props> {
         return (
             <React.Fragment>
                 {label && (
-                    <div className="mdc-text-field-helper-text mdc-text-field-helper-text--persistent">
+                    <div
+                        className={
+                            "mdc-text-field-helper-text mdc-text-field-helper-text--persistent " +
+                            webinyRadioTitle
+                        }
+                    >
                         {label}
                     </div>
                 )}
@@ -36,14 +42,24 @@ class RadioGroup extends React.Component<Props> {
                 })}
 
                 {validation.isValid === false && (
-                    <div className="mdc-text-field-helper-text mdc-text-field-helper-text--persistent">
+                    <div
+                        className={
+                            "mdc-text-field-helper-text mdc-text-field-helper-text--persistent " +
+                            webinyRadioHelperText
+                        }
+                    >
                         {validation.message}
                     </div>
                 )}
 
                 {validation.isValid !== false &&
                     description && (
-                        <div className="mdc-text-field-helper-text mdc-text-field-helper-text--persistent">
+                        <div
+                            className={
+                                "mdc-text-field-helper-text mdc-text-field-helper-text--persistent " +
+                                webinyRadioHelperText
+                            }
+                        >
                             {description}
                         </div>
                     )}

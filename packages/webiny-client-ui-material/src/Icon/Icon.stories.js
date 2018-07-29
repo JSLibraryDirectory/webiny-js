@@ -4,10 +4,10 @@ import { storiesOf } from "@storybook/react";
 import Story from "webiny-storybook-utils/Story";
 import readme from "./../Icon/README.md";
 
-import autoRenew from "./svg/baseline-autorenew-24px.svg";
-import cloudDone from "./svg/baseline-cloud_done-24px.svg";
-import baselineDelete from "./svg/baseline-delete-24px.svg";
-import baselineDone from "./svg/baseline-done-24px.svg";
+import { ReactComponent as AutoRenewIcon } from "./svg/baseline-autorenew-24px.svg";
+import { ReactComponent as CloudDoneIcon } from "./svg/baseline-cloud_done-24px.svg";
+import { ReactComponent as BaselineDeleteIcon } from "./svg/baseline-delete-24px.svg";
+import { ReactComponent as BaselineDoneIcon } from "./svg/baseline-done-24px.svg";
 
 // $FlowFixMe
 import { Icon, PropsType } from "./Icon";
@@ -21,10 +21,10 @@ story.add("usage", () => {
             <Story.Props>{PropsType}</Story.Props>
             <Story.Sandbox title={"A simple icon"}>
                 <div>
-                    <Icon src={autoRenew} />&nbsp;
-                    <Icon src={cloudDone} />&nbsp;
-                    <Icon src={baselineDelete} />&nbsp;
-                    <Icon src={baselineDone} />&nbsp;
+                    <Icon icon={<AutoRenewIcon />} />&nbsp;
+                    <Icon icon={<CloudDoneIcon />} />&nbsp;
+                    <Icon icon={<BaselineDeleteIcon />} />&nbsp;
+                    <Icon icon={<BaselineDoneIcon />} />&nbsp;
                 </div>
             </Story.Sandbox>
         </Story>

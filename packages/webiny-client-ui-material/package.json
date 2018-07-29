@@ -26,10 +26,12 @@
     "raw-loader": "^0.5.1"
   },
   "dependencies": {
+    "emotion": "^9.2.6",
     "material-components-web": "^0.37.1",
     "nprogress": "^0.2.0",
+    "react-emotion": "^9.2.6",
     "react-loading-skeleton": "^0.5.0",
-    "rmwc": "^1.7.2",
+    "rmwc": "^1.8.3",
     "webiny-form": "0.0.0-semantically-released",
     "webiny-storybook-utils": "0.0.0-semantically-released"
   },

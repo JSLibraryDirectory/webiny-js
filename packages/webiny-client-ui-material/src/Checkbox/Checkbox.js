@@ -3,6 +3,7 @@ import * as React from "react";
 import { Checkbox as RmwcCheckbox } from "rmwc/Checkbox";
 import CheckboxGroup from "./CheckboxGroup";
 import type { FormComponentProps } from "./../types";
+import { webinyCheckboxHelperText } from "./Checkbox.styles";
 
 type Props = FormComponentProps & {
     // Component label.
@@ -39,13 +40,23 @@ class Checkbox extends React.Component<Props> {
                     label={label}
                 />
                 {validation.isValid === false && (
-                    <div className="mdc-text-field-helper-text mdc-text-field-helper-text--persistent">
+                    <div
+                        className={
+                            "mdc-text-field-helper-text mdc-text-field-helper-text--persistent " +
+                            webinyCheckboxHelperText
+                        }
+                    >
                         {validation.message}
                     </div>
                 )}
                 {validation.isValid !== false &&
                     description && (
-                        <div className="mdc-text-field-helper-text mdc-text-field-helper-text--persistent">
+                        <div
+                            className={
+                                "mdc-text-field-helper-text mdc-text-field-helper-text--persistent " +
+                                webinyCheckboxHelperText
+                            }
+                        >
                             {description}
                         </div>
                     )}

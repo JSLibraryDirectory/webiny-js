@@ -1,5 +1,7 @@
 // @flow
 import * as React from "react";
+import { Icon } from "../Icon/Icon";
+
 import {
     TabBar,
     Tab as RmwcTab,
@@ -50,8 +52,8 @@ class Tabs extends React.Component<Props, State> {
                 {tabs.map(item => {
                     return (
                         <RmwcTab key={item.label}>
-                            <TabIconText>{item.label}</TabIconText>
                             {item.icon && <RmwcTabIcon>{item.icon}</RmwcTabIcon>}
+                            <TabIconText>{item.label}</TabIconText>
                         </RmwcTab>
                     );
                 })}
@@ -77,7 +79,7 @@ class Tabs extends React.Component<Props, State> {
 }
 
 const TabIcon = (props: Object) => {
-    return <img src={props.src} />;
+    return <Icon className={"mdc-tab__icon"} {...props} />;
 };
 
 export { Tabs, Tab, TabIcon };

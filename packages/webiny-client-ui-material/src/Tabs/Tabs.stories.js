@@ -3,8 +3,9 @@ import * as React from "react";
 import { storiesOf } from "@storybook/react";
 import Story from "webiny-storybook-utils/Story";
 import readme from "./../Tabs/README.md";
-import deleteIcon from "./svg/baseline-delete-24px.svg";
-import doneIcon from "./svg/baseline-done-24px.svg";
+
+import { ReactComponent as DeleteIcon } from "./svg/baseline-delete-24px.svg";
+import { ReactComponent as DoneIcon } from "./svg/baseline-done-24px.svg";
 
 import { withKnobs, boolean } from "@storybook/addon-knobs";
 
@@ -29,16 +30,16 @@ story.add("usage", () => {
                 <Story.Sandbox.Example>
                     <div style={{ overflow: "hidden" }}>
                         <Tabs withScroll={withScroll}>
-                            <Tab label="Tab 1" icon={<TabIcon src={deleteIcon} />}>
+                            <Tab label="Tab 1" icon={<TabIcon icon={<DeleteIcon />} />}>
                                 <Div>Tab 1 content.</Div>
                             </Tab>
-                            <Tab label="Tab 2" icon={<TabIcon src={doneIcon} />}>
+                            <Tab label="Tab 2" icon={<TabIcon icon={<DoneIcon />} />}>
                                 <Div>Tab 2 content.</Div>
                             </Tab>
                             <Tab label="Tab 3">
                                 <Div>Tab 3 content - header without icon.</Div>
                             </Tab>
-                            <Tab icon={<TabIcon src={doneIcon} />}>
+                            <Tab icon={<TabIcon icon={<DoneIcon />} />}>
                                 <Div>Tab 4 content - header without label.</Div>
                             </Tab>
                             <Tab label="Tab 5" keepMounted>

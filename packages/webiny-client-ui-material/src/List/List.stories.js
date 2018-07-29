@@ -7,14 +7,13 @@ import readme from "./../List/README.md";
 import { Icon } from "./../Icon";
 import { ButtonPrimary } from "./../Button";
 
+import { ReactComponent as AutoRenewIcon } from "./icons/baseline-autorenew-24px.svg";
+import { ReactComponent as CloudDoneIcon } from "./icons/baseline-cloud_done-24px.svg";
+import { ReactComponent as BaselineDeleteIcon } from "./icons/baseline-delete-24px.svg";
+import { ReactComponent as BaselineDoneIcon } from "./icons/baseline-done-24px.svg";
+
 // $FlowFixMe
 import { List, PropsType } from "./List";
-
-import autoRenew from "./icons/baseline-autorenew-24px.svg";
-import cloudDone from "./icons/baseline-cloud_done-24px.svg";
-import baselineDelete from "./icons/baseline-delete-24px.svg";
-import baselineDone from "./icons/baseline-done-24px.svg";
-import envelope from "./icons/baseline-email-24px.svg";
 
 const story = storiesOf("Components/List", module);
 
@@ -29,7 +28,7 @@ story.add("simple list", () => {
                     <List>
                         <List.Item>
                             <List.Item.Graphic>
-                                <Icon src={autoRenew} />
+                                <Icon icon={<AutoRenewIcon />} />
                             </List.Item.Graphic>
                             <List.Item.Text>
                                 Rocket
@@ -38,13 +37,13 @@ story.add("simple list", () => {
                                 </List.Item.Text.Secondary>
                             </List.Item.Text>
                             <List.Item.Meta>
-                                <Icon src={cloudDone} />
+                                <Icon icon={<CloudDoneIcon />} />
                             </List.Item.Meta>
                         </List.Item>
 
                         <List.Item>
                             <List.Item.Graphic>
-                                <Icon src={baselineDelete} />
+                                <Icon icon={<BaselineDeleteIcon />} />
                             </List.Item.Graphic>
                             <List.Item.Text>
                                 Coffee
@@ -53,12 +52,12 @@ story.add("simple list", () => {
                                 </List.Item.Text.Secondary>
                             </List.Item.Text>
                             <List.Item.Meta>
-                                <Icon src={baselineDone} />
+                                <Icon icon={<BaselineDoneIcon />} />
                             </List.Item.Meta>
                         </List.Item>
                         <List.Item>
                             <List.Item.Graphic>
-                                <Icon src={envelope} />
+                                <Icon icon={<AutoRenewIcon />} />
                             </List.Item.Graphic>
                             <List.Item.Text>
                                 E-mail
@@ -77,7 +76,7 @@ story.add("simple list", () => {
                         <List>
                         <List.Item>
                             <List.Item.Graphic>
-                                <Icon name="rocket" />
+                                <Icon icon={<AutoRenewIcon/>} />
                             </List.Item.Graphic>
                             <List.Item.Text>
                                 Rocket
@@ -86,13 +85,13 @@ story.add("simple list", () => {
                                 </List.Item.Text.Secondary>
                             </List.Item.Text>
                             <List.Item.Meta>
-                                <Icon name="info-circle" />
+                                <Icon icon={<CloudDoneIcon/>} />
                             </List.Item.Meta>
                         </List.Item>
 
                         <List.Item>
                             <List.Item.Graphic>
-                                <Icon name="coffee" />
+                                <Icon icon={<BaselineDeleteIcon/>} />
                             </List.Item.Graphic>
                             <List.Item.Text>
                                 Coffee
@@ -101,12 +100,12 @@ story.add("simple list", () => {
                                 </List.Item.Text.Secondary>
                             </List.Item.Text>
                             <List.Item.Meta>
-                                <Icon name="info-circle" />
+                                <Icon icon={<BaselineDoneIcon/>} />
                             </List.Item.Meta>
                         </List.Item>
                         <List.Item>
                             <List.Item.Graphic>
-                                <Icon name="envelope" />
+                                <Icon icon={<AutoRenewIcon/>} />
                             </List.Item.Graphic>
                             <List.Item.Text>
                                 E-mail
