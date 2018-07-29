@@ -1,6 +1,6 @@
 // @flow
 import { createAction } from "./../redux";
-import { graphqlQuery, graphqlMutation } from ".";
+import { graphqlQuery } from ".";
 import {
     generateListQuery,
     generateOneQuery,
@@ -95,14 +95,15 @@ const typeCreate = createAction(TYPE_CREATE, {
     middleware({ action, next }) {
         next(action);
         const { type, fields, onSuccess, onError, data } = action.payload;
-        const generatedQuery = generateCreateQuery({ type, fields });
+        const query = generateCreateQuery({ type, fields });
 
-        graphqlMutation({
-            ...generatedQuery,
+        graphqlQuery({
+            query,
             variables: { data, id: data.id },
-            onSuccess: data => {
+            onSuccess: response => {
+                const data = _.get(response, ["data", type, "create"].join("."));
                 if (typeof onSuccess === "function") {
-                    onSuccess({ ...data.data });
+                    onSuccess(data);
                 }
             },
             onError: error => {
@@ -118,14 +119,15 @@ const typeUpdate = createAction(TYPE_UPDATE, {
     middleware({ action, next }) {
         next(action);
         const { type, fields, onSuccess, onError, data } = action.payload;
-        const generatedQuery = generateUpdateQuery({ type, fields });
+        const query = generateUpdateQuery({ type, fields });
 
-        graphqlMutation({
-            ...generatedQuery,
+        graphqlQuery({
+            query,
             variables: { data, id: data.id },
-            onSuccess: data => {
+            onSuccess: response => {
+                const data = _.get(response, ["data", type, "update"].join("."));
                 if (typeof onSuccess === "function") {
-                    onSuccess({ ...data.data });
+                    onSuccess(data);
                 }
             },
             onError: error => {

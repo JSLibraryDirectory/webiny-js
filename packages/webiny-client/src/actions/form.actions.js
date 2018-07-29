@@ -7,6 +7,7 @@ const PREFIX = "[FORM]";
 export const FORM_SET_LOADING = `${PREFIX} Set Loading`;
 export const FORM_RESET = `${PREFIX} Reset`;
 export const FORM_LOAD = `${PREFIX} Load`;
+export const FORM_EMPTY = `${PREFIX} Empty`;
 export const FORM_LOAD_SUCCESS = `${PREFIX} Form Load Success`;
 export const FORM_LOAD_ERROR = `${PREFIX} Form Load Error`;
 export const FORM_SUBMIT = `${PREFIX} Submit`;
@@ -51,6 +52,13 @@ const loadForm = createAction(FORM_LOAD, {
                 loadFormError({ error, name });
             }
         });
+    }
+});
+
+const emptyForm = createAction(FORM_EMPTY, {
+    selector: formSelector,
+    reducer({ state }) {
+        return { ...state, data: null };
     }
 });
 
@@ -118,4 +126,4 @@ const submitFormError = createAction(FORM_SUBMIT_ERROR, {
     }
 });
 
-export { loadForm, submitForm, resetForm };
+export { loadForm, submitForm, resetForm, emptyForm };
