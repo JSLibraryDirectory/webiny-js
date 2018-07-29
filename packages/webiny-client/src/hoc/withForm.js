@@ -1,7 +1,7 @@
 // @flow
 import { connect } from "react-redux";
 import { compose, lifecycle, withProps } from "recompose";
-import { loadForm, submitForm, resetForm } from "./../actions";
+import { loadForm, emptyForm, submitForm, resetForm } from "./../actions";
 import _ from "lodash";
 
 type WithFormParams = {
@@ -45,7 +45,11 @@ export default (params: WithFormParams): Function => {
             lifecycle({
                 componentDidMount() {
                     const preparedParams = prepareLoadFormParams(params, this.props);
-                    preparedParams.id && loadForm(preparedParams);
+                    if (preparedParams.id) {
+                        loadForm(preparedParams);
+                    } else {
+                        emptyForm(preparedParams);
+                    }
                 }
             }),
             withProps(props => {
