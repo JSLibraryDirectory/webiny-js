@@ -58,7 +58,7 @@ class Snackbar extends React.Component<Props> {
     }
 
     render() {
-        return ReactDOM.createPortal(<RmwcSnackbar {...this.props} />, this.container);
+        return <RmwcSnackbar {...this.props} />;
     }
 }
 
