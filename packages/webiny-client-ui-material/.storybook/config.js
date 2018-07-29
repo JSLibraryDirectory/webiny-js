@@ -1,5 +1,5 @@
 import { configure } from "@storybook/react";
-import "material-components-web/dist/material-components-web.min.css";
+import "./../src/index.scss";
 
 // automatically import all files ending in *.stories.js
 const req = require.context("../src", true, /.stories.js$/);
