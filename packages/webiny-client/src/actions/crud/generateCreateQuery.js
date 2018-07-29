@@ -8,19 +8,16 @@ type CreateParams = {
 };
 
 const generateCreateQuery = (params: CreateParams) => {
-    const methodName = "create" + params.type;
-    const mutation = gql`
-        mutation ${_.upperFirst(methodName)}($data: JSON!) {
-            ${methodName}(data: $data) {
-                ${params.fields}
-            }
-        }
-    `;
+    let query = JSON.stringify(_.set({}, params.type, " { {fields} }"))
+        .replace(/"/g, " ")
+        .replace(/:/g, " ")
+        .replace("{fields}", `create(data: $data) { ${params.fields} }`);
 
-    return {
-        methodName,
-        mutation
-    };
+    query = `query createType($data: JSON!) ${query}`;
+
+    return gql`
+        ${query}
+    `;
 };
 
 export default generateCreateQuery;
