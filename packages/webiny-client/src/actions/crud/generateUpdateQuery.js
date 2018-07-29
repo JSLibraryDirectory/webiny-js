@@ -8,20 +8,16 @@ type UpdateParams = {
 };
 
 const generateUpdateQuery = (params: UpdateParams) => {
-    const methodName = "update" + params.type;
+    let query = JSON.stringify(_.set({}, params.type, " { {fields} }"))
+        .replace(/"/g, " ")
+        .replace(/:/g, " ")
+        .replace("{fields}", `update(id: $id, data: $data) { ${params.fields} }`);
 
-    const mutation = gql`
-       mutation ${_.upperFirst(methodName)}($id: String!, $data: JSON!) {
-            ${methodName}(id: $id, data: $data) {
-                ${params.fields}
-            }
-        }
+    query = `query updateType($id: String!, $data: JSON!) ${query}`;
+
+    return gql`
+        ${query}
     `;
-
-    return {
-        methodName,
-        mutation
-    };
 };
 
 export default generateUpdateQuery;
