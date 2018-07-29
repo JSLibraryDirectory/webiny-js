@@ -12,6 +12,20 @@ type WithFormParams = {
     prop?: string
 };
 
+const prepareLoadFormParams = (withDataFormParams: WithFormParams, props: Object) => {
+    const paramsClone = Object.assign({}, withDataFormParams);
+    if (props.router) {
+        const { id } = props.router.match.params;
+        if (id) {
+            paramsClone.id = id;
+        }
+    } else {
+        // TODO: Assign from store.
+    }
+
+    return paramsClone;
+};
+
 /**
  * All list data is passed into child components via specific prop. Be default, "name" parameter will be
  * used to determine its name. Alternatively, "prop" parameter can be used to specify a different name.
@@ -30,7 +44,8 @@ export default (params: WithFormParams): Function => {
             }),
             lifecycle({
                 componentDidMount() {
-                    params.id && loadForm(params);
+                    const preparedParams = prepareLoadFormParams(params, this.props);
+                    preparedParams.id && loadForm(preparedParams);
                 }
             }),
             withProps(props => {
