@@ -86,6 +86,8 @@ type Props = {
     // Provide all sorters options and callbacks here.
     sorters: ?SortersProp,
 
+    actions?: React.Node,
+
     multiActions: ?Array<any> // TODO: define
 };
 
@@ -243,7 +245,7 @@ const DataList = (props: Props) => {
                 <Grid>
                     <Cell span="6">{props.title}</Cell>
                     <Cell span="6" style={{ textAlign: "right" }}>
-                        {/* TODO: top actions here. */}
+                        {props.actions}
                     </Cell>
                 </Grid>
             </ListHeader>
@@ -276,8 +278,9 @@ DataList.defaultProps = {
     setPage: null,
     setPerPage: null,
     perPageOptions: [10, 25, 50],
-
     sorters: null,
+    actions: null,
+
     multiActions: null,
     loader: null
 };
