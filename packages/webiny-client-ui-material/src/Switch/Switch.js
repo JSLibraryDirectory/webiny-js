@@ -2,6 +2,20 @@
 import * as React from "react";
 import { Switch as RmwcSwitch } from "rmwc/Switch";
 import type { FormComponentProps } from "./../types";
+import { css } from "emotion";
+
+/**
+ * Controls the helper text below the checkbox.
+ * @type {string}
+ */
+const webinyCheckboxHelperText = css(
+    {},
+    {
+        "&.mdc-text-field-helper-text": {
+            paddingTop: 5
+        }
+    }
+);
 
 type Props = FormComponentProps & {
     // Component label.
@@ -34,14 +48,24 @@ class Switch extends React.Component<Props> {
                 />
 
                 {validation.isValid === false && (
-                    <div className="mdc-text-field-helper-text mdc-text-field-helper-text--persistent">
+                    <div
+                        className={
+                            "mdc-text-field-helper-text mdc-text-field-helper-text--persistent " +
+                            webinyCheckboxHelperText
+                        }
+                    >
                         {validation.message}
                     </div>
                 )}
 
                 {validation.isValid !== false &&
                     description && (
-                        <div className="mdc-text-field-helper-text mdc-text-field-helper-text--persistent">
+                        <div
+                            className={
+                                "mdc-text-field-helper-text mdc-text-field-helper-text--persistent " +
+                                webinyCheckboxHelperText
+                            }
+                        >
                             {description}
                         </div>
                     )}

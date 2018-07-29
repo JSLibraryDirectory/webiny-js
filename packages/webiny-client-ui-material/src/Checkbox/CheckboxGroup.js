@@ -2,6 +2,7 @@
 import * as React from "react";
 import type { FormComponentProps } from "./../types";
 import type Checkbox from "./Checkbox";
+import { webinyCheckboxHelperText, webinyCheckboxTitle } from "./Checkbox.styles";
 
 type Props = FormComponentProps & {
     // Form element's label.
@@ -23,7 +24,12 @@ class CheckboxGroup extends React.Component<Props> {
         return (
             <React.Fragment>
                 {label && (
-                    <div className="mdc-text-field-helper-text mdc-text-field-helper-text--persistent">
+                    <div
+                        className={
+                            "mdc-text-field-helper-text mdc-text-field-helper-text--persistent " +
+                            webinyCheckboxTitle
+                        }
+                    >
                         {label}
                     </div>
                 )}
@@ -49,14 +55,24 @@ class CheckboxGroup extends React.Component<Props> {
                 })}
 
                 {validation.isValid === false && (
-                    <div className="mdc-text-field-helper-text mdc-text-field-helper-text--persistent">
+                    <div
+                        className={
+                            "mdc-text-field-helper-text mdc-text-field-helper-text--persistent " +
+                            webinyCheckboxHelperText
+                        }
+                    >
                         {validation.message}
                     </div>
                 )}
 
                 {validation.isValid !== false &&
                     description && (
-                        <div className="mdc-text-field-helper-text mdc-text-field-helper-text--persistent">
+                        <div
+                            className={
+                                "mdc-text-field-helper-text mdc-text-field-helper-text--persistent " +
+                                webinyCheckboxHelperText
+                            }
+                        >
                             {description}
                         </div>
                     )}

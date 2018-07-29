@@ -6,6 +6,11 @@ import readme from "./../Ripple/README.md";
 import { Icon } from "./../Icon";
 import { withKnobs, boolean } from "@storybook/addon-knobs";
 
+import { ReactComponent as AutoRenewIcon } from "./svg/baseline-autorenew-24px.svg";
+import { ReactComponent as CloudDoneIcon } from "./svg/baseline-cloud_done-24px.svg";
+import { ReactComponent as BaselineDeleteIcon } from "./svg/baseline-delete-24px.svg";
+import { ReactComponent as BaselineDoneIcon } from "./svg/baseline-done-24px.svg";
+
 // $FlowFixMe
 import { Ripple, PropsType } from "./Ripple";
 
@@ -26,7 +31,7 @@ story.add("usage", () => {
                     <div>
                         <div>No effect</div>
                         <div style={style}>
-                            <Icon name="coffee" />
+                            <Icon icon={<AutoRenewIcon />} />
                         </div>
 
                         <div>
@@ -34,7 +39,7 @@ story.add("usage", () => {
                         </div>
                         <Ripple type="unbounded" disabled={disabled}>
                             <div style={style}>
-                                <Icon name="edit" />
+                                <Icon icon={<CloudDoneIcon />} />
                             </div>
                         </Ripple>
 
@@ -43,7 +48,7 @@ story.add("usage", () => {
                         </div>
                         <Ripple type="primary" disabled={disabled}>
                             <div style={style}>
-                                <Icon name="rocket" />
+                                <Icon icon={<BaselineDeleteIcon />} />
                             </div>
                         </Ripple>
 
@@ -52,7 +57,7 @@ story.add("usage", () => {
                         </div>
                         <Ripple type="accent" disabled={disabled}>
                             <div style={style}>
-                                <Icon name="envelope" />
+                                <Icon icon={<BaselineDoneIcon />} />
                             </div>
                         </Ripple>
                     </div>
@@ -60,24 +65,24 @@ story.add("usage", () => {
                 <Story.Sandbox.Code>
                     <div>
                         <div>
-                            <Icon name="coffee" />
+                            <Icon icon={<AutoRenewIcon />} />
                         </div>
 
                         <Ripple type="unbounded" disabled={disabled}>
                             <div>
-                                <Icon name="edit" />
+                                <Icon icon={<CloudDoneIcon />} />
                             </div>
                         </Ripple>
 
                         <Ripple type="primary" disabled={disabled}>
                             <div>
-                                <Icon name="rocket" />
+                                <Icon icon={<BaselineDeleteIcon />} />
                             </div>
                         </Ripple>
 
                         <Ripple type="accent" disabled={disabled}>
                             <div>
-                                <Icon name="envelope" />
+                                <Icon icon={<BaselineDoneIcon />} />
                             </div>
                         </Ripple>
                     </div>

@@ -4,6 +4,7 @@ import { storiesOf } from "@storybook/react";
 import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 import Story from "webiny-storybook-utils/Story";
 import readme from "./../Button/README.md";
+import { ReactComponent as CloudIcon } from "./assets/baseline-cloud_done-24px.svg";
 
 // $FlowFixMe
 import {
@@ -22,7 +23,7 @@ story.add("usage", () => {
     const label = text("Label", "Click to proceed");
     const small = boolean("Small", false);
     const flat = boolean("Flat", false);
-    const icon = <ButtonIcon icon={text("Icon", "save")} />;
+    const icon = <ButtonIcon icon={<CloudIcon />} />;
 
     return (
         <Story>

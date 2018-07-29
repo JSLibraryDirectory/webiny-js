@@ -6,10 +6,10 @@ import readme from "./../TopAppBar/README.md";
 import { withKnobs, text } from "@storybook/addon-knobs";
 import { Icon } from "./../Icon";
 
-import autoRenew from "./icons/baseline-autorenew-24px.svg";
-import cloudDone from "./icons/baseline-cloud_done-24px.svg";
-import envelope from "./icons/baseline-email-24px.svg";
-import menu from "./icons/baseline-menu-24px.svg";
+import { ReactComponent as AutoRenewIcon } from "./icons/baseline-autorenew-24px.svg";
+import { ReactComponent as CloudDoneIcon } from "./icons/baseline-cloud_done-24px.svg";
+import { ReactComponent as EnvelopeIcon } from "./icons/baseline-email-24px.svg";
+import { ReactComponent as MenuIcon } from "./icons/baseline-menu-24px.svg";
 
 // $FlowFixMe
 import {
@@ -57,19 +57,19 @@ story.add("usage", () => {
                     <TopAppBar shortCollapsed>
                         <TopAppBarSection alignStart>
                             <TopAppBarNavigationIcon>
-                                <Icon src={menu} />
+                                <Icon icon={<MenuIcon />} />
                             </TopAppBarNavigationIcon>
                             <TopAppBarTitle>{title}</TopAppBarTitle>
                         </TopAppBarSection>
                         <TopAppBarSection alignEnd>
                             <TopAppBarActionItem>
-                                <Icon src={cloudDone} />
+                                <Icon icon={<CloudDoneIcon />} />
                             </TopAppBarActionItem>
                             <TopAppBarActionItem>
-                                <Icon src={autoRenew} />
+                                <Icon icon={<AutoRenewIcon />} />
                             </TopAppBarActionItem>
                             <TopAppBarActionItem>
-                                <Icon src={envelope} />
+                                <Icon icon={<EnvelopeIcon />} />
                             </TopAppBarActionItem>
                         </TopAppBarSection>
                     </TopAppBar>

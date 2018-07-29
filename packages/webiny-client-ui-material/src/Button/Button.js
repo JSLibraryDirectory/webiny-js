@@ -2,7 +2,7 @@
 import * as React from "react";
 import * as R from "rmwc/Button";
 import { Fab } from "rmwc/Fab";
-import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+import { Icon } from "../Icon/Icon";
 import type { FormComponentProps } from "./../types";
 
 type Props = FormComponentProps & {
@@ -86,6 +86,6 @@ const ButtonFloating = (props: Props) => {
  * @returns {*}
  * @constructor
  */
-const ButtonIcon = (props: any) => <FontAwesomeIcon {...props} className={"mdc-button__icon"} />;
+const ButtonIcon = (props: any) => <Icon {...props} />;
 
 export { ButtonDefault, ButtonPrimary, ButtonSecondary, ButtonFloating, ButtonIcon };
