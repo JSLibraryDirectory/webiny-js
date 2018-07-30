@@ -3,7 +3,7 @@ import React from "react";
 import { inject, app } from "webiny-client";
 import Drawer from "webiny-client-ui-material/Drawer";
 import { List } from "webiny-client-ui-material/List";
-import { Icon } from "webiny-client-ui-material/Icon";
+import { IconButton } from "webiny-client-ui-material/Button";
 import { connect } from "react-redux";
 import { compose } from "recompose";
 import _ from "lodash";
@@ -16,10 +16,6 @@ class Navigation extends React.Component {
     constructor(props) {
         super(props);
 
-        /**
-         * Menu renderer passed to <Menu>.
-         * Note that `this` is still bound to `Desktop` class since we are passing an arrow function.
-         */
         this.renderer = menu => {
             const props = _.clone(menu.props);
             if (!utils.canAccess(props)) {
@@ -59,7 +55,7 @@ class Navigation extends React.Component {
                         <List.Item key={props.id}>
                             {props.icon && (
                                 <List.Item.Graphic>
-                                    <Icon src={props.icon} />
+                                    <IconButton icon={props.icon} />
                                 </List.Item.Graphic>
                             )}
                             <List.Item.Text>

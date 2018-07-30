@@ -11,7 +11,9 @@ import {
 
 import { compose } from "recompose";
 
-import menuIcon from "./icons/baseline-menu-24px.svg";
+import { ReactComponent as MenuIcon } from "./icons/baseline-menu-24px.svg";
+import { ReactComponent as NotificationIcon } from "./icons/baseline-notification_important-24px.svg";
+
 import { toggleMenu } from "./../actions/menu.actions";
 
 class Header extends React.Component {
@@ -19,15 +21,12 @@ class Header extends React.Component {
         return (
             <TopAppBar>
                 <TopAppBarSection alignStart>
-                    <Icon src={menuIcon} onClick={toggleMenu} />
+                    <Icon icon={<MenuIcon />} onClick={toggleMenu} />
                     <TopAppBarTitle>Webiny</TopAppBarTitle>
                 </TopAppBarSection>
                 <TopAppBarSection alignEnd>
-                    <TopAppBarActionItem aria-label="Download" alt="Download">
-                        <Icon name={"question-circle"} />
-                    </TopAppBarActionItem>
-                    <TopAppBarActionItem aria-label="Print this page" alt="Print this page">
-                        <Icon name={"bell"} />
+                    <TopAppBarActionItem>
+                        <Icon icon={<NotificationIcon />} />
                     </TopAppBarActionItem>
                 </TopAppBarSection>
             </TopAppBar>

@@ -6,16 +6,9 @@ import Loader from "./Loader";
 
 import Checkbox from "webiny-client-ui-material/Checkbox";
 import { Menu, MenuItem } from "webiny-client-ui-material/Menu";
-import { Ripple } from "webiny-client-ui-material/Ripple";
 import { Grid, Cell } from "webiny-client-ui-material/Grid";
 
-import {
-    RefreshIcon,
-    SortIcon,
-    PreviousPageIcon,
-    NextPageIcon,
-    OptionsIcon
-} from "./icons";
+import { RefreshIcon, SortIcon, PreviousPageIcon, NextPageIcon, OptionsIcon } from "./icons";
 
 import type { MetaProp, SortersProp } from "./types";
 
@@ -112,11 +105,9 @@ const RefreshButton = (props: Props) => {
 
     return (
         <ListHeader.Item>
-            <Ripple unbounded>
-                <ListHeader.Icon>
-                    <RefreshIcon onClick={refresh} />
-                </ListHeader.Icon>
-            </Ripple>
+            <ListHeader.Icon>
+                <RefreshIcon onClick={refresh} />
+            </ListHeader.Icon>
         </ListHeader.Item>
     );
 };
@@ -131,11 +122,9 @@ const Sorters = (props: Props) => {
         <ListHeader.Item>
             <Menu
                 handle={
-                    <Ripple unbounded>
-                        <ListHeader.Icon>
-                            <SortIcon />
-                        </ListHeader.Icon>
-                    </Ripple>
+                    <ListHeader.Icon>
+                        <SortIcon />
+                    </ListHeader.Icon>
                 }
             >
                 {sorters.map(sorter => (
@@ -178,17 +167,15 @@ const Pagination = (props: Props) => {
                             disabled: !meta.previousPage
                         })}
                     >
-                        <Ripple unbounded>
-                            <ListHeader.Icon>
-                                <PreviousPageIcon
-                                    onClick={() => {
-                                        if (props.setPage && meta.previousPage) {
-                                            props.setPage(meta.previousPage);
-                                        }
-                                    }}
-                                />
-                            </ListHeader.Icon>
-                        </Ripple>
+                        <ListHeader.Icon>
+                            <PreviousPageIcon
+                                onClick={() => {
+                                    if (props.setPage && meta.previousPage) {
+                                        props.setPage(meta.previousPage);
+                                    }
+                                }}
+                            />
+                        </ListHeader.Icon>
                     </ListHeader.Item>
 
                     <ListHeader.Item
@@ -196,7 +183,6 @@ const Pagination = (props: Props) => {
                             disabled: !meta.nextPage
                         })}
                     >
-                        <Ripple unbounded>
                             <ListHeader.Icon>
                                 <NextPageIcon
                                     onClick={() => {
@@ -206,7 +192,6 @@ const Pagination = (props: Props) => {
                                     }}
                                 />
                             </ListHeader.Icon>
-                        </Ripple>
                     </ListHeader.Item>
                 </React.Fragment>
             )}
@@ -215,11 +200,9 @@ const Pagination = (props: Props) => {
                 <ListHeader.Item>
                     <Menu
                         handle={
-                            <Ripple unbounded>
                                 <ListHeader.Icon>
                                     <OptionsIcon />
                                 </ListHeader.Icon>
-                            </Ripple>
                         }
                     >
                         {props.setPerPage &&

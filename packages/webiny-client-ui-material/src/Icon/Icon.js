@@ -23,8 +23,10 @@ const webinyIcon = css(
  * @constructor
  */
 const Icon = (props: Props) => {
-    console.log(props);
-    return React.cloneElement(props.icon, { className: "mdc-button__icon " + webinyIcon });
+    return React.cloneElement(props.icon, {
+        ...props,
+        className: "mdc-button__icon " + webinyIcon
+    });
 };
 
 export { Icon };

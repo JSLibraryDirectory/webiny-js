@@ -1,76 +1,43 @@
 // @flow
 import * as React from "react";
-import { Icon } from "webiny-client-ui-material/Icon";
-import { Ripple } from "webiny-client-ui-material/Ripple";
+import { IconButton } from "webiny-client-ui-material/Button";
 
-import refreshIcon from "./baseline-autorenew-24px.svg";
-import penIcon from "./baseline-edit-24px.svg";
-import deleteIcon from "./baseline-delete-24px.svg";
-import sortIcon from "./baseline-sort-24px.svg";
-import beforeIcon from "./baseline-navigate_before-24px.svg";
-import nextIcon from "./baseline-navigate_next-24px.svg";
-import tuneIcon from "./baseline-tune-24px.svg";
+import { ReactComponent as AutoRenew } from "./baseline-autorenew-24px.svg";
+import { ReactComponent as Pen } from "./baseline-edit-24px.svg";
+import { ReactComponent as Delete } from "./baseline-delete-24px.svg";
+import { ReactComponent as Sort } from "./baseline-sort-24px.svg";
+import { ReactComponent as NavigateBefore } from "./baseline-navigate_before-24px.svg";
+import { ReactComponent as NavigateNext } from "./baseline-navigate_next-24px.svg";
+import { ReactComponent as TuneIcon } from "./baseline-tune-24px.svg";
 
 export const RefreshIcon = (props: Object = {}) => {
-    return (
-        <Ripple unbounded>
-            <Icon src={refreshIcon} {...props} />
-        </Ripple>
-    );
+    return <IconButton icon={<AutoRenew />} {...props} />;
 };
 
 export const DeleteIcon = (props: Object = {}) => {
-    return (
-        <Ripple unbounded>
-            <Icon src={deleteIcon} {...props} />
-        </Ripple>
-    );
+    return <IconButton icon={<Delete />} {...props} />;
 };
 
 export const CreateIcon = (props: Object = {}) => {
-    return (
-        <Ripple unbounded>
-            <Icon src={penIcon} {...props} />
-        </Ripple>
-    );
+    return <IconButton icon={<Pen />} {...props} />;
 };
 
 export const EditIcon = (props: Object = {}) => {
-    return (
-        <Ripple unbounded>
-            <Icon src={penIcon} {...props} />
-        </Ripple>
-    );
+    return <IconButton icon={<Pen />} {...props} />;
 };
 
 export const SortIcon = (props: Object = {}) => {
-    return (
-        <Ripple unbounded>
-            <Icon src={sortIcon} {...props} />
-        </Ripple>
-    );
+    return <IconButton icon={<Sort />} {...props} />;
 };
 
 export const PreviousPageIcon = (props: Object = {}) => {
-    return (
-        <Ripple unbounded>
-            <Icon src={beforeIcon} {...props} />
-        </Ripple>
-    );
+    return <IconButton icon={<NavigateBefore />} {...props} />;
 };
 
 export const NextPageIcon = (props: Object = {}) => {
-    return (
-        <Ripple unbounded>
-            <Icon src={nextIcon} {...props} />
-        </Ripple>
-    );
+    return <IconButton icon={<NavigateNext />} {...props} />;
 };
 
 export const OptionsIcon = (props: Object = {}) => {
-    return (
-        <Ripple unbounded>
-            <Icon src={tuneIcon} {...props} />
-        </Ripple>
-    );
+    return <IconButton icon={<TuneIcon />} {...props} />;
 };

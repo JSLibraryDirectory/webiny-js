@@ -4,6 +4,7 @@ import { inject } from "webiny-client";
 import { compose } from "recompose";
 import TopProgressBar from "./../TopProgressBar";
 import Snackbar from "./../Snackbar";
+
 /**
  * AdminLayout is the main container that will hold all other components.
  * This component is the first one to render in the <body> element.
