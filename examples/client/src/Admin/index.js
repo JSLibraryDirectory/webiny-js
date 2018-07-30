@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { app } from "webiny-client";
+
+import "./index.scss";
 import App from "./app";
 
 app.setup().then(({ store }) => {
