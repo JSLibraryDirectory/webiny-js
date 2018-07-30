@@ -5,7 +5,6 @@ import copy from "copy-to-clipboard";
 import elementToString from "react-element-to-jsx-string";
 import prettier from "prettier/standalone";
 import babylon from "prettier/parser-babylon";
-import { Icon } from "webiny-client-ui-material/Icon";
 import styled from "react-emotion";
 
 type Props = {
@@ -64,13 +63,9 @@ class CodeBlock extends React.Component<Props, State> {
                     {this.props.copy && (
                         <div onClick={() => this.copy(source)} className="container">
                             {this.state.copied ? (
-                                <span className="success">
-                                    <Icon name="check" /> Copied!
-                                </span>
+                                <span className="success">Copied!</span>
                             ) : (
-                                <span className="copy">
-                                    <Icon name="copy" /> Copy
-                                </span>
+                                <span className="copy">Copy</span>
                             )}
                         </div>
                     )}
