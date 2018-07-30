@@ -10,6 +10,11 @@ module.exports = {
         config.entry["frontend"] = appEntry(__dirname + "/src/Frontend/index.js");
         config.entry["admin"] = appEntry(__dirname + "/src/Admin/index.js");
 
+        config.module.rules.unshift({
+            test: /\.svg$/,
+            use: ["@svgr/webpack"]
+        });
+
         config.plugins = [
             ...config.plugins,
             new HtmlWebpackPlugin({
