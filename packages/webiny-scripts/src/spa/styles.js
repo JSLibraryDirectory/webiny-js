@@ -1,3 +1,4 @@
+// @flow
 import ExtractTextPlugin from "extract-text-webpack-plugin";
 
 export default () => {
@@ -9,7 +10,17 @@ export default () => {
                 issuer: /\.jsx?$/,
                 use: ExtractTextPlugin.extract({
                     fallback: "style-loader",
-                    use: ["css-loader", "resolve-url-loader", "sass-loader?sourceMap"]
+                    use: [
+                        "css-loader",
+                        "resolve-url-loader",
+                        {
+                            loader: "sass-loader",
+                            options: {
+                                sourceMap: true,
+                                includePaths: ["node_modules", "../../node_modules"]
+                            }
+                        }
+                    ]
                 })
             },
             {

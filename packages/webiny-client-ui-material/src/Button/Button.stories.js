@@ -19,7 +19,7 @@ import {
 const story = storiesOf("Components/Button", module);
 story.addDecorator(withKnobs);
 
-story.add("usage", () => {
+story.add("standard buttons", () => {
     const label = text("Label", "Click to proceed");
     const small = boolean("Small", false);
     const flat = boolean("Flat", false);
