@@ -1,6 +1,7 @@
 // @flow
-// Append untested libraries to the blacklist - they are all work in progress.
 const packages = require("./../utils/listPackages")([
+    // Append untested libraries to the blacklist - they are all work in progress.
+    "webiny-api",
     "webiny-api-cms",
     "webiny-client",
     "webiny-client-admin",
@@ -19,6 +20,6 @@ module.exports = {
 
     // "collectCoverageFrom" - transform "*.js" to "*.{js,jsx}" when ready.
     collectCoverageFrom: [`packages/{${packages.join(",")}}/src/**/*.js`],
-
-    coverageReporters: ["lcov", "html"]
+    coverageReporters: ["lcov", "html"],
+    testEnvironment: "node"
 };
