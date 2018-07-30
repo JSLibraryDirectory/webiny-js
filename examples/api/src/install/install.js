@@ -1,8 +1,8 @@
-module.exports = () => {
-    const config = require("./../configs");
-    const { api } = require("webiny-api");
-    const { default: myApp } = require("./../myApp");
+import config from "./../configs";
+import { api } from "webiny-api";
+import myApp from "./../myApp";
 
+module.exports = () => {
     api.configure(config())
         .use(myApp())
         .install();
