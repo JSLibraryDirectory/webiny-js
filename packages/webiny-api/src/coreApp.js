@@ -106,18 +106,6 @@ export default () => {
         },
 
         /**
-         * After the installation (of all apps) has finished, let's enable security.
-         * @param params
-         * @param next
-         * @returns {Promise<void>}
-         */
-        async postInstall(params: Object, next: Function) {
-            const { api } = params;
-            await api.services.get("security").init();
-            next();
-        },
-
-        /**
          *
          * @param params
          * @param next
