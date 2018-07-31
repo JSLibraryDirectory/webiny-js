@@ -3,7 +3,7 @@ import * as React from "react";
 import { css } from "emotion";
 
 type Props = {
-    src: string
+    icon: string
 };
 
 const webinyIcon = css(
