@@ -49,25 +49,19 @@ story.add("data list", () => {
                 id: "A",
                 firstName: "John",
                 lastName: "Doe",
-                email: "john.doe@webiny.com",
-                gravatar:
-                    "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
+                email: "john.doe@webiny.com"
             },
             {
                 id: "B",
                 firstName: "Jane",
                 lastName: "Doe",
-                email: "jane.doe@webiny.com",
-                gravatar:
-                    "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=identicon&f=y"
+                email: "jane.doe@webiny.com"
             },
             {
                 id: "C",
                 firstName: "Foo",
                 lastName: "Bar",
-                email: "foo.bar@webiny.com",
-                gravatar:
-                    "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=retro&f=y"
+                email: "foo.bar@webiny.com"
             }
         ],
         "Data"
@@ -129,7 +123,7 @@ story.add("data list", () => {
                                 {data.map(item => (
                                     <ListItem key={item.id}>
                                         <ListItemGraphic>
-                                            <img src={item.gravatar} />
+                                            <img src={"http://i.pravatar.cc/100?id=" + item.id} />
                                         </ListItemGraphic>
                                         <ListItemText>
                                             {item.firstName} {item.lastName}
