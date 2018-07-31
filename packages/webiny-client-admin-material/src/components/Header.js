@@ -5,6 +5,8 @@ import { Menu, MenuDivider } from "webiny-client-ui-material/Menu";
 import { IconButton } from "webiny-client-ui-material/Button";
 import { Icon } from "webiny-client-ui-material/Icon";
 import { List } from "webiny-client-ui-material/List";
+import { Switch } from "webiny-client-ui-material/Switch";
+import { Form } from "webiny-form";
 import { css } from "emotion";
 
 import {
@@ -22,7 +24,6 @@ import { ReactComponent as HelpIcon } from "./icons/round-help-24px.svg";
 import { ReactComponent as SendFeedbackIcon } from "./icons/round-feedback-24px.svg";
 import { ReactComponent as SignOutIcon } from "./icons/round-lock_open-24px.svg";
 import { ReactComponent as OpenInNewIcon } from "./icons/round-open_in_new-24px.svg";
-import { ReactComponent as ChevronRightIcon } from "./icons/round-chevron_right-24px.svg";
 
 import { toggleMenu } from "./../actions/menu.actions";
 
@@ -104,13 +105,19 @@ class Header extends React.Component {
                                     </List.Item.Text>
                                 </List.Item>
                                 <MenuDivider />
-                                <List.Item>
+                                <List.Item ripple={false}>
                                     <List.Item.Graphic>
                                         <Icon icon={<DarkModeIcon />} />
                                     </List.Item.Graphic>
-                                    <List.Item.Text>Dark mode: off</List.Item.Text>
+                                    <List.Item.Text>Dark mode: </List.Item.Text>
                                     <List.Item.Meta>
-                                        <Icon icon={<ChevronRightIcon />} />
+                                        <Form>
+                                            {({ Bind }) => (
+                                                <Bind name="darkMode">
+                                                    <Switch />
+                                                </Bind>
+                                            )}
+                                        </Form>
                                     </List.Item.Meta>
                                 </List.Item>
                                 <List.Item>
