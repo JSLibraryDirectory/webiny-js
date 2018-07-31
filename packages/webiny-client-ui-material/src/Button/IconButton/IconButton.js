@@ -24,7 +24,13 @@ type Props = FormComponentProps & {
  */
 const IconButton = (props: Props) => {
     const { icon, label, onClick } = props;
-    return <RIconButton onClick={onClick} offLabel={label} offContent={<Icon icon={icon} />} />;
+    return (
+        <RIconButton
+            onClick={onClick}
+            offLabel={label}
+            offContent={<Icon icon={icon} onClick={onClick} />}
+        />
+    );
 };
 
 export { IconButton };
