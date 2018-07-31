@@ -8,7 +8,10 @@ type Props = {
     // - List.Item.Text.Secondary
     // - List.Item.Text.Graphic
     // - List.Item.Text.Meta
-    children: React.ChildrenArray<React.Element<typeof List.Item>>
+    children: React.ChildrenArray<React.Element<typeof List.Item>>,
+
+    // Should we add the ripple effect to the list item. Default: true
+    ripple?:boolean
 };
 
 /**
@@ -63,8 +66,8 @@ List.Item.Text.Secondary = function ListItemTextSecondary(props: { children: Rea
  * @returns {*}
  * @constructor
  */
-List.Item.Graphic = function ListItemGraphic(props: { children: React.Node }) {
-    return <div className="mdc-list-item__graphic">{props.children}</div>;
+List.Item.Graphic = function ListItemGraphic(props: { children: React.Node, className?: string }) {
+    return <div className={"mdc-list-item__graphic "+props.className}>{props.children}</div>;
 };
 
 /**
@@ -73,8 +76,8 @@ List.Item.Graphic = function ListItemGraphic(props: { children: React.Node }) {
  * @returns {*}
  * @constructor
  */
-List.Item.Meta = function ListItemMeta(props: { children: React.Node }) {
-    return <span className="mdc-list-item__meta">{props.children}</span>;
+List.Item.Meta = function ListItemMeta(props: { children: React.Node, className?: string }) {
+    return <span className={"mdc-list-item__meta "+props.className}>{props.children}</span>;
 };
 
 export { List };
