@@ -1,13 +1,18 @@
 // @flow
 import * as React from "react";
 import { Menu as BaseMenu, MenuItem, MenuAnchor } from "rmwc/Menu";
+import styled from "react-emotion";
 
 type Props = {
     // One or more MenuItem components.
     children: React.ChildrenArray<React.Element<typeof MenuItem>>,
 
     // A handler which triggers the menu, eg. button or link.
-    handle?: React.Node
+    handle?: React.Node,
+
+    // Position the menu to one of anchor corners.
+    // 'bottomEnd' | 'bottomLeft' | 'bottomRight' | 'bottomStart' | 'topEnd' | 'topLeft' | 'topRight' | 'topStart'
+    anchor?: string
 };
 
 type State = {
@@ -25,7 +30,8 @@ class Menu extends React.Component<Props, State> {
     static Item = MenuItem;
 
     static defaultProps = {
-        handle: null
+        handle: null,
+        anchor: "topStart"
     };
 
     state = {
@@ -36,6 +42,7 @@ class Menu extends React.Component<Props, State> {
         return (
             <MenuAnchor>
                 <BaseMenu
+                    anchorCorner={this.props.anchor}
                     open={this.state.menuIsOpen}
                     onClose={() => this.setState({ menuIsOpen: false })}
                 >
@@ -53,4 +60,11 @@ class Menu extends React.Component<Props, State> {
     }
 }
 
-export { Menu, MenuItem };
+const MenuDivider = styled("div")({
+    width: "100%",
+    height: 1,
+    margin: "5px 0px",
+    backgroundColor: "var(--webiny-theme-border)"
+});
+
+export { Menu, MenuItem, MenuDivider };
