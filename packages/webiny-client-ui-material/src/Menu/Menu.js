@@ -12,7 +12,10 @@ type Props = {
 
     // Position the menu to one of anchor corners.
     // 'bottomEnd' | 'bottomLeft' | 'bottomRight' | 'bottomStart' | 'topEnd' | 'topLeft' | 'topRight' | 'topStart'
-    anchor?: string
+    anchor?: string,
+
+    // Class that will be added to the Menu element.
+    className?: string
 };
 
 type State = {
@@ -44,6 +47,7 @@ class Menu extends React.Component<Props, State> {
                 <BaseMenu
                     anchorCorner={this.props.anchor}
                     open={this.state.menuIsOpen}
+                    className={this.props.className}
                     onClose={() => this.setState({ menuIsOpen: false })}
                 >
                     {this.props.children}
