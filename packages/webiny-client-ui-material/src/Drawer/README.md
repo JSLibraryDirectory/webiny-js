@@ -8,5 +8,5 @@ Use `Drawer` component to display navigation for the whole app or just a small s
 
 ### Import
 ```js
-import Drawer from "webiny-client-ui-material/Drawer";
+import { Drawer } from "webiny-client-ui-material/Drawer";
 ```

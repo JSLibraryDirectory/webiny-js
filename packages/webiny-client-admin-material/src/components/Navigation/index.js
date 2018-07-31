@@ -1,7 +1,7 @@
 // @flow
 import React from "react";
 import { inject, app } from "webiny-client";
-import Drawer from "webiny-client-ui-material/Drawer";
+import { Drawer, DrawerHeader, DrawerContent } from "webiny-client-ui-material/Drawer";
 import { List, ListItem, ListItemText, ListItemGraphic } from "webiny-client-ui-material/List";
 import { IconButton } from "webiny-client-ui-material/Button";
 import { connect } from "react-redux";
@@ -72,15 +72,15 @@ class Navigation extends React.Component {
     render() {
         return (
             <Drawer mode="temporary" open={this.props.showMenu} onClose={toggleMenu}>
-                <Drawer.Header>Main Menu</Drawer.Header>
-                <Drawer.Content>
+                <DrawerHeader>Main Menu</DrawerHeader>
+                <DrawerContent>
                     {menu.getMenu().map(menu =>
                         React.cloneElement(menu, {
                             key: menu.props.id,
                             render: this.renderer
                         })
                     )}
-                </Drawer.Content>
+                </DrawerContent>
             </Drawer>
         );
     }

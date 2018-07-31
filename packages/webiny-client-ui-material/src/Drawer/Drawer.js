@@ -1,11 +1,15 @@
 // @flow
 import * as React from "react";
-import { Drawer as RmwcDrawer, DrawerContent, DrawerHeader } from "rmwc/Drawer";
+import {
+    Drawer as RmwcDrawer,
+    DrawerContent as RmwcDrawerContent,
+    DrawerHeader as RmwcDrawerHeader
+} from "rmwc/Drawer";
 
 type Props = {
-    // Drawer.Header and Drawer.Content components (both can receive any React.Node as children).
+    // DrawerHeader and DrawerContent components (both can receive any React.Node as children).
     children: React.ChildrenArray<
-        React.Element<typeof Drawer.Header> | React.Element<typeof Drawer.Content>
+        React.Element<typeof DrawerHeader> | React.Element<typeof DrawerContent>
     >,
 
     // If true, drawer will be permanently fixed inside of a view (works for temporary and persistent modes).
@@ -36,7 +40,7 @@ const Drawer = (props: Props) => {
  * @returns {*}
  * @constructor
  */
-const Header = props => <DrawerHeader {...props} />;
+const DrawerHeader = props => <RmwcDrawerHeader {...props} />;
 
 /**
  * Shows drawer content. It can be anything, but commonly a List component would suffice here.
@@ -44,9 +48,6 @@ const Header = props => <DrawerHeader {...props} />;
  * @returns {*}
  * @constructor
  */
-const Content = props => <DrawerContent {...props} />;
+const DrawerContent = props => <RmwcDrawerContent {...props} />;
 
-Drawer.Header = Header;
-Drawer.Content = Content;
-
-export default Drawer;
+export { Drawer, DrawerHeader, DrawerContent };

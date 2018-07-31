@@ -8,7 +8,7 @@ import readme from "./../Drawer/README.md";
 import { withKnobs, boolean, selectV2 } from "@storybook/addon-knobs";
 
 // $FlowFixMe
-import Drawer, { PropsType } from "./Drawer";
+import { Drawer, DrawerHeader, DrawerContent, PropsType } from "./Drawer";
 
 const story = storiesOf("Components/Drawer", module);
 story.addDecorator(withKnobs);
@@ -24,8 +24,8 @@ story.add("usage", () => {
             <Story.Sandbox title={"drawer"}>
                 <Story.Sandbox.Example title={"A list with all possible options"}>
                     <Drawer mode={mode} open={open}>
-                        <Drawer.Header>Main Menu</Drawer.Header>
-                        <Drawer.Content>
+                        <DrawerHeader>Main Menu</DrawerHeader>
+                        <DrawerContent>
                             <List>
                                 <ListItem>
                                     <ListItemText>Users</ListItemText>
@@ -49,14 +49,14 @@ story.add("usage", () => {
                                     <ListItemText>Settings</ListItemText>
                                 </ListItem>
                             </List>
-                        </Drawer.Content>
+                        </DrawerContent>
                     </Drawer>
                 </Story.Sandbox.Example>
                 <Story.Sandbox.Code>
                     {`
                     <Drawer permanent={permanent} peristent={persistent} open={open} temporary={temporary}>
-                        <Drawer.Header>Main Menu</Drawer.Header>
-                        <Drawer.Content>
+                        <DrawerHeader>Main Menu</DrawerHeader>
+                        <DrawerContent>
                             <List>
                                 <ListItem>
                                     <ListItemText>Users</ListItemText>
@@ -82,7 +82,7 @@ story.add("usage", () => {
                                     <ListItemText>Settings</ListItemText>
                                 </ListItem>
                             </List>
-                        </Drawer.Content>
+                        </DrawerContent>
                     </Drawer>
                     `}
                 </Story.Sandbox.Code>
