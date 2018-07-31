@@ -13,7 +13,15 @@ import { ReactComponent as BaselineDeleteIcon } from "./icons/baseline-delete-24
 import { ReactComponent as BaselineDoneIcon } from "./icons/baseline-done-24px.svg";
 
 // $FlowFixMe
-import { List, PropsType } from "./List";
+import {
+    PropsType,
+    List,
+    ListItem,
+    ListItemText,
+    ListItemTextSecondary,
+    ListItemMeta,
+    ListItemGraphic
+} from "./List";
 
 const story = storiesOf("Components/List", module);
 
@@ -26,99 +34,97 @@ story.add("simple list", () => {
             <Story.Sandbox>
                 <Story.Sandbox.Example title={"A list with all possible options"}>
                     <List>
-                        <List.Item>
-                            <List.Item.Graphic>
+                        <ListItem>
+                            <ListItemGraphic>
                                 <Icon icon={<AutoRenewIcon />} />
-                            </List.Item.Graphic>
-                            <List.Item.Text>
+                            </ListItemGraphic>
+                            <ListItemText>
                                 Rocket
-                                <List.Item.Text.Secondary>
+                                <ListItemTextSecondary>
                                     This could be a really cool rocket.
-                                </List.Item.Text.Secondary>
-                            </List.Item.Text>
-                            <List.Item.Meta>
+                                </ListItemTextSecondary>
+                            </ListItemText>
+                            <ListItemMeta>
                                 <Icon icon={<CloudDoneIcon />} />
-                            </List.Item.Meta>
-                        </List.Item>
+                            </ListItemMeta>
+                        </ListItem>
 
-                        <List.Item>
-                            <List.Item.Graphic>
+                        <ListItem>
+                            <ListItemGraphic>
                                 <Icon icon={<BaselineDeleteIcon />} />
-                            </List.Item.Graphic>
-                            <List.Item.Text>
+                            </ListItemGraphic>
+                            <ListItemText>
                                 Coffee
-                                <List.Item.Text.Secondary>
-                                    A nice cup of coffee.
-                                </List.Item.Text.Secondary>
-                            </List.Item.Text>
-                            <List.Item.Meta>
+                                <ListItemTextSecondary>A nice cup of coffee.</ListItemTextSecondary>
+                            </ListItemText>
+                            <ListItemMeta>
                                 <Icon icon={<BaselineDoneIcon />} />
-                            </List.Item.Meta>
-                        </List.Item>
-                        <List.Item>
-                            <List.Item.Graphic>
+                            </ListItemMeta>
+                        </ListItem>
+                        <ListItem>
+                            <ListItemGraphic>
                                 <Icon icon={<AutoRenewIcon />} />
-                            </List.Item.Graphic>
-                            <List.Item.Text>
+                            </ListItemGraphic>
+                            <ListItemText>
                                 E-mail
-                                <List.Item.Text.Secondary>
+                                <ListItemTextSecondary>
                                     Send an e-mail to your best friend.
-                                </List.Item.Text.Secondary>
-                            </List.Item.Text>
-                            <List.Item.Meta>
+                                </ListItemTextSecondary>
+                            </ListItemText>
+                            <ListItemMeta>
                                 <ButtonPrimary>Send</ButtonPrimary>
-                            </List.Item.Meta>
-                        </List.Item>
+                            </ListItemMeta>
+                        </ListItem>
                     </List>
                 </Story.Sandbox.Example>
                 <Story.Sandbox.Code>
                     {`
                         <List>
-                        <List.Item>
-                            <List.Item.Graphic>
+                        <ListItem>
+                            <ListItemGraphic>
                                 <Icon icon={<AutoRenewIcon/>} />
-                            </List.Item.Graphic>
-                            <List.Item.Text>
+                            </ListItemGraphic>
+                            <ListItemText>
                                 Rocket
-                                <List.Item.Text.Secondary>
+                                <ListItemTextSecondary>
                                     This could be a really cool rocket.
-                                </List.Item.Text.Secondary>
-                            </List.Item.Text>
-                            <List.Item.Meta>
+                                </ListItemTextSecondary>
+                            </ListItemText>
+                            <ListItemMeta>
                                 <Icon icon={<CloudDoneIcon/>} />
-                            </List.Item.Meta>
-                        </List.Item>
+                            </ListItemMeta>
+                        </ListItem>
 
-                        <List.Item>
-                            <List.Item.Graphic>
+                        <ListItem>
+                            <ListItemGraphic>
                                 <Icon icon={<BaselineDeleteIcon/>} />
-                            </List.Item.Graphic>
-                            <List.Item.Text>
+                            </ListItemGraphic>
+                            <ListItemText>
                                 Coffee
-                                <List.Item.Text.Secondary>
+                                <ListItemTextSecondary>
                                     A nice cup of coffee.
-                                </List.Item.Text.Secondary>
-                            </List.Item.Text>
-                            <List.Item.Meta>
+                                </ListItemTextSecondary>
+                            </ListItemText>
+                            <ListItemMeta>
                                 <Icon icon={<BaselineDoneIcon/>} />
-                            </List.Item.Meta>
-                        </List.Item>
-                        <List.Item>
-                            <List.Item.Graphic>
+                            </ListItemMeta>
+                        </ListItem>
+                        <ListItem>
+                            <ListItemGraphic>
                                 <Icon icon={<AutoRenewIcon/>} />
-                            </List.Item.Graphic>
-                            <List.Item.Text>
+                            </ListItemGraphic>
+                            <ListItemText>
                                 E-mail
-                                <List.Item.Text.Secondary>
+                                <ListItemTextSecondary>
                                     Send an e-mail to your best friend.
-                                </List.Item.Text.Secondary>
-                            </List.Item.Text>
-                            <List.Item.Meta>
+                                </ListItemTextSecondary>
+                            </ListItemText>
+                            <ListItemMeta>
                                 <ButtonPrimary>
                                     Send
                                 </ButtonPrimary>
-                            </List.Item.Meta>
-                        </List.Item>
+                            </ListItemMeta>
+                        </ListItem>
                     </List>
                     `}
                 </Story.Sandbox.Code>

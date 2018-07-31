@@ -4,7 +4,15 @@ import { app, inject } from "webiny-client";
 import { Menu, MenuDivider } from "webiny-client-ui-material/Menu";
 import { IconButton } from "webiny-client-ui-material/Button";
 import { Icon } from "webiny-client-ui-material/Icon";
-import { List } from "webiny-client-ui-material/List";
+import {
+    List,
+    ListItem,
+    ListItemText,
+    ListItemTextSecondary,
+    ListItemGraphic,
+    ListItemMeta
+} from "webiny-client-ui-material/List";
+
 import { Switch } from "webiny-client-ui-material/Switch";
 import { Form } from "webiny-form";
 import { css } from "emotion";
@@ -93,24 +101,24 @@ class Header extends React.Component {
                             }
                         >
                             <List>
-                                <List.Item ripple={false} className={menuTitle}>
-                                    <List.Item.Graphic className={avatar}>
+                                <ListItem ripple={false} className={menuTitle}>
+                                    <ListItemGraphic className={avatar}>
                                         <img src={avatarImage} />
-                                    </List.Item.Graphic>
-                                    <List.Item.Text>
+                                    </ListItemGraphic>
+                                    <ListItemText>
                                         John Doe
-                                        <List.Item.Text.Secondary>
+                                        <ListItemTextSecondary>
                                             john.doe@gmail.com
-                                        </List.Item.Text.Secondary>
-                                    </List.Item.Text>
-                                </List.Item>
+                                        </ListItemTextSecondary>
+                                    </ListItemText>
+                                </ListItem>
                                 <MenuDivider />
-                                <List.Item ripple={false}>
-                                    <List.Item.Graphic>
+                                <ListItem ripple={false}>
+                                    <ListItemGraphic>
                                         <Icon icon={<DarkModeIcon />} />
-                                    </List.Item.Graphic>
-                                    <List.Item.Text>Dark mode: </List.Item.Text>
-                                    <List.Item.Meta>
+                                    </ListItemGraphic>
+                                    <ListItemText>Dark mode: </ListItemText>
+                                    <ListItemMeta>
                                         <Form>
                                             {({ Bind }) => (
                                                 <Bind name="darkMode">
@@ -118,33 +126,33 @@ class Header extends React.Component {
                                                 </Bind>
                                             )}
                                         </Form>
-                                    </List.Item.Meta>
-                                </List.Item>
-                                <List.Item>
-                                    <List.Item.Graphic>
+                                    </ListItemMeta>
+                                </ListItem>
+                                <ListItem>
+                                    <ListItemGraphic>
                                         <Icon icon={<HelpIcon />} />
-                                    </List.Item.Graphic>
-                                    <List.Item.Text>Help</List.Item.Text>
-                                    <List.Item.Meta className={smallerIcon}>
+                                    </ListItemGraphic>
+                                    <ListItemText>Help</ListItemText>
+                                    <ListItemMeta className={smallerIcon}>
                                         <Icon icon={<OpenInNewIcon />} />
-                                    </List.Item.Meta>
-                                </List.Item>
-                                <List.Item>
-                                    <List.Item.Graphic>
+                                    </ListItemMeta>
+                                </ListItem>
+                                <ListItem>
+                                    <ListItemGraphic>
                                         <Icon icon={<SendFeedbackIcon />} />
-                                    </List.Item.Graphic>
-                                    <List.Item.Text>Send feedback</List.Item.Text>
-                                    <List.Item.Meta className={smallerIcon}>
+                                    </ListItemGraphic>
+                                    <ListItemText>Send feedback</ListItemText>
+                                    <ListItemMeta className={smallerIcon}>
                                         <Icon icon={<OpenInNewIcon />} />
-                                    </List.Item.Meta>
-                                </List.Item>
+                                    </ListItemMeta>
+                                </ListItem>
                                 <MenuDivider />
-                                <List.Item>
-                                    <List.Item.Graphic>
+                                <ListItem>
+                                    <ListItemGraphic>
                                         <Icon icon={<SignOutIcon />} />
-                                    </List.Item.Graphic>
-                                    <List.Item.Text>Sign out</List.Item.Text>
-                                </List.Item>
+                                    </ListItemGraphic>
+                                    <ListItemText>Sign out</ListItemText>
+                                </ListItem>
                             </List>
                         </Menu>
                     </TopAppBarActionItem>

@@ -2,7 +2,7 @@
 import React from "react";
 import { inject, app } from "webiny-client";
 import Drawer from "webiny-client-ui-material/Drawer";
-import { List } from "webiny-client-ui-material/List";
+import { List, ListItem, ListItemText, ListItemGraphic } from "webiny-client-ui-material/List";
 import { IconButton } from "webiny-client-ui-material/Button";
 import { connect } from "react-redux";
 import { compose } from "recompose";
@@ -52,16 +52,16 @@ class Navigation extends React.Component {
             return (
                 <React.Fragment>
                     <List>
-                        <List.Item key={props.id}>
+                        <ListItem key={props.id}>
                             {props.icon && (
-                                <List.Item.Graphic>
+                                <ListItemGraphic>
                                     <IconButton icon={props.icon} />
-                                </List.Item.Graphic>
+                                </ListItemGraphic>
                             )}
-                            <List.Item.Text>
+                            <ListItemText>
                                 {utils.getLink(props.route, Link, linkProps)}
-                            </List.Item.Text>
-                        </List.Item>
+                            </ListItemText>
+                        </ListItem>
                     </List>
                     {hasChildren && childMenuItems}
                 </React.Fragment>

@@ -9,7 +9,14 @@ import { withKnobs, boolean, text, object, array } from "@storybook/addon-knobs"
 import { DataList, PropsType } from "./DataList";
 
 import { DeleteIcon, EditIcon } from "./icons";
-import { List } from "./../List";
+import {
+    List,
+    ListItem,
+    ListItemText,
+    ListItemTextSecondary,
+    ListItemMeta,
+    ListItemGraphic
+} from "./../List";
 
 const story = storiesOf("Components/List", module);
 story.addDecorator(withKnobs);
@@ -120,17 +127,17 @@ story.add("data list", () => {
                         {({ data }) => (
                             <List>
                                 {data.map(item => (
-                                    <List.Item key={item.id}>
-                                        <List.Item.Graphic>
+                                    <ListItem key={item.id}>
+                                        <ListItemGraphic>
                                             <img src={item.gravatar} />
-                                        </List.Item.Graphic>
-                                        <List.Item.Text>
+                                        </ListItemGraphic>
+                                        <ListItemText>
                                             {item.firstName} {item.lastName}
-                                            <List.Item.Text.Secondary>
+                                            <ListItemTextSecondary>
                                                 {item.email}
-                                            </List.Item.Text.Secondary>
-                                        </List.Item.Text>
-                                        <List.Item.Meta>
+                                            </ListItemTextSecondary>
+                                        </ListItemText>
+                                        <ListItemMeta>
                                             <DeleteIcon
                                                 onClick={() => {
                                                     console.log("Redirect user to form.");
@@ -141,8 +148,8 @@ story.add("data list", () => {
                                                     console.log("Show confirmation dialog.");
                                                 }}
                                             />
-                                        </List.Item.Meta>
-                                    </List.Item>
+                                        </ListItemMeta>
+                                    </ListItem>
                                 ))}
                             </List>
                         )}
@@ -159,8 +166,8 @@ story.add("data list", () => {
                       {({ data }) => (
                             <List>
                                 {data.map(item => (
-                                    <List.Item key={item.id}>
-                                        <List.Item.Graphic>
+                                    <ListItem key={item.id}>
+                                        <ListItemGraphic>
                                             <img
                                                 src={
                                                     "//www.gravatar.com/avatar/" +
@@ -168,14 +175,14 @@ story.add("data list", () => {
                                                     "?s=48"
                                                 }
                                             />
-                                        </List.Item.Graphic>
-                                        <List.Item.Text>
+                                        </ListItemGraphic>
+                                        <ListItemText>
                                             {item.firstName} {item.lastName}
-                                            <List.Item.Text.Secondary>
+                                            <ListItemTextSecondary>
                                                 {item.email}
-                                            </List.Item.Text.Secondary>
-                                        </List.Item.Text>
-                                        <List.Item.Meta>
+                                            </ListItemTextSecondary>
+                                        </ListItemText>
+                                        <ListItemMeta>
                                                 <DeleteIcon
                                                     onClick={() => {
                                                         console.log("Redirect user to form.");
@@ -186,8 +193,8 @@ story.add("data list", () => {
                                                         console.log("Show confirmation dialog.");
                                                     }}
                                                 />
-                                        </List.Item.Meta>
-                                    </List.Item>
+                                        </ListItemMeta>
+                                    </ListItem>
                                 ))}
                             </List>
                         )}

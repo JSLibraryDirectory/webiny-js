@@ -2,7 +2,8 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import Story from "webiny-storybook-utils/Story";
-import List from "./../List";
+import { List, ListItem, ListItemText, ListItemTextSecondary } from "./../List";
+
 import readme from "./../Drawer/README.md";
 import { withKnobs, boolean, selectV2 } from "@storybook/addon-knobs";
 
@@ -26,29 +27,27 @@ story.add("usage", () => {
                         <Drawer.Header>Main Menu</Drawer.Header>
                         <Drawer.Content>
                             <List>
-                                <List.Item>
-                                    <List.Item.Text>Users</List.Item.Text>
-                                </List.Item>
+                                <ListItem>
+                                    <ListItemText>Users</ListItemText>
+                                </ListItem>
 
-                                <List.Item>
-                                    <List.Item.Text>Companies</List.Item.Text>
-                                </List.Item>
+                                <ListItem>
+                                    <ListItemText>Companies</ListItemText>
+                                </ListItem>
 
-                                <List.Item>
-                                    <List.Item.Text>
+                                <ListItem>
+                                    <ListItemText>
                                         Brands
-                                        <List.Item.Text.Secondary>
-                                            2 new brands
-                                        </List.Item.Text.Secondary>
-                                    </List.Item.Text>
-                                </List.Item>
+                                        <ListItemTextSecondary>2 new brands</ListItemTextSecondary>
+                                    </ListItemText>
+                                </ListItem>
 
-                                <List.Item>
-                                    <List.Item.Text>ACL</List.Item.Text>
-                                </List.Item>
-                                <List.Item>
-                                    <List.Item.Text>Settings</List.Item.Text>
-                                </List.Item>
+                                <ListItem>
+                                    <ListItemText>ACL</ListItemText>
+                                </ListItem>
+                                <ListItem>
+                                    <ListItemText>Settings</ListItemText>
+                                </ListItem>
                             </List>
                         </Drawer.Content>
                     </Drawer>
@@ -59,29 +58,29 @@ story.add("usage", () => {
                         <Drawer.Header>Main Menu</Drawer.Header>
                         <Drawer.Content>
                             <List>
-                                <List.Item>
-                                    <List.Item.Text>Users</List.Item.Text>
-                                </List.Item>
+                                <ListItem>
+                                    <ListItemText>Users</ListItemText>
+                                </ListItem>
 
-                                <List.Item>
-                                    <List.Item.Text>Companies</List.Item.Text>
-                                </List.Item>
+                                <ListItem>
+                                    <ListItemText>Companies</ListItemText>
+                                </ListItem>
 
-                                <List.Item>
-                                    <List.Item.Text>
+                                <ListItem>
+                                    <ListItemText>
                                         Brands
-                                        <List.Item.Text.Secondary>
+                                        <ListItemTextSecondary>
                                             2 new brands
-                                        </List.Item.Text.Secondary>
-                                    </List.Item.Text>
-                                </List.Item>
+                                        </ListItemTextSecondary>
+                                    </ListItemText>
+                                </ListItem>
 
-                                <List.Item>
-                                    <List.Item.Text>ACL</List.Item.Text>
-                                </List.Item>
-                                <List.Item>
-                                    <List.Item.Text>Settings</List.Item.Text>
-                                </List.Item>
+                                <ListItem>
+                                    <ListItemText>ACL</ListItemText>
+                                </ListItem>
+                                <ListItem>
+                                    <ListItemText>Settings</ListItemText>
+                                </ListItem>
                             </List>
                         </Drawer.Content>
                     </Drawer>

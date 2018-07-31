@@ -7,9 +7,9 @@ import { compose } from "recompose";
 import { Elevation } from "webiny-client-ui-material/Elevation";
 import { Grid, Cell } from "webiny-client-ui-material/Grid";
 import { ConfirmationDialog } from "webiny-client-ui-material/ConfirmationDialog";
-import { DataList, List } from "webiny-client-ui-material/List";
 import { EditIcon, DeleteIcon, CreateIcon } from "webiny-client-ui-material/List/DataList/icons";
 import { withSnackbar } from "webiny-client-admin-material/hoc";
+import { DataList, List, ListItem, ListItemText, ListItemTextSecondary, ListItemMeta } from "webiny-client-ui-material/List";
 
 const t = i18n.namespace("Security.ApiTokensList");
 
@@ -32,7 +32,7 @@ const ApiTokensList = props => {
                                     />
                                 </React.Fragment>
                             }
-                            title={t`Security Policies`}
+                            title={t`API Tokens`}
                             sorters={[
                                 {
                                     label: "Newest to oldest",
@@ -55,14 +55,14 @@ const ApiTokensList = props => {
                             {({ data }) => (
                                 <List>
                                     {data.map(item => (
-                                        <List.Item key={item.id}>
-                                            <List.Item.Text>
+                                        <ListItem key={item.id}>
+                                            <ListItemText>
                                                 {item.name}
-                                                <List.Item.Text.Secondary>
+                                                <ListItemTextSecondary>
                                                     {item.description}
-                                                </List.Item.Text.Secondary>
-                                            </List.Item.Text>
-                                            <List.Item.Meta>
+                                                </ListItemTextSecondary>
+                                            </ListItemText>
+                                            <ListItemMeta>
                                                 <EditIcon
                                                     name="edit"
                                                     onClick={() =>
@@ -95,8 +95,8 @@ const ApiTokensList = props => {
                                                         />
                                                     )}
                                                 </ConfirmationDialog>
-                                            </List.Item.Meta>
-                                        </List.Item>
+                                            </ListItemMeta>
+                                        </ListItem>
                                     ))}
                                 </List>
                             )}

@@ -3,15 +3,15 @@ import * as React from "react";
 import { List as RmwcList, ListItem as RmwcListItem } from "rmwc/List";
 
 type Props = {
-    // One or more List.Item components, which can then consist of the following components:
-    // - List.Item.Text
-    // - List.Item.Text.Secondary
-    // - List.Item.Text.Graphic
-    // - List.Item.Text.Meta
-    children: React.ChildrenArray<React.Element<typeof List.Item>>,
+    // One or more ListItem components, which can then consist of the following components:
+    // - ListItemText
+    // - ListItemTextSecondary
+    // - ListItemText.Graphic
+    // - ListItemText.Meta
+    children: React.ChildrenArray<React.Element<typeof ListItem>>,
 
     // Should we add the ripple effect to the list item. Default: true
-    ripple?:boolean
+    ripple?: boolean
 };
 
 /**
@@ -25,18 +25,18 @@ const List = (props: Props) => {
 };
 
 /**
- * List.Item components are placed as direct children to List component.
+ * ListItem components are placed as direct children to List component.
  * @param props
  * @returns {*}
  * @constructor
  */
-List.Item = function ListItem(props: {
+const ListItem = (props: {
     children: React.ChildrenArray<
-        | React.Element<typeof List.Item.Text>
-        | React.Element<typeof List.Item.Graphic>
-        | React.Element<typeof List.Item.Meta>
+        | React.Element<typeof ListItemText>
+        | React.Element<typeof ListItemGraphic>
+        | React.Element<typeof ListItemMeta>
     >
-}) {
+}) => {
     return <RmwcListItem {...props} />;
 };
 
@@ -46,7 +46,7 @@ List.Item = function ListItem(props: {
  * @returns {*}
  * @constructor
  */
-List.Item.Text = function ListItemText(props: { children: React.Node }) {
+const ListItemText = (props: { children: React.Node }) => {
     return <span className="mdc-list-item__text">{props.children}</span>;
 };
 
@@ -56,7 +56,7 @@ List.Item.Text = function ListItemText(props: { children: React.Node }) {
  * @returns {*}
  * @constructor
  */
-List.Item.Text.Secondary = function ListItemTextSecondary(props: { children: React.Node }) {
+const ListItemTextSecondary = (props: { children: React.Node }) => {
     return <span className="mdc-list-item__secondary-text">{props.children}</span>;
 };
 
@@ -66,8 +66,8 @@ List.Item.Text.Secondary = function ListItemTextSecondary(props: { children: Rea
  * @returns {*}
  * @constructor
  */
-List.Item.Graphic = function ListItemGraphic(props: { children: React.Node, className?: string }) {
-    return <div className={"mdc-list-item__graphic "+props.className}>{props.children}</div>;
+const ListItemGraphic = (props: { children: React.Node, className?: string }) => {
+    return <div className={"mdc-list-item__graphic " + props.className}>{props.children}</div>;
 };
 
 /**
@@ -76,8 +76,8 @@ List.Item.Graphic = function ListItemGraphic(props: { children: React.Node, clas
  * @returns {*}
  * @constructor
  */
-List.Item.Meta = function ListItemMeta(props: { children: React.Node, className?: string }) {
-    return <span className={"mdc-list-item__meta "+props.className}>{props.children}</span>;
+const ListItemMeta = (props: { children: React.Node, className?: string }) => {
+    return <span className={"mdc-list-item__meta " + props.className}>{props.children}</span>;
 };
 
-export { List };
+export { List, ListItem, ListItemText, ListItemTextSecondary, ListItemGraphic, ListItemMeta };

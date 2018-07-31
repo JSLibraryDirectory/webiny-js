@@ -1,3 +1,3 @@
 // @flow
-export { List } from "./List";
+export * from "./List";
 export { DataList } from "./DataList";
