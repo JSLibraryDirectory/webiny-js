@@ -3,7 +3,11 @@ import * as React from "react";
 import { css } from "emotion";
 
 type Props = {
-    icon: string
+    // SvgComponent containing the svg icon
+    icon: React.Node,
+
+    // Optional onclick handler
+    onClick?: Function
 };
 
 const webinyIcon = css(
@@ -11,7 +15,8 @@ const webinyIcon = css(
     {
         "&.mdc-button__icon": {
             marginLeft: 0,
-            width: "inherit"
+            width: "inherit",
+            display: "block"
         }
     }
 );
@@ -24,8 +29,8 @@ const webinyIcon = css(
  */
 const Icon = (props: Props) => {
     return React.cloneElement(props.icon, {
-        ...props,
-        className: "mdc-button__icon " + webinyIcon
+        className: "mdc-button__icon " + webinyIcon,
+        onClick: props.onClick
     });
 };
 
