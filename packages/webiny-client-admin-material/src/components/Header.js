@@ -35,6 +35,10 @@ const smallerIcon = css(
     }
 );
 
+const menuDialog = css({
+    minWidth: 300
+});
+
 const menuTitle = css(
     {
         backgroundColor: "var(--webiny-hover-active)",
@@ -77,6 +81,7 @@ class Header extends React.Component {
                 <TopAppBarSection alignEnd>
                     <TopAppBarActionItem>
                         <Menu
+                            className={menuDialog}
                             anchor={"topEnd"}
                             handle={
                                 <img
