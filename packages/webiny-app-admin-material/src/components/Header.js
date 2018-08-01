@@ -81,7 +81,7 @@ class Header extends React.Component {
         return (
             <TopAppBar>
                 <TopAppBarSection alignStart>
-                    <IconButton icon={<MenuIcon />} onClick={toggleMenu} />
+                    <IconButton icon={<MenuIcon />} onClick={() => toggleMenu()} />
                     <TopAppBarTitle>Webiny</TopAppBarTitle>
                 </TopAppBarSection>
                 <TopAppBarSection alignEnd>
