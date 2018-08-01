@@ -1,3 +1,3 @@
 // @flow
 
-export { Menu, app } from "./src";
+export { app } from "./src";

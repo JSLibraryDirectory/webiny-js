@@ -1,6 +1,6 @@
 import React from "react";
 import _ from "lodash";
-import { app, i18n, inject } from "webiny-app";
+import { app } from "webiny-app";
 import withListContext from "./withListContext";
 
 const t = i18n.namespace("Webiny.ListData");

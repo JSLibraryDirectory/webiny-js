@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 import invariant from "invariant";
-import { inject, i18n } from "webiny-app";
+import { i18n } from "webiny-app/i18n";
 import logoOrange from "./../../assets/images/logo_orange.png";
 
 import { submitAuthenticate } from "../actions";
@@ -126,9 +126,6 @@ class Login extends React.Component<any, any> {
 }
 
 export default compose(
-    inject({
-        modules: ["Form", "Input", "Password", "Button", "Email", "Loader", "Alert"]
-    }),
     connect(state => ({
         security: state.security
     }))

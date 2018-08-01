@@ -12,7 +12,9 @@ import { DataList } from "webiny-ui-material/List";
 import { withForm } from "webiny-app/hoc";
 import AdminLayout from "webiny-app-admin/components/Layouts/AdminLayout";
 
-import { i18n, inject, app } from "webiny-app";
+import { app } from "webiny-app";
+import { i18n } from "webiny-app/i18n";
+
 const t = i18n.namespace("Security.UsersList");
 
 class UsersList extends React.Component<{ modules: Object }> {

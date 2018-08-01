@@ -1,9 +1,7 @@
 // @flow
 import React from "react";
-import { inject } from "webiny-app";
 import logo from "./../assets/images/logo.png";
 
-@inject()
 class Logo extends React.Component {
     constructor(props) {
         super(props);

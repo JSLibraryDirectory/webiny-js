@@ -22,20 +22,24 @@ async function buildEverything() {
 
     // Build all packages, one by one.
     const packages = listPackages();
+    const bin = `../../node_modules/.bin`;
     await Promise.all(
         packages.map(name => {
+            const dest = `../../${buildPath}/${name}`;
             return (async () => {
+                const cmd = [
+                    `node ${bin}/babel src -d ${dest} --copy-files`,
+                    `node ${bin}/flow-copy-source src ${dest}`
+                ];
+
                 // eslint-disable-next-line
-                await asyncExecuteCommand(
-                    `node ../../node_modules/.bin/babel src -d ../../${buildPath}/${name} --copy-files`,
-                    {
-                        cwd: `packages/${name}`
-                    }
-                );
+                await asyncExecuteCommand(cmd.join(" && "), {
+                    cwd: `packages/${name}`
+                });
 
                 if (existsSync(`bin`)) {
                     await asyncExecuteCommand(
-                        `node ../../node_modules/.bin/babel bin -d ../../${buildPath}/${name}/bin --copy-files`,
+                        `node ${bin}/babel bin -d ../../${buildPath}/${name}/bin --copy-files`,
                         {
                             cwd: `packages/${name}`
                         }

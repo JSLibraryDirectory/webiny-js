@@ -1,38 +1,18 @@
 // @flow
 import React from "react";
-import {app, i18n, inject} from "webiny-app";
+import { app } from "webiny-app";
+import { i18n } from "webiny-app/i18n";
 
 const t = i18n.namespace("Security.UsersForm");
-import AdminLayout from "webiny-app-admin/components/Layouts/AdminLayout";
+import AdminLayout from "../../components/Layouts/AdminLayout";
 
-@inject({
-    modules: [
-        "View",
-        "Form",
-        "FormData",
-        "FormError",
-        "Grid",
-        "Input",
-        "Password",
-        "Switch",
-        "Button",
-        "Section",
-        "Loader",
-        "OptionsData",
-        "AutoCompleteList",
-        "Tags"
-    ]
-})
 class UsersForm extends React.Component {
-    constructor() {
-        super();
-
-        this.state = {
-            searchQuery: {}
-        };
-    }
+    state = {
+        searchQuery: {}
+    };
 
     render() {
+        // TODO:
         const {
             Form,
             FormData,
@@ -58,7 +38,7 @@ class UsersForm extends React.Component {
                     fields="id firstName lastName enabled email groups { id name } policies { id name }"
                     onSubmitSuccess="Users.List"
                     onCancel="Users.List"
-                    defaultModel={{groups: [], policies: [], enabled: true}}
+                    defaultModel={{ groups: [], policies: [], enabled: true }}
                     onSuccessMessage={data => (
                         <span>
                             {t`User {user} was saved successfully!`({
@@ -67,9 +47,9 @@ class UsersForm extends React.Component {
                         </span>
                     )}
                 >
-                    {({model, onSubmit, loading, invalidFields, error}) => (
+                    {({ model, onSubmit, loading, invalidFields, error }) => (
                         <Form model={model} onSubmit={onSubmit} invalidFields={invalidFields}>
-                            {({model, form, Bind}) => {
+                            {({ model, form, Bind }) => {
                                 return (
                                     <View.Form>
                                         <View.Header
@@ -81,24 +61,36 @@ class UsersForm extends React.Component {
                                         />
                                         {error && (
                                             <View.Error>
-                                                <FormError error={error}/>
+                                                <FormError error={error} />
                                             </View.Error>
                                         )}
                                         <View.Body>
-                                            {loading && <Loader/>}
+                                            {loading && <Loader />}
                                             <Grid.Row>
                                                 <Grid.Col all={6}>
-                                                    <Section title={t`Info`}/>
+                                                    <Section title={t`Info`} />
                                                     <Grid.Row>
                                                         <Grid.Col all={12}>
-                                                            <Bind name="firstName" validators={["required"]}>
+                                                            <Bind
+                                                                name="firstName"
+                                                                validators={["required"]}
+                                                            >
                                                                 <Input label={t`First name`} />
                                                             </Bind>
-                                                            <Bind name="lastName" validators={["required"]}>
+                                                            <Bind
+                                                                name="lastName"
+                                                                validators={["required"]}
+                                                            >
                                                                 <Input label={t`Last name`} />
                                                             </Bind>
-                                                            <Bind name="email" validators={["required", "email"]}>
-                                                                <Input label={t`Email`} description={t`Your email`} />
+                                                            <Bind
+                                                                name="email"
+                                                                validators={["required", "email"]}
+                                                            >
+                                                                <Input
+                                                                    label={t`Email`}
+                                                                    description={t`Your email`}
+                                                                />
                                                             </Bind>
                                                         </Grid.Col>
                                                     </Grid.Row>
@@ -115,7 +107,7 @@ class UsersForm extends React.Component {
                                                                         .group
                                                                 }}
                                                             >
-                                                                {({options}) => (
+                                                                {({ options }) => (
                                                                     <Bind name="groups">
                                                                         <AutoCompleteList
                                                                             options={options}
@@ -127,7 +119,8 @@ class UsersForm extends React.Component {
                                                                                         return state;
                                                                                     }
                                                                                 );
-                                                                            }} />
+                                                                            }}
+                                                                        />
                                                                     </Bind>
                                                                 )}
                                                             </OptionsData>
@@ -146,7 +139,7 @@ class UsersForm extends React.Component {
                                                                         .policy
                                                                 }}
                                                             >
-                                                                {({options}) => (
+                                                                {({ options }) => (
                                                                     <Bind name="policies">
                                                                         <AutoCompleteList
                                                                             options={options}
@@ -158,7 +151,8 @@ class UsersForm extends React.Component {
                                                                                         return state;
                                                                                     }
                                                                                 );
-                                                                            }} />
+                                                                            }}
+                                                                        />
                                                                     </Bind>
                                                                 )}
                                                             </OptionsData>
@@ -166,18 +160,31 @@ class UsersForm extends React.Component {
                                                     </Grid.Row>
                                                 </Grid.Col>
                                                 <Grid.Col all={6}>
-                                                    <Section title={t`Password`}/>
+                                                    <Section title={t`Password`} />
                                                     <Grid.Row>
                                                         <Grid.Col all={12}>
-                                                            <Bind name="password" validators={["password"]}>
-                                                                <Password label={t`New password`} placeholder={t`Type a new password`} />
+                                                            <Bind
+                                                                name="password"
+                                                                validators={["password"]}
+                                                            >
+                                                                <Password
+                                                                    label={t`New password`}
+                                                                    placeholder={t`Type a new password`}
+                                                                />
                                                             </Bind>
 
                                                             <Bind
                                                                 name="confirmPassword"
-                                                                validators={["password", "eq:@password"]}
-                                                                name="eq">
-                                                                <Password label={t`Confirm password`} placeholder={t`Retype the new password`}>
+                                                                validators={[
+                                                                    "password",
+                                                                    "eq:@password"
+                                                                ]}
+                                                                name="eq"
+                                                            >
+                                                                <Password
+                                                                    label={t`Confirm password`}
+                                                                    placeholder={t`Retype the new password`}
+                                                                >
                                                                     <validator>
                                                                         {t`Passwords do not match`}
                                                                     </validator>
