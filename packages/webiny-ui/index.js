@@ -1,8 +1,2 @@
 // @flow
-export {
-    withModalDialog,
-    withModalConfirmation,
-    FormComponent,
-    withFormComponent,
-    app
-} from "./src";
+export * from "./src";

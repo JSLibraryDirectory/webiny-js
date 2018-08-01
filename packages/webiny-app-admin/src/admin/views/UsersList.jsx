@@ -1,13 +1,13 @@
 // @flow
 import * as React from "react";
 
-import { Input } from "webiny-ui-material/Input";
-import { Icon } from "webiny-ui-material/Icon";
-import { ButtonPrimary } from "webiny-ui-material/Button";
-import { Elevation } from "webiny-ui-material/Elevation";
-import { Grid, Cell } from "webiny-ui-material/Grid";
-import { Switch } from "webiny-ui-material/Switch";
-import { DataList } from "webiny-ui-material/List";
+import { Input } from "webiny-ui/Input";
+import { Icon } from "webiny-ui/Icon";
+import { ButtonPrimary } from "webiny-ui/Button";
+import { Elevation } from "webiny-ui/Elevation";
+import { Grid, Cell } from "webiny-ui/Grid";
+import { Switch } from "webiny-ui/Switch";
+import { DataList } from "webiny-ui/List";
 import { withForm } from "webiny-app/hoc";
 import AdminLayout from "webiny-app-admin/components/Layouts/AdminLayout";
 

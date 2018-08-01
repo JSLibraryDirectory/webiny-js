@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./TogglePermissionButton.module.scss";
 import _ from "lodash";
 import classNames from "classnames";
-import { ButtonPrimary } from "webiny-ui-material/Button";
+import { ButtonPrimary } from "webiny-ui/Button";
 
 class TogglePermissionButton extends React.Component {
     constructor() {

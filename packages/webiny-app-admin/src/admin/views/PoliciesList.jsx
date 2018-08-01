@@ -5,9 +5,9 @@ import { withRouter } from "webiny-app/router";
 import { i18n } from "webiny-app/i18n";
 import { compose } from "recompose";
 
-import { Elevation } from "webiny-ui-material/Elevation";
-import { Grid, Cell } from "webiny-ui-material/Grid";
-import { ConfirmationDialog } from "webiny-ui-material/ConfirmationDialog";
+import { Elevation } from "webiny-ui/Elevation";
+import { Grid, Cell } from "webiny-ui/Grid";
+import { ConfirmationDialog } from "webiny-ui/ConfirmationDialog";
 import {
     DataList,
     List,
@@ -15,9 +15,9 @@ import {
     ListItemText,
     ListItemTextSecondary,
     ListItemMeta
-} from "webiny-ui-material/List";
+} from "webiny-ui/List";
 
-import { EditIcon, DeleteIcon } from "webiny-ui-material/List/DataList/icons";
+import { EditIcon, DeleteIcon } from "webiny-ui/List/DataList/icons";
 import { withSnackbar } from "webiny-app-admin/hoc";
 import AdminLayout from "webiny-app-admin/components/Layouts/AdminLayout";
 

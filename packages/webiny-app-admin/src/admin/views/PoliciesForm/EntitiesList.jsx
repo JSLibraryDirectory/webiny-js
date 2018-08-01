@@ -3,8 +3,8 @@ import React, { Fragment } from "react";
 import TogglePermissionButton from "./../components/TogglePermissionButton";
 import _ from "lodash";
 import { i18n } from "webiny-app/i18n";
-import { Input } from "webiny-ui-material/Input";
-import { Grid, Cell } from "webiny-ui-material/Grid";
+import { Input } from "webiny-ui/Input";
+import { Grid, Cell } from "webiny-ui/Grid";
 
 const t = i18n.namespace("Security.EntitiesList");
 

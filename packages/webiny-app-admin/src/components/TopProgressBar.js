@@ -1,7 +1,7 @@
 // @flow
 import { connect } from "react-redux";
 import { compose, lifecycle } from "recompose";
-import { withTopProgressBar } from "webiny-ui-material/TopProgressBar/hoc";
+import { withTopProgressBar } from "webiny-ui/TopProgressBar/hoc";
 import _ from "lodash";
 
 const TopProgressBar = () => null;

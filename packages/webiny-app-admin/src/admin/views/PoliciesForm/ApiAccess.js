@@ -10,7 +10,7 @@ import query from "./ApiAccess/introspectionQuery";
 
 const t = i18n.namespace("Security.PermissionsForm.Scopes");
 
-import { Grid, Cell } from "webiny-ui-material/Grid";
+import { Grid, Cell } from "webiny-ui/Grid";
 class ApiAccess extends React.Component {
     constructor(props) {
         super(props);

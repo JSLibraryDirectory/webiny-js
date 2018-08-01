@@ -1,8 +1,9 @@
 // @flow
 import React from "react";
-import { Drawer, DrawerHeader, DrawerContent } from "webiny-ui-material/Drawer";
-import { List, ListItem, ListItemText, ListItemGraphic } from "webiny-ui-material/List";
-import { IconButton } from "webiny-ui-material/Button";
+import { Drawer, DrawerHeader, DrawerContent } from "webiny-ui/Drawer";
+import { List, ListItem, ListItemText, ListItemGraphic } from "webiny-ui/List";
+import { IconButton } from "webiny-ui/Button";
+import { Link } from "webiny-react-router";
 import { connect } from "react-redux";
 import compose from "recompose/compose";
 import _ from "lodash";
@@ -70,8 +71,6 @@ class Navigation extends React.Component {
 
             const children = React.Children.toArray(props.children);
             const hasChildren = children.length > 0;
-
-            const Link = () => <span>link ce biti tu</span>;
 
             const linkProps = {
                 key: props.id,

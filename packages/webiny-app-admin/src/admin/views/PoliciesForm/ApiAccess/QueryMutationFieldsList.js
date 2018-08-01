@@ -7,11 +7,11 @@ import classNames from "classnames";
 
 const t = i18n.namespace("Security.PermissionsForm.Scopes.QueryMutationFieldsList");
 
-import { Input } from "webiny-ui-material/Input";
-import { Checkbox } from "webiny-ui-material/Checkbox";
+import { Input } from "webiny-ui/Input";
+import { Checkbox } from "webiny-ui/Checkbox";
 
 // TODO: implement component
-// import { Scrollbar } from "webiny-ui-material/Scrollbar";
+// import { Scrollbar } from "webiny-ui/Scrollbar";
 
 class QueryMutationFieldsList extends React.Component {
     constructor() {

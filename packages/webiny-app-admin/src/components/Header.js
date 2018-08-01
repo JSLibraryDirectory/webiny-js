@@ -1,8 +1,8 @@
 // @flow
 import React from "react";
-import { Menu, MenuDivider } from "webiny-ui-material/Menu";
-import { IconButton } from "webiny-ui-material/Button";
-import { Icon } from "webiny-ui-material/Icon";
+import { Menu, MenuDivider } from "webiny-ui/Menu";
+import { IconButton } from "webiny-ui/Button";
+import { Icon } from "webiny-ui/Icon";
 import {
     List,
     ListItem,
@@ -10,9 +10,9 @@ import {
     ListItemTextSecondary,
     ListItemGraphic,
     ListItemMeta
-} from "webiny-ui-material/List";
+} from "webiny-ui/List";
 
-import { Switch } from "webiny-ui-material/Switch";
+import { Switch } from "webiny-ui/Switch";
 import { Form } from "webiny-form";
 import { css } from "emotion";
 
@@ -21,7 +21,7 @@ import {
     TopAppBarSection,
     TopAppBarActionItem,
     TopAppBarTitle
-} from "webiny-ui-material/TopAppBar";
+} from "webiny-ui/TopAppBar";
 
 import { ReactComponent as MenuIcon } from "./icons/baseline-menu-24px.svg";
 import { ReactComponent as DarkModeIcon } from "./icons/round-invert_colors-24px.svg";

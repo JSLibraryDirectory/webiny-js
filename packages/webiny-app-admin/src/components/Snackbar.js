@@ -2,7 +2,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { compose } from "recompose";
-// import { Snackbar as UiSnackbar } from "webiny-ui-material/Snackbar";
+// import { Snackbar as UiSnackbar } from "webiny-ui/Snackbar";
  import { Snackbar } from "rmwc/Snackbar";
 import _ from "lodash";
 import { hideSnackbar } from "./../actions/snackbar.actions";

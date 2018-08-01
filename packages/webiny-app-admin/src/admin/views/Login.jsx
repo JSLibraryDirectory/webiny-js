@@ -11,10 +11,10 @@ import styled from "react-emotion";
 import _ from "lodash";
 
 import { Form } from "webiny-form";
-import { Elevation } from "webiny-ui-material/Elevation";
-import { ButtonPrimary } from "webiny-ui-material/Button";
-import { Input } from "webiny-ui-material/Input";
-import { Grid, Cell } from "webiny-ui-material/Grid";
+import { Elevation } from "webiny-ui/Elevation";
+import { ButtonPrimary } from "webiny-ui/Button";
+import { Input } from "webiny-ui/Input";
+import { Grid, Cell } from "webiny-ui/Grid";
 
 const t = i18n.namespace("Webiny.Admin.Auth.Login");
 

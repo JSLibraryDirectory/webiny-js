@@ -5,11 +5,11 @@ import { withForm } from "webiny-app/hoc";
 import { withRouter } from "webiny-app/router";
 import { compose } from "recompose";
 import { Form } from "webiny-form";
-import { Elevation } from "webiny-ui-material/Elevation";
-import { Tabs, Tab } from "webiny-ui-material/Tabs";
-import { Grid, Cell } from "webiny-ui-material/Grid";
-import { Input } from "webiny-ui-material/Input";
-import { ButtonPrimary, ButtonSecondary } from "webiny-ui-material/Button";
+import { Elevation } from "webiny-ui/Elevation";
+import { Tabs, Tab } from "webiny-ui/Tabs";
+import { Grid, Cell } from "webiny-ui/Grid";
+import { Input } from "webiny-ui/Input";
+import { ButtonPrimary, ButtonSecondary } from "webiny-ui/Button";
 import AdminLayout from "webiny-app-admin/components/Layouts/AdminLayout";
 
 import EntitiesList from "./PoliciesForm/EntitiesList";

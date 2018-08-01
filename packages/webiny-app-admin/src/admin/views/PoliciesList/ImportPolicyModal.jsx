@@ -3,10 +3,9 @@ import React from "react";
 
 import { i18n, inject } from "webiny-app";
 const t = i18n.namespace("Security.Modal.ImportPolicyModal");
-import { withModalDialog } from "webiny-ui";
 
-@withModalDialog()
-@inject({
+    // TODO: import as static modules.
+/*@inject({
     modules: [
         "Modal",
         "Button",
@@ -19,7 +18,7 @@ import { withModalDialog } from "webiny-ui";
         "Textarea",
         "CodeEditor"
     ]
-})
+})*/
 class ImportPolicyModal extends React.Component {
     render() {
         const {

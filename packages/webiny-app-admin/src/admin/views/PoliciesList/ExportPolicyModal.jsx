@@ -4,13 +4,10 @@ import _ from "lodash";
 
 import { i18n, inject, app } from "webiny-app";
 const t = i18n.namespace("Security.Modal.ExportPolicyModal");
-import { withModalDialog } from "webiny-ui";
 import css from "./exportPolicyModal.module.scss";
 
-@withModalDialog()
-@inject({
-    modules: ["Modal", "Copy", "CodeHighlight", "Loader", "Button"]
-})
+// TODO: import as static modules.
+// modules: ["Modal", "Copy", "CodeHighlight", "Loader", "Button"]
 class ExportPolicyModal extends React.Component {
     constructor(props) {
         super(props);

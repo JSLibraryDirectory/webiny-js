@@ -3,9 +3,9 @@ import Auth from "@aws-amplify/auth";
 import debug from "./../debug";
 
 import { Form } from "webiny-form";
-import { ButtonPrimary } from "webiny-ui-material/Button";
-import { Input } from "webiny-ui-material/Input";
-import { Grid, Cell } from "webiny-ui-material/Grid";
+import { ButtonPrimary } from "webiny-ui/Button";
+import { Input } from "webiny-ui/Input";
+import { Grid, Cell } from "webiny-ui/Grid";
 
 class ForgotPassword extends React.Component {
     authStates = ["forgotPassword"];
