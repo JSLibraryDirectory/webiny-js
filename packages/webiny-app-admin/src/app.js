@@ -11,12 +11,12 @@ const t = i18n.namespace("Admin.App");
 import Login from "./admin/views/Login";
 import PoliciesList from "./admin/views/PoliciesList";
 import PoliciesForm from "./admin/views/PoliciesForm";
+import ApiTokensForm from "./admin/views/ApiTokensForm";
+import ApiTokensList from "./admin/views/ApiTokensList";
 
 /*
 import UsersForm from "./admin/views/UsersForm";
 import UsersList from "./admin/views/UsersList";
-import ApiTokensForm from "./admin/views/ApiTokensForm";
-import ApiTokensList from "./admin/views/ApiTokensList";
 import GroupsForm from "./admin/views/GroupsForm";
 import GroupsList from "./admin/views/GroupsList";
 */
@@ -68,7 +68,7 @@ export default () => {
         router.addRoute({
             name: "Policies.Edit",
             path: "/policies/:id",
-            component: PoliciesForm,
+            component: () => PoliciesForm,
             title: "Security - Edit Policy",
             group: securityManager
         });
@@ -78,6 +78,38 @@ export default () => {
             path: "/policies",
             title: "Security - Policies",
             component: () => PoliciesList,
+            group: securityManager
+        });
+
+        router.addRoute({
+            name: "Policies.Create",
+            path: "/policies/new",
+            component: () => PoliciesForm,
+            title: "Security - Create Policy",
+            group: securityManager
+        });
+
+        router.addRoute({
+            name: "ApiTokens.Create",
+            path: "/api-tokens/new",
+            component: () => ApiTokensForm,
+            title: "Security - Create Token",
+            group: securityManager
+        });
+
+        router.addRoute({
+            name: "ApiTokens.Edit",
+            path: "/api-tokens/:id",
+            component: () => ApiTokensForm,
+            title: "Security - Edit Token",
+            group: securityManager
+        });
+
+        router.addRoute({
+            name: "ApiTokens.List",
+            path: "/api-tokens",
+            component: () => ApiTokensList,
+            title: "Security - Tokens",
             group: securityManager
         });
 
@@ -114,29 +146,7 @@ export default () => {
             group: securityManager
         });
 
-        router.addRoute({
-            name: "ApiTokens.Create",
-            path: "/api-tokens/new",
-            component: ApiTokensForm,
-            title: "Security - Create Token",
-            group: securityManager
-        });
 
-        router.addRoute({
-            name: "ApiTokens.Edit",
-            path: "/api-tokens/:id",
-            component: ApiTokensForm,
-            title: "Security - Edit Token",
-            group: securityManager
-        });
-
-        router.addRoute({
-            name: "ApiTokens.List",
-            path: "/api-tokens",
-            component: ApiTokensList,
-            title: "Security - Tokens",
-            group: securityManager
-        });
 
         router.addRoute({
             name: "Groups.Create",
@@ -162,13 +172,7 @@ export default () => {
             group: securityManager
         });
 
-        router.addRoute({
-            name: "Policies.Create",
-            path: "/policies/new",
-            component: PoliciesForm,
-            title: "Security - Create Policy",
-            group: securityManager
-        });
+
 
 */
         next();

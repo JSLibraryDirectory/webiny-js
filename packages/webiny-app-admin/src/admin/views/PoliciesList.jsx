@@ -17,7 +17,8 @@ import {
     ListItemMeta
 } from "webiny-ui/List";
 
-import { EditIcon, DeleteIcon } from "webiny-ui/List/DataList/icons";
+import { EditIcon, DeleteIcon, CreateIcon } from "webiny-ui/List/DataList/icons";
+
 import { withSnackbar } from "webiny-app-admin/hoc";
 import AdminLayout from "webiny-app-admin/components/Layouts/AdminLayout";
 
@@ -25,8 +26,6 @@ const t = i18n.namespace("Security.PoliciesList");
 
 const PoliciesList = props => {
     const { PoliciesList, router } = props;
-
-    return <AdminLayout/>;
 
     return (
         <AdminLayout>
@@ -36,6 +35,13 @@ const PoliciesList = props => {
                     <Elevation z={1} style={{ background: "white", position: "relative" }}>
                         <DataList
                             {...PoliciesList}
+                            actions={
+                                <React.Fragment>
+                                    <CreateIcon
+                                        onClick={() => router.goToRoute("Policies.Create")}
+                                    />
+                                </React.Fragment>
+                            }
                             title={t`Security Policies`}
                             sorters={[
                                 {
