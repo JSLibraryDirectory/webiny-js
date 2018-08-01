@@ -3,20 +3,22 @@ import * as React from "react";
 import { i18n, inject } from "webiny-app";
 import { withForm, withRouter } from "webiny-app/hoc";
 import { compose } from "recompose";
-
+import { Form } from "webiny-form";
 import { Elevation } from "webiny-ui-material/Elevation";
 import { Tabs, Tab } from "webiny-ui-material/Tabs";
 import { Grid, Cell } from "webiny-ui-material/Grid";
 import { Input } from "webiny-ui-material/Input";
 import { ButtonPrimary, ButtonSecondary } from "webiny-ui-material/Button";
-import AdminLayout from "webiny-app-admin-material/components/Layouts/AdminLayout";
-import { Form } from "webiny-form";
+import AdminLayout from "webiny-app-admin/components/Layouts/AdminLayout";
 
-const t = i18n.namespace("Security.ApiTokensForm");
+import EntitiesList from "./PoliciesForm/EntitiesList";
+import ApiAccess from "./PoliciesForm/ApiAccess";
 
-class ApiTokensForm extends React.Component {
+const t = i18n.namespace("Security.PoliciesForm");
+
+class PoliciesForm extends React.Component {
     render() {
-        const { SecurityApiTokenForm, router } = this.props;
+        const { SecurityPolicyForm, router } = this.props;
 
         return (
             <AdminLayout>
@@ -25,18 +27,27 @@ class ApiTokensForm extends React.Component {
                         {/* TODO: styles must not be set inline. "position: relative" is here because of the loader. */}
                         <Elevation z={1} style={{ background: "white", position: "relative" }}>
                             <Form
-                                {...SecurityApiTokenForm}
+                                {...SecurityPolicyForm}
                                 onSubmit={data => {
-                                    SecurityApiTokenForm.submit({ data });
+                                    SecurityPolicyForm.submit({ data });
                                 }}
                             >
-                                {({ form, Bind }) => {
+                                {({ data, form, Bind }) => {
                                     return (
                                         <React.Fragment>
+                                            {SecurityPolicyForm.loading && (
+                                                <span>Skeleton TODO</span>
+                                            )}
+
                                             <Grid>
                                                 <Cell span={6}>
                                                     <Bind name="name" validators={["required"]}>
-                                                        <Input fullWidth label={t`Name`} />
+                                                        <Input label={t`Name`} />
+                                                    </Bind>
+                                                </Cell>
+                                                <Cell span={6}>
+                                                    <Bind name="slug" validators={["required"]}>
+                                                        <Input label={t`Slug`} />
                                                     </Bind>
                                                 </Cell>
                                             </Grid>
@@ -46,27 +57,35 @@ class ApiTokensForm extends React.Component {
                                                         name="description"
                                                         validators={["required"]}
                                                     >
-                                                        <Input
-                                                            rows={4}
-                                                            fullWidth
-                                                            label={t`Description`}
-                                                        />
+                                                        <Input label={t`Description`} />
                                                     </Bind>
                                                 </Cell>
                                             </Grid>
 
                                             <Grid>
                                                 <Cell span={12}>
-                                                    <Bind name="token">
-                                                        <Input
-                                                            rows={5}
-                                                            fullWidth
-                                                            label={t`Token`}
-                                                            placeholder={t`To receive a token, you must save it first.`}
-                                                            disabled
-                                                            description={t`Sent via "Authorization" header. Generated automatically and cannot be changed.`}
-                                                        />
-                                                    </Bind>
+                                                    <Tabs size="large">
+                                                        <Tab label={t`Entity permissions`}>
+                                                            <Grid>
+                                                                <Cell span={12}>
+                                                                    {/*<EntitiesList
+                                                                        model={data}
+                                                                        form={form}
+                                                                    />*/}
+                                                                </Cell>
+                                                            </Grid>
+                                                        </Tab>
+                                                        <Tab label={t`API access`}>
+                                                            <Grid>
+                                                                <Cell span={12}>
+                                                                  {/*  <ApiAccess
+                                                                        model={data}
+                                                                        form={form}
+                                                                    />*/}
+                                                                </Cell>
+                                                            </Grid>
+                                                        </Tab>
+                                                    </Tabs>
                                                 </Cell>
                                             </Grid>
 
@@ -75,7 +94,7 @@ class ApiTokensForm extends React.Component {
                                                     <ButtonSecondary
                                                         type="default"
                                                         onClick={() =>
-                                                            router.goToRoute("ApiTokens.List")
+                                                            router.goToRoute("Policies.List")
                                                         }
                                                     >
                                                         {t`Go back`}
@@ -86,7 +105,7 @@ class ApiTokensForm extends React.Component {
                                                         onClick={form.submit}
                                                         align="right"
                                                     >
-                                                        {t`Save API Token`}
+                                                        {t`Save policy`}
                                                     </ButtonPrimary>
                                                 </Cell>
                                             </Grid>
@@ -105,8 +124,8 @@ class ApiTokensForm extends React.Component {
 export default compose(
     withRouter(),
     withForm({
-        name: "SecurityApiTokenForm",
-        type: "Security.ApiTokens",
-        fields: "id name slug description token permissions"
+        name: "SecurityPolicyForm",
+        type: "Security.Policies",
+        fields: "id name slug description permissions"
     })
-)(ApiTokensForm);
+)(PoliciesForm);

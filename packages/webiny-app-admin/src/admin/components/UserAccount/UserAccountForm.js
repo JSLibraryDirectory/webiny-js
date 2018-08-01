@@ -5,7 +5,7 @@ import { app, inject, i18n } from "webiny-app";
 import gql from "graphql-tag";
 
 const t = i18n.namespace("Webiny.Admin.UserAccount");
-import AdminLayout from "webiny-app-admin-material/components/Layouts/AdminLayout";
+import AdminLayout from "webiny-app-admin/components/Layouts/AdminLayout";
 
 @inject({
     modules: [

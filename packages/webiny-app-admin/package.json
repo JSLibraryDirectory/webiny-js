@@ -1,5 +1,5 @@
 {
-  "name": "webiny-app-admin-material",
+  "name": "webiny-app-admin",
   "version": "0.0.0-semantically-released",
   "main": "index.js",
   "repository": {
@@ -24,8 +24,8 @@
     "babel-cli": "^6.26.0"
   },
   "scripts": {
-    "build:": "babel src -d ../../build/node_modules/webiny-app-admin-material --source-maps --copy-files",
-    "build:watch": "babel src -d ../../build/node_modules/webiny-app-admin-material --source-maps --copy-files --watch"
+    "build:": "babel src -d ../../build/node_modules/webiny-app-admin --source-maps --copy-files",
+    "build:watch": "babel src -d ../../build/node_modules/webiny-app-admin --source-maps --copy-files --watch"
   },
   "peerDependencies": {
     "material-components-web": "^0.37.0"

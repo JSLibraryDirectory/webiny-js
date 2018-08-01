@@ -8,10 +8,10 @@ import { Elevation } from "webiny-ui-material/Elevation";
 import { Grid, Cell } from "webiny-ui-material/Grid";
 import { ConfirmationDialog } from "webiny-ui-material/ConfirmationDialog";
 import { EditIcon, DeleteIcon, CreateIcon } from "webiny-ui-material/List/DataList/icons";
-import { withSnackbar } from "webiny-app-admin-material/hoc";
+import { withSnackbar } from "webiny-app-admin/hoc";
 import { DataList, List, ListItem, ListItemText, ListItemTextSecondary, ListItemMeta } from "webiny-ui-material/List";
 
-import AdminLayout from "webiny-app-admin-material/components/Layouts/AdminLayout";
+import AdminLayout from "webiny-app-admin/components/Layouts/AdminLayout";
 
 const t = i18n.namespace("Security.ApiTokensList");
 

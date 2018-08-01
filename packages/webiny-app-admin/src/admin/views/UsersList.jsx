@@ -10,7 +10,7 @@ import { Grid, Cell } from "webiny-ui-material/Grid";
 import { Switch } from "webiny-ui-material/Switch";
 import { DataList } from "webiny-ui-material/List";
 import { withForm } from "webiny-app/hoc";
-import AdminLayout from "webiny-app-admin-material/components/Layouts/AdminLayout";
+import AdminLayout from "webiny-app-admin/components/Layouts/AdminLayout";
 
 import { i18n, inject, app } from "webiny-app";
 const t = i18n.namespace("Security.UsersList");

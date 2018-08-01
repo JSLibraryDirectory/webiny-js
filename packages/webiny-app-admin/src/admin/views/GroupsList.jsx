@@ -1,11 +1,10 @@
 // @flow
 import React, { Fragment } from "react";
-import ExportPolicyModal from "./PoliciesList/ExportPolicyModal";
-import ImportPolicyModal from "./PoliciesList/ImportPolicyModal";
-import { i18n, inject } from "webiny-app";
-const t = i18n.namespace("Security.PoliciesList");
 
-import AdminLayout from "webiny-app-admin-material/components/Layouts/AdminLayout";
+import { i18n, inject } from "webiny-app";
+const t = i18n.namespace("Security.GroupsList");
+
+import AdminLayout from "webiny-app-admin/components/Layouts/AdminLayout";
 
 @inject({
     modules: [
@@ -22,7 +21,7 @@ import AdminLayout from "webiny-app-admin-material/components/Layouts/AdminLayou
         "ButtonGroup"
     ]
 })
-class PoliciesList extends React.Component {
+class GroupsList extends React.Component {
     render() {
         const {
             View,
@@ -46,26 +45,18 @@ class PoliciesList extends React.Component {
                     <ViewSwitcher.View name="listView" defaultView>
                         {({ showView }) => (
                             <View.List>
-                                <View.Header title={t`Security - Policies`}>
+                                <View.Header title={t`Security - Groups`}>
                                     <ButtonGroup>
-                                        <Link type="primary" route="Policies.Create">
+                                        <Link type="primary" route="Groups.Create">
                                             <Icon icon="plus-circle" />
-                                            {t`Create policy`}
+                                            {t`Create group`}
                                         </Link>
-
-                                        <Button
-                                            type="secondary"
-                                            onClick={showView("importModal")}
-                                            icon="download"
-                                            label={t`Import`}
-                                        />
                                     </ButtonGroup>
                                 </View.Header>
                                 <View.Body>
                                     <ListData
-                                        onReady={actions => (this.list = actions)}
                                         withRouter
-                                        entity="SecurityPolicy"
+                                        entity="SecurityGroup"
                                         fields="id name slug description createdOn"
                                         search={{ fields: ["name", "slug", "description"] }}
                                     >
@@ -95,7 +86,7 @@ class PoliciesList extends React.Component {
                                                                 {({ data }) => (
                                                                     <span>
                                                                         <Link
-                                                                            route="Policies.Edit"
+                                                                            route="Groups.Edit"
                                                                             params={{ id: data.id }}
                                                                         >
                                                                             <strong>
@@ -118,14 +109,7 @@ class PoliciesList extends React.Component {
                                                                 sort="createdOn"
                                                             />
                                                             <Table.Actions>
-                                                                <Table.EditAction route="Policies.Edit" />
-                                                                <Table.Action
-                                                                    label={t`Export`}
-                                                                    icon="download"
-                                                                    onClick={showView(
-                                                                        "exportModal"
-                                                                    )}
-                                                                />
+                                                                <Table.EditAction route="Groups.Edit" />
                                                                 <Table.DeleteAction />
                                                             </Table.Actions>
                                                         </Table.Row>
@@ -139,24 +123,10 @@ class PoliciesList extends React.Component {
                             </View.List>
                         )}
                     </ViewSwitcher.View>
-                    <ViewSwitcher.View name="exportModal" modal>
-                        {({ data: { data } }) => (
-                            <ExportPolicyModal name="exportModal" data={data} />
-                        )}
-                    </ViewSwitcher.View>
-
-                    <ViewSwitcher.View name="importModal" modal>
-                        {() => (
-                            <ImportPolicyModal
-                                name="importModal"
-                                onSuccess={() => this.list.loadRecords()}
-                            />
-                        )}
-                    </ViewSwitcher.View>
                 </ViewSwitcher>
             </AdminLayout>
         );
     }
 }
 
-export default PoliciesList;
+export default GroupsList;

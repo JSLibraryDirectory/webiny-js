@@ -6,7 +6,7 @@ import {
     authenticationMiddleware,
     Router
 } from "webiny-app";
-import { app as adminApp } from "webiny-app-admin-material";
+import { app as adminApp } from "webiny-app-admin";
 import { app as cmsAdminApp } from "webiny-app-cms/admin";
 import userIdentity from "./userIdentity";
 import apiConfig from "./../apiConfig";

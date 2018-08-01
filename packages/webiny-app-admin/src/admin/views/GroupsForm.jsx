@@ -1,7 +1,7 @@
 // @flow
 import React from "react";
 import { app, i18n, inject } from "webiny-app";
-import AdminLayout from "webiny-app-admin-material/components/Layouts/AdminLayout";
+import AdminLayout from "webiny-app-admin/components/Layouts/AdminLayout";
 
 const t = i18n.namespace("Security.GroupsForm");
 

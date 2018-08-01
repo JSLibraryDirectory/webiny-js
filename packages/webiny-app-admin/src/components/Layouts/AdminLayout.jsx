@@ -3,9 +3,9 @@ import React from "react";
 import TopProgressBar from "./../TopProgressBar";
 import Snackbar from "./../Snackbar";
 
-import Header from "webiny-app-admin-material/components/Header";
-import Footer from "webiny-app-admin-material/components/Footer";
-import Navigation from "webiny-app-admin-material/components/Navigation";
+import Header from "webiny-app-admin/components/Header";
+import Footer from "webiny-app-admin/components/Footer";
+import Navigation from "webiny-app-admin/components/Navigation";
 
 /**
  * AdminLayout is the main container that will hold all other components.
