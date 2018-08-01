@@ -1,13 +1,15 @@
+// @flow
 import React from "react";
 import classSet from "classnames";
 import _ from "lodash";
-import { inject } from "webiny-app";
 import styles from "./PageFilter.module.scss";
 
-@inject({ modules: ["Icon", "Link"] })
 class PageFilter extends React.Component {
     constructor(props) {
         super();
+
+        // TODO: import statically needed icons
+        // @inject({ modules: ["Icon", "Link"] })
 
         this.state = {
             search: props.query || "",
@@ -37,7 +39,10 @@ class PageFilter extends React.Component {
     }
 
     render() {
-        const { modules: { Link, Icon }, setFilter } = this.props;
+        const {
+            modules: { Link, Icon },
+            setFilter
+        } = this.props;
 
         const filter = _.get(this.props.filter, "filter", "all");
 

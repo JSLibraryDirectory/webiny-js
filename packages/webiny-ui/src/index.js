@@ -1,3 +1,4 @@
+// @flow
 import fontawesome from "@fortawesome/fontawesome";
 import solid from "@fortawesome/fontawesome-free-solid";
 fontawesome.library.add(solid);
@@ -9,10 +10,6 @@ if (window) {
 require("bootstrap-sass");
 
 import growler from "./services/growler";
-import ModalService from "./services/modal";
-
-export { default as withModalDialog } from "./components/Modal/withModalDialog";
-export { default as withModalConfirmation } from "./components/Modal/withModalConfirmation";
 
 export { default as FormComponent } from "./components/FormComponent";
 export { default as withFormComponent } from "./components/FormComponent/withFormComponent";
@@ -20,7 +17,6 @@ export { default as withFormComponent } from "./components/FormComponent/withFor
 const app = () => {
     return ({ app }, next) => {
         app.services.register("growler", () => growler);
-        app.services.register("modal", () => new ModalService());
 
         app.modules.register([
             {
@@ -222,10 +218,6 @@ const app = () => {
             {
                 name: "MarkdownEditor",
                 factory: () => import("./components/MarkdownEditor")
-            },
-            {
-                name: "Modal",
-                factory: () => import("./components/Modal")
             },
             {
                 name: "Panel",

@@ -1,5 +1,6 @@
+// @flow
 import React from "react";
-import { i18n } from "webiny-app";
+import { i18n } from "webiny-app/i18n";
 import styles from "./PageList.module.scss";
 
 const t = i18n.namespace("Cms.Admin.Views.PageList");

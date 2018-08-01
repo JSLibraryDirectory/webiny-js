@@ -1,10 +1,9 @@
+// @flow
 import React from "react";
 import _ from "lodash";
-import { inject } from "webiny-app";
 
-@inject({
-    modules: ["Dropdown", "Checkbox", "Grid", "OptionsData"]
-})
+// TODO: import these statically
+// modules: ["Dropdown", "Checkbox", "Grid", "OptionsData"]
 class PageListControls extends React.Component {
     constructor() {
         super();

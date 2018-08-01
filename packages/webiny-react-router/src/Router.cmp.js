@@ -1,3 +1,4 @@
+// @flow
 import React from "react";
 import $ from "jquery";
 import parse from "url-parse";
@@ -10,7 +11,7 @@ class Router extends React.Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const { router } = this.props;
         const { history } = router;
 
@@ -49,7 +50,7 @@ class Router extends React.Component {
         });
     }
 
-    componentWillReceiveProps(props) {
+    UNSAFE_componentWillReceiveProps(props) {
         props.router.matchRoute(props.router.history.location.pathname).then(route => {
             if (typeof this.unlisten === "function") {
                 this.setState({ route });

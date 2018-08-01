@@ -1,6 +1,6 @@
 // @flow
 import React from "react";
-import { i18n } from "webiny-app";
+import { i18n } from "webiny-app/i18n";
 import { router } from "webiny-app/router";
 import { addPlugin } from "webiny-app/plugins";
 import "./admin/actions";
@@ -9,14 +9,17 @@ import { ReactComponent as SecurityIcon } from "./assets/images/icons/baseline-s
 const t = i18n.namespace("Admin.App");
 
 import Login from "./admin/views/Login";
+import PoliciesList from "./admin/views/PoliciesList";
+import PoliciesForm from "./admin/views/PoliciesForm";
+
+/*
 import UsersForm from "./admin/views/UsersForm";
 import UsersList from "./admin/views/UsersList";
 import ApiTokensForm from "./admin/views/ApiTokensForm";
 import ApiTokensList from "./admin/views/ApiTokensList";
 import GroupsForm from "./admin/views/GroupsForm";
 import GroupsList from "./admin/views/GroupsList";
-import PoliciesForm from "./admin/views/PoliciesForm";
-import PoliciesList from "./admin/views/PoliciesList";
+*/
 
 // TODO: Provjeri dali ovo jos trebas: "./admin/views/SecurityToggleList"
 // to je bilo kroz module loader registrirano, ali ne mogu naci uopce di to koristis
@@ -50,18 +53,35 @@ export default () => {
             name: "Login",
             path: "/login",
             exact: true,
+            title: "Login",
             render() {
                 return (
                     <Login
                         identity={"SecurityUser"}
                         strategy={"credentials"}
-                        onSuccess={() => router.goToRoute("Users.List")}
+                        onSuccess={() => router.goToRoute("Policies.List")}
                     />
                 );
-            },
-            title: "Login"
+            }
         });
 
+        router.addRoute({
+            name: "Policies.Edit",
+            path: "/policies/:id",
+            component: PoliciesForm,
+            title: "Security - Edit Policy",
+            group: securityManager
+        });
+
+        router.addRoute({
+            name: "Policies.List",
+            path: "/policies",
+            title: "Security - Policies",
+            component: () => PoliciesList,
+            group: securityManager
+        });
+
+        /*
         router.addRoute({
             name: "Users.Create",
             path: "/users/new",
@@ -150,22 +170,7 @@ export default () => {
             group: securityManager
         });
 
-        router.addRoute({
-            name: "Policies.Edit",
-            path: "/policies/:id",
-            component: PoliciesForm,
-            title: "Security - Edit Policy",
-            group: securityManager
-        });
-
-        router.addRoute({
-            name: "Policies.List",
-            path: "/policies",
-            component: PoliciesList,
-            title: "Security - Policies",
-            group: securityManager
-        });
-
+*/
         next();
     };
 };

@@ -1,13 +1,22 @@
 // @flow
 import * as React from "react";
-import { withDataList, withRouter } from "webiny-app/hoc";
-import { inject, i18n } from "webiny-app";
+import { withDataList } from "webiny-app/hoc";
+import { withRouter } from "webiny-app/router";
+import { i18n } from "webiny-app/i18n";
 import { compose } from "recompose";
 
 import { Elevation } from "webiny-ui-material/Elevation";
 import { Grid, Cell } from "webiny-ui-material/Grid";
 import { ConfirmationDialog } from "webiny-ui-material/ConfirmationDialog";
-import { DataList, List, ListItem, ListItemText, ListItemTextSecondary, ListItemMeta } from "webiny-ui-material/List";
+import {
+    DataList,
+    List,
+    ListItem,
+    ListItemText,
+    ListItemTextSecondary,
+    ListItemMeta
+} from "webiny-ui-material/List";
+
 import { EditIcon, DeleteIcon } from "webiny-ui-material/List/DataList/icons";
 import { withSnackbar } from "webiny-app-admin/hoc";
 import AdminLayout from "webiny-app-admin/components/Layouts/AdminLayout";
@@ -16,6 +25,8 @@ const t = i18n.namespace("Security.PoliciesList");
 
 const PoliciesList = props => {
     const { PoliciesList, router } = props;
+
+    return <AdminLayout/>;
 
     return (
         <AdminLayout>

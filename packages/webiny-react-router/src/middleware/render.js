@@ -1,7 +1,9 @@
+// @flow
 import React from "react";
 
 export default () => {
     return async (params, next) => {
+        console.log(params, next);
         const { route, match, resolve } = params;
 
         if (route.render) {

@@ -1,6 +1,7 @@
 // @flow
 import React from "react";
 import { app } from "webiny-app";
+import { router } from "webiny-app/router";
 import _ from "lodash";
 
 const utils = {
@@ -56,7 +57,7 @@ const utils = {
     getLink(route, Link, linkProps = {}) {
         route = _.isString(route) ? route : null;
 
-        if (app.router.getRoute(route)) {
+        if (router.getRoute(route)) {
             linkProps.route = route;
         } else {
             linkProps.url = route;

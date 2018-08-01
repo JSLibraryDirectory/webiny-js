@@ -1,10 +1,11 @@
+// @flow
 import React from "react";
 import invariant from "invariant";
-import { inject } from "webiny-app";
 import { WidgetContainer } from "webiny-app-cms";
 import blankBalloon from "./assets/blank-state-balloon.jpg";
 
-@inject({ modules: ["Alert"], services: ["cms"] })
+// TODO: inject these statically.
+// @inject({ modules: ["Alert"], services: ["cms"] })
 class PageContentPreview extends React.Component {
     renderPreviewWidget(data) {
         const widget = { ...data };

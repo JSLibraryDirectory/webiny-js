@@ -1,13 +1,10 @@
 // @flow
 import React from "react";
 import styles from "./TogglePermissionButton.module.scss";
-import { inject } from "webiny-app";
 import _ from "lodash";
 import classNames from "classnames";
+import { ButtonPrimary } from "webiny-ui-material/Button";
 
-@inject({
-    modules: ["Button"]
-})
 class TogglePermissionButton extends React.Component {
     constructor() {
         super();
@@ -16,13 +13,12 @@ class TogglePermissionButton extends React.Component {
 
     render() {
         const {
-            modules: { Button },
             onClick,
             value
         } = this.props;
         return (
             <div className={styles.togglePermissionButtonWrapper} ref={ref => (this.ref = ref)}>
-                <Button
+                <ButtonPrimary
                     disabled={this.props.disabled}
                     type="primary"
                     onClick={() => {
@@ -34,7 +30,7 @@ class TogglePermissionButton extends React.Component {
                     })}
                 >
                     {this.props.label}
-                </Button>
+                </ButtonPrimary>
             </div>
         );
     }

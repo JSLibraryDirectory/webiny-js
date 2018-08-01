@@ -1,7 +1,8 @@
 // @flow
 import * as React from "react";
-import { withDataList, withRouter } from "webiny-app/hoc";
-import { inject, i18n } from "webiny-app";
+import { withDataList } from "webiny-app/hoc";
+import { withRouter } from "webiny-app/router";
+import { i18n } from "webiny-app/i18n";
 import { compose } from "recompose";
 
 import { Elevation } from "webiny-ui-material/Elevation";

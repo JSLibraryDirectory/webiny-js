@@ -1,15 +1,18 @@
 // @flow
 import React from "react";
 import css from "./QueryMutationFieldsList.module.scss";
-import { inject, i18n } from "webiny-app";
+import { i18n } from "webiny-app/i18n";
 import _ from "lodash";
 import classNames from "classnames";
 
 const t = i18n.namespace("Security.PermissionsForm.Scopes.QueryMutationFieldsList");
 
-@inject({
-    modules: ["Input", "Checkbox", "Scrollbar"]
-})
+import { Input } from "webiny-ui-material/Input";
+import { Checkbox } from "webiny-ui-material/Checkbox";
+
+// TODO: implement component
+// import { Scrollbar } from "webiny-ui-material/Scrollbar";
+
 class QueryMutationFieldsList extends React.Component {
     constructor() {
         super();
@@ -19,7 +22,6 @@ class QueryMutationFieldsList extends React.Component {
     }
 
     render() {
-        const { Input, Checkbox, Scrollbar } = this.props.modules;
         return (
             <div className={css.wrapper}>
                 <Input
@@ -29,59 +31,62 @@ class QueryMutationFieldsList extends React.Component {
                         this.setState({ filter });
                     }}
                 />
-                <Scrollbar style={{ height: 600 }} autoHide>
-                    <ul>
-                        {this.props.queriesAndMutations.map(field => {
-                            if (!_.isEmpty(this.state.filter)) {
-                                if (
-                                    field.name
-                                        .toLowerCase()
-                                        .indexOf(this.state.filter.toLowerCase()) < 0
-                                ) {
-                                    return null;
-                                }
-                            }
 
-                            return (
-                                <li
-                                    className={classNames({
-                                        [css.selected]:
-                                            this.props.selected &&
-                                            this.props.selected.name === field.name
-                                    })}
-                                    key={field.name}
-                                >
-                                    <div className={classNames(css.listItemWrapper, css.checkbox)}>
-                                        <Checkbox
-                                            value={_.get(
-                                                this.props.model.permissions,
-                                                `api.${field.name}`
-                                            )}
-                                            onChange={() => {
-                                                this.props.onToggle(field);
-                                            }}
-                                        />
-                                    </div>
-                                    <div
-                                        className={css.listItemWrapper}
-                                        onClick={() => {
-                                            this.props.onSelect(field);
+                {/* TODO: wrap below ul with Scrollbar */}
+                {/*  <Scrollbar style={{ height: 600 }} autoHide>
+
+                </Scrollbar>*/}
+
+                <ul>
+                    {this.props.queriesAndMutations.map(field => {
+                        if (!_.isEmpty(this.state.filter)) {
+                            if (
+                                field.name.toLowerCase().indexOf(this.state.filter.toLowerCase()) <
+                                0
+                            ) {
+                                return null;
+                            }
+                        }
+
+                        return (
+                            <li
+                                className={classNames({
+                                    [css.selected]:
+                                        this.props.selected &&
+                                        this.props.selected.name === field.name
+                                })}
+                                key={field.name}
+                            >
+                                <div className={classNames(css.listItemWrapper, css.checkbox)}>
+                                    <Checkbox
+                                        value={_.get(
+                                            this.props.model.permissions,
+                                            `api.${field.name}`
+                                        )}
+                                        onChange={() => {
+                                            this.props.onToggle(field);
                                         }}
+                                    />
+                                </div>
+                                <div
+                                    className={css.listItemWrapper}
+                                    onClick={() => {
+                                        this.props.onSelect(field);
+                                    }}
+                                >
+                                    <div className={css.name}>{field.name}</div>
+                                    <div
+                                        className={classNames(css.description, {
+                                            [css.missing]: !field.description
+                                        })}
                                     >
-                                        <div className={css.name}>{field.name}</div>
-                                        <div
-                                            className={classNames(css.description, {
-                                                [css.missing]: !field.description
-                                            })}
-                                        >
-                                            {field.description || t`Missing description.`}
-                                        </div>
+                                        {field.description || t`Missing description.`}
                                     </div>
-                                </li>
-                            );
-                        })}
-                    </ul>
-                </Scrollbar>
+                                </div>
+                            </li>
+                        );
+                    })}
+                </ul>
             </div>
         );
     }

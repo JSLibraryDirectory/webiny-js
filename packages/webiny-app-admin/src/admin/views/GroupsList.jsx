@@ -1,27 +1,29 @@
 // @flow
 import React, { Fragment } from "react";
 
-import { i18n, inject } from "webiny-app";
+import { i18n } from "webiny-app/i18n";
 const t = i18n.namespace("Security.GroupsList");
 
 import AdminLayout from "webiny-app-admin/components/Layouts/AdminLayout";
 
-@inject({
-    modules: [
-        "ViewSwitcher",
-        "View",
-        "Link",
-        "Icon",
-        "Grid",
-        "Input",
-        "List",
-        "ListData",
-        "Button",
-        "Loader",
-        "ButtonGroup"
-    ]
-})
 class GroupsList extends React.Component {
+    /*// TODO: import statically needed modules
+    @inject({
+        modules: [
+            "ViewSwitcher",
+            "View",
+            "Link",
+            "Icon",
+            "Grid",
+            "Input",
+            "List",
+            "ListData",
+            "Button",
+            "Loader",
+            "ButtonGroup"
+        ]
+    })*/
+
     render() {
         const {
             View,

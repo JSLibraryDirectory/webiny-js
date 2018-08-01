@@ -10,6 +10,7 @@ import { compose } from "recompose";
 import styled from "react-emotion";
 import _ from "lodash";
 
+import { Form } from "webiny-form";
 import { Elevation } from "webiny-ui-material/Elevation";
 import { ButtonPrimary } from "webiny-ui-material/Button";
 import { Input } from "webiny-ui-material/Input";
@@ -47,7 +48,6 @@ class Login extends React.Component<any, any> {
     }
 
     render() {
-        const { Form, Loader } = this.props.modules;
         const { identity, strategy } = this.props;
         const authentication = _.get(this.props, "security.authentication", {});
 
@@ -57,8 +57,6 @@ class Login extends React.Component<any, any> {
                     <React.Fragment>
                         <LoginContent>
                             <Elevation z={2}>
-                                {authentication.inProgress && <Loader />}
-
                                 <Grid>
                                     <Cell span={12}>
                                         <img src={logoOrange} width="180" height="58" />

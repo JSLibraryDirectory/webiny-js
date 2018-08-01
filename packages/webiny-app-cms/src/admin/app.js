@@ -1,6 +1,6 @@
 // @flow
 import React from "react";
-import { i18n } from "webiny-app";
+import { i18n } from "webiny-app/i18n";
 import { Menu } from "webiny-app-admin";
 import CMS from "./services/CMS";
 import PageManagerContainer from "./views/pages/PageManagerContainer";

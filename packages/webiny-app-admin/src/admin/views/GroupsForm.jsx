@@ -1,26 +1,11 @@
 // @flow
 import React from "react";
-import { app, i18n, inject } from "webiny-app";
+import { app } from "webiny-app";
+import { i18n } from "webiny-app/i18n";
 import AdminLayout from "webiny-app-admin/components/Layouts/AdminLayout";
 
 const t = i18n.namespace("Security.GroupsForm");
 
-@inject({
-    modules: [
-        "Form",
-        "FormData",
-        "OptionsData",
-        "FormError",
-        "View",
-        "Input",
-        "Button",
-        "Grid",
-        "Section",
-        "Loader",
-        "Tabs",
-        "AutoCompleteList"
-    ]
-})
 class GroupsForm extends React.Component {
     constructor() {
         super();
@@ -33,6 +18,25 @@ class GroupsForm extends React.Component {
     }
 
     render() {
+        // TODO: import statically needed modules
+/*
+        @inject({
+            modules: [
+                "Form",
+                "FormData",
+                "OptionsData",
+                "FormError",
+                "View",
+                "Input",
+                "Button",
+                "Grid",
+                "Section",
+                "Loader",
+                "Tabs",
+                "AutoCompleteList"
+            ]
+        })*/
+
         const {
             Form,
             FormData,

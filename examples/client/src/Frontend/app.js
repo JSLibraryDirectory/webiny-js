@@ -2,7 +2,6 @@ import React from "react";
 import { app, resolveMiddleware, renderMiddleware, Router } from "webiny-app";
 import { hot } from "react-hot-loader";
 import { app as cmsApp, routerMiddleware as cmsMiddleware } from "webiny-app-cms/frontend";
-import { app as uiApp } from "webiny-ui";
 import apiConfig from "./../apiConfig";
 
 if (!app.initialized) {
@@ -10,7 +9,6 @@ if (!app.initialized) {
         return apiConfig(app);
     });
 
-    app.use(uiApp());
     app.use(cmsApp());
 
     app.router.configure({

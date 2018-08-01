@@ -1,6 +1,5 @@
 // @flow
 import * as React from "react";
-import { compose } from "recompose";
 
 import { Input } from "webiny-ui-material/Input";
 import { Icon } from "webiny-ui-material/Icon";
@@ -20,6 +19,20 @@ const t = i18n.namespace("Security.UsersList");
 class UsersList extends React.Component<{ modules: Object }> {
     renderForm() {
         const { Form, Loader } = this.props.modules;
+
+        // TODO - import statically needed modules.
+        /*inject({
+            modules: [
+                "View",
+                "List",
+                "ListData",
+                "Icon",
+                "Loader",
+                "Input",
+                "Form",
+                "Link"
+            ]
+        })*/
 
         const invalidFields = {};
 
@@ -196,17 +209,4 @@ class UsersList extends React.Component<{ modules: Object }> {
     }
 }
 
-export default compose(
-    inject({
-        modules: [
-            "View",
-            "List",
-            "ListData",
-            "Icon",
-            "Loader",
-            "Input",
-            "Form",
-            "Link"
-        ]
-    })
-)(UsersList);
+export default UsersList;

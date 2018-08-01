@@ -1,11 +1,9 @@
 // @flow
 import React from "react";
 import css from "./FieldsSelector.module.scss";
-import { inject } from "webiny-app";
 import _ from "lodash";
 import FieldsList from "./FieldsSelector/FieldsList";
 
-@inject({ modules: [] })
 class FieldsSelector extends React.Component {
     constructor() {
         super();

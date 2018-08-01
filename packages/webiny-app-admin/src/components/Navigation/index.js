@@ -1,6 +1,5 @@
 // @flow
 import React from "react";
-//import { Link } from "webiny-ui-material/Link";
 import { Drawer, DrawerHeader, DrawerContent } from "webiny-ui-material/Drawer";
 import { List, ListItem, ListItemText, ListItemGraphic } from "webiny-ui-material/List";
 import { IconButton } from "webiny-ui-material/Button";
@@ -71,7 +70,8 @@ class Navigation extends React.Component {
 
             const children = React.Children.toArray(props.children);
             const hasChildren = children.length > 0;
-            const { Link } = this.props.modules;
+
+            const Link = () => <span>link ce biti tu</span>;
 
             const linkProps = {
                 key: props.id,

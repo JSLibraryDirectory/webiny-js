@@ -4,13 +4,13 @@ import css from "./ApiAccess.module.scss";
 import _ from "lodash";
 import QueryMutationFieldsList from "./ApiAccess/QueryMutationFieldsList";
 import FieldsSelector from "./ApiAccess/FieldsSelector";
-import { inject, i18n } from "webiny-app";
+import { i18n } from "webiny-app/i18n";
 import fetch from "isomorphic-fetch";
 import query from "./ApiAccess/introspectionQuery";
 
 const t = i18n.namespace("Security.PermissionsForm.Scopes");
 
-@inject({ modules: ["Grid"] })
+import { Grid, Cell } from "webiny-ui-material/Grid";
 class ApiAccess extends React.Component {
     constructor(props) {
         super(props);
@@ -52,12 +52,10 @@ class ApiAccess extends React.Component {
             return null;
         }
 
-        const { Grid } = this.props.modules;
-
         return (
             <div className={css.scopes}>
-                <Grid.Row>
-                    <Grid.Col md={4} className={css.sidebar}>
+                <Grid>
+                    <Cell md={4} className={css.sidebar}>
                         <h3>{t`Queries & Mutations`}</h3>
                         <h4>{t`Choose query or mutation you wish to manage.`}</h4>
                         <QueryMutationFieldsList
@@ -94,8 +92,8 @@ class ApiAccess extends React.Component {
                                 });
                             }}
                         />
-                    </Grid.Col>
-                    <Grid.Col md={8} className={css.scope}>
+                    </Cell>
+                    <Cell md={8} className={css.scope}>
                         <h3>{t`Scope`}</h3>
                         <h4
                         >{t`Choose fields that will be exposed. Use SHIFT + click to select many fields at once.`}</h4>
@@ -133,8 +131,8 @@ class ApiAccess extends React.Component {
                                 });
                             }}
                         />
-                    </Grid.Col>
-                </Grid.Row>
+                    </Cell>
+                </Grid>
             </div>
         );
     }
