@@ -108,12 +108,5 @@ export default compose(
         name: "PoliciesList",
         type: "Security.Policies",
         fields: "id name description createdOn"
-    }),
-    inject({
-        modules: [
-            {
-                AdminLayout: "Admin.Layout"
-            }
-        ]
     })
 )(PoliciesList);

@@ -1,6 +1,5 @@
 // @flow
 import React from "react";
-import { app, inject } from "webiny-app";
 import { Menu, MenuDivider } from "webiny-ui-material/Menu";
 import { IconButton } from "webiny-ui-material/Button";
 import { Icon } from "webiny-ui-material/Icon";
@@ -23,8 +22,6 @@ import {
     TopAppBarActionItem,
     TopAppBarTitle
 } from "webiny-ui-material/TopAppBar";
-
-import { compose } from "recompose";
 
 import { ReactComponent as MenuIcon } from "./icons/baseline-menu-24px.svg";
 import { ReactComponent as DarkModeIcon } from "./icons/round-invert_colors-24px.svg";
@@ -162,15 +159,4 @@ class Header extends React.Component {
     }
 }
 
-export default compose(
-    inject({
-        modules: [
-            {
-                components: () =>
-                    app.modules.loadByTag("header-component").then(modules => {
-                        return Object.values(modules).filter(m => m);
-                    })
-            }
-        ]
-    })
-)(Header);
+export default Header;

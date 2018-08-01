@@ -1,9 +1,11 @@
 // @flow
 import React from "react";
-import { inject } from "webiny-app";
-import { compose } from "recompose";
 import TopProgressBar from "./../TopProgressBar";
 import Snackbar from "./../Snackbar";
+
+import Header from "webiny-app-admin-material/components/Header";
+import Footer from "webiny-app-admin-material/components/Footer";
+import Navigation from "webiny-app-admin-material/components/Navigation";
 
 /**
  * AdminLayout is the main container that will hold all other components.
@@ -11,8 +13,6 @@ import Snackbar from "./../Snackbar";
  */
 class AdminLayout extends React.Component {
     render() {
-        const { Navigation, Header, Footer } = this.props.modules;
-
         return (
             <div className="master minimized">
                 <Header />
@@ -28,14 +28,4 @@ class AdminLayout extends React.Component {
     }
 }
 
-export default compose(
-    inject({
-        modules: [
-            {
-                Header: "Admin.Header",
-                Navigation: "Admin.Navigation",
-                Footer: "Admin.Footer"
-            }
-        ]
-    })
-)(AdminLayout);
+export default AdminLayout;

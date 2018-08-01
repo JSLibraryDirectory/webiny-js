@@ -3,15 +3,12 @@ import React from "react";
 import _ from "lodash";
 import { app, inject, i18n } from "webiny-app";
 import gql from "graphql-tag";
-// import TwoFactorAuthActivation from "./TwoFactorAuthActivation";
-
-// import TwoFactorAuthConfirmation from './TwoFactorAuthConfirmation';
 
 const t = i18n.namespace("Webiny.Admin.UserAccount");
+import AdminLayout from "webiny-app-admin-material/components/Layouts/AdminLayout";
 
 @inject({
     modules: [
-        { AdminLayout: "Admin.Layout" },
         "View",
         "Form",
         "FormError",
@@ -102,7 +99,6 @@ class UserAccount extends React.Component {
     render() {
         const {
             modules: {
-                AdminLayout,
                 Form,
                 FormError,
                 View,
@@ -171,23 +167,6 @@ class UserAccount extends React.Component {
                                                 placeholder={t`Re-type your new password`}
                                             />
                                         </Bind>
-                                        {/* <ChangeConfirm
-                                            message={({ value }) => (value ? "Dummy" : null)}
-                                            renderDialog={function() {
-                                                return <TwoFactorAuthActivation />;
-                                            }}
-                                            onComplete={() => this.twoFactorAuthConfirmation.show()}
-                                        >
-                                            {({ showConfirmation }) => (
-                                                <Bind beforeChange={showConfirmation}>
-                                                    <Switch
-                                                        label={t`Enable 2 Factor Authentication`}
-                                                        name="twoFactorAuth.status"
-                                                    />
-                                                </Bind>
-                                            )}
-                                        </ChangeConfirm>*/}
-                                        {/*<TwoFactorAuthConfirmation ref={ref => this.twoFactorAuthConfirmation = ref}/>*/}
                                     </Grid.Col>
                                 </Grid.Row>
                                 <pre>{JSON.stringify(this.state.model, null, 2)}</pre>

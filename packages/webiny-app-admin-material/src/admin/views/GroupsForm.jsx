@@ -1,6 +1,7 @@
 // @flow
 import React from "react";
 import { app, i18n, inject } from "webiny-app";
+import AdminLayout from "webiny-app-admin-material/components/Layouts/AdminLayout";
 
 const t = i18n.namespace("Security.GroupsForm");
 
@@ -17,10 +18,7 @@ const t = i18n.namespace("Security.GroupsForm");
         "Section",
         "Loader",
         "Tabs",
-        "AutoCompleteList",
-        {
-            AdminLayout: "Admin.Layout"
-        }
+        "AutoCompleteList"
     ]
 })
 class GroupsForm extends React.Component {
@@ -36,7 +34,6 @@ class GroupsForm extends React.Component {
 
     render() {
         const {
-            AdminLayout,
             Form,
             FormData,
             FormError,

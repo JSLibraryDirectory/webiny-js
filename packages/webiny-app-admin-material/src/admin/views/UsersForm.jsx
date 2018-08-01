@@ -3,6 +3,7 @@ import React from "react";
 import {app, i18n, inject} from "webiny-app";
 
 const t = i18n.namespace("Security.UsersForm");
+import AdminLayout from "webiny-app-admin-material/components/Layouts/AdminLayout";
 
 @inject({
     modules: [
@@ -19,10 +20,7 @@ const t = i18n.namespace("Security.UsersForm");
         "Loader",
         "OptionsData",
         "AutoCompleteList",
-        "Tags",
-        {
-            AdminLayout: "Admin.Layout"
-        }
+        "Tags"
     ]
 })
 class UsersForm extends React.Component {
@@ -36,7 +34,6 @@ class UsersForm extends React.Component {
 
     render() {
         const {
-            AdminLayout,
             Form,
             FormData,
             FormError,

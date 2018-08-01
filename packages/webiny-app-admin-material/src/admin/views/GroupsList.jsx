@@ -4,9 +4,10 @@ import React, { Fragment } from "react";
 import { i18n, inject } from "webiny-app";
 const t = i18n.namespace("Security.GroupsList");
 
+import AdminLayout from "webiny-app-admin-material/components/Layouts/AdminLayout";
+
 @inject({
     modules: [
-        { AdminLayout: "Admin.Layout" },
         "ViewSwitcher",
         "View",
         "Link",
@@ -29,7 +30,6 @@ class GroupsList extends React.Component {
             Link,
             Icon,
             Input,
-            AdminLayout,
             ButtonGroup,
             Button,
             Grid,
