@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { app } from "webiny-client";
+import { app } from "webiny-app";
 
 import "./index.scss";
 import App from "./app";

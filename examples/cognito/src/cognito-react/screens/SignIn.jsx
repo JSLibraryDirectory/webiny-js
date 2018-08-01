@@ -2,9 +2,9 @@ import React from "react";
 import Auth from "@aws-amplify/auth";
 import debug from "./../debug";
 import { Form } from "webiny-form";
-import { Grid, Cell } from "webiny-client-ui-material/Grid";
-import { ButtonPrimary, ButtonDefault } from "webiny-client-ui-material/Button";
-import { Input } from "webiny-client-ui-material/Input";
+import { Grid, Cell } from "webiny-ui-material/Grid";
+import { ButtonPrimary, ButtonDefault } from "webiny-ui-material/Button";
+import { Input } from "webiny-ui-material/Input";
 
 class SignIn extends React.Component {
     authStates = ["signIn", "signedOut", "signedUp"];

@@ -5,8 +5,8 @@ import {
     renderMiddleware,
     authenticationMiddleware,
     Router
-} from "webiny-client";
-import { app as adminApp } from "webiny-client-admin";
+} from "webiny-app";
+import { app as adminApp } from "webiny-app-admin";
 import userIdentity from "./userIdentity";
 import apiConfig from "./apiConfig";
 import "./app.scss";

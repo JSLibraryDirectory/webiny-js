@@ -3,10 +3,10 @@ import Auth from "@aws-amplify/auth";
 import debug from "./../debug";
 import QRCode from "qrcode.react";
 import { Form } from "webiny-form";
-import { Grid, Cell } from "webiny-client-ui-material/Grid";
-import { ButtonPrimary, ButtonDefault } from "webiny-client-ui-material/Button";
-import { Input } from "webiny-client-ui-material/Input";
-import Radio from "webiny-client-ui-material/Radio";
+import { Grid, Cell } from "webiny-ui-material/Grid";
+import { ButtonPrimary, ButtonDefault } from "webiny-ui-material/Button";
+import { Input } from "webiny-ui-material/Input";
+import Radio from "webiny-ui-material/Radio";
 
 class SetupMFA extends React.Component {
     authStates = ["setupMFA"];

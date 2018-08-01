@@ -3,10 +3,10 @@ const packages = require("./../utils/listPackages")([
     // Append untested libraries to the blacklist - they are all work in progress.
     "webiny-api",
     "webiny-api-cms",
-    "webiny-client",
-    "webiny-client-admin",
-    "webiny-client-cms",
-    "webiny-client-ui",
+    "webiny-app",
+    "webiny-app-admin",
+    "webiny-app-cms",
+    "webiny-ui",
     "webiny-form",
     "webiny-i18n-react",
     "webiny-react-router"

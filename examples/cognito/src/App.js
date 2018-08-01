@@ -12,7 +12,7 @@ import ForgotPassword from "cognito-react/screens/ForgotPassword";
 import ConfirmSignIn from "cognito-react/screens/ConfirmSignIn";
 import Profile from "cognito-react/screens/Profile";
 import SetupMFA from "cognito-react/screens/SetupMFA";
-import { Elevation } from "webiny-client-ui-material/Elevation";
+import { Elevation } from "webiny-ui-material/Elevation";
 
 class App extends Component {
     render() {

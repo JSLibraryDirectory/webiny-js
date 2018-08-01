@@ -1,5 +1,5 @@
 import React from "react";
-import { ButtonPrimary, ButtonDefault } from "webiny-client-ui-material/Button";
+import { ButtonPrimary, ButtonDefault } from "webiny-ui-material/Button";
 import Auth from "@aws-amplify/auth";
 
 class Profile extends React.Component {

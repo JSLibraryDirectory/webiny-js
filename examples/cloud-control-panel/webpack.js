@@ -35,7 +35,7 @@ module.exports = {
             "classnames",
             "graphql",
             "graphql-tag",
-            "webiny-client"
+            "webiny-app"
         ];
 
         config.resolve = {
