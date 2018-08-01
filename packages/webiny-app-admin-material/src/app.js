@@ -15,43 +15,6 @@ export default () => {
         Promise.all([new Promise(res => uiApp()(params, res))]).then(() => {
             app.services.register("menu", () => new MenuService());
 
-            app.modules.register([
-                {
-                    name: "Admin.Layout",
-                    factory: () => import("./components/Layouts/AdminLayout")
-                },
-                {
-                    name: "Admin.EmptyLayout",
-                    factory: () => import("./components/Layouts/EmptyLayout")
-                }
-            ]);
-
-            app.modules.register([
-                {
-                    name: "Admin.UserMenu",
-                    factory: () => import("./admin/components/UserMenu"),
-                    tags: ["header-component"]
-                },
-                {
-                    name: "Admin.Login",
-                    factory: () => import("./admin/views/Login")
-                },
-                {
-                    name: "Admin.UserMenu.AccountPreferences",
-                    factory: () => import("./admin/components/UserMenu/AccountPreferences"),
-                    tags: ["user-menu-item"]
-                },
-                {
-                    name: "Admin.UserMenu.Logout",
-                    factory: () => import("./admin/components/UserMenu/Logout"),
-                    tags: ["user-logout-menu-item"]
-                },
-                {
-                    name: "Admin.UserAccountForm",
-                    factory: () => import("./admin/components/UserAccount/UserAccountForm")
-                }
-            ]);
-
             app.router.addRoute({
                 name: "Login",
                 path: "/login",
