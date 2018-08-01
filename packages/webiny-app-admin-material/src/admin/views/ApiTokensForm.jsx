@@ -9,13 +9,13 @@ import { Tabs, Tab } from "webiny-ui-material/Tabs";
 import { Grid, Cell } from "webiny-ui-material/Grid";
 import { Input } from "webiny-ui-material/Input";
 import { ButtonPrimary, ButtonSecondary } from "webiny-ui-material/Button";
+import AdminLayout from "webiny-app-admin-material/components/Layouts/AdminLayout";
+import { Form } from "webiny-form";
 
 const t = i18n.namespace("Security.ApiTokensForm");
 
 class ApiTokensForm extends React.Component {
     render() {
-        const { AdminLayout, Form } = this.props.modules;
-
         const { SecurityApiTokenForm, router } = this.props;
 
         return (
@@ -46,7 +46,11 @@ class ApiTokensForm extends React.Component {
                                                         name="description"
                                                         validators={["required"]}
                                                     >
-                                                        <Input rows={4} fullWidth label={t`Description`} />
+                                                        <Input
+                                                            rows={4}
+                                                            fullWidth
+                                                            label={t`Description`}
+                                                        />
                                                     </Bind>
                                                 </Cell>
                                             </Grid>
@@ -104,18 +108,5 @@ export default compose(
         name: "SecurityApiTokenForm",
         type: "Security.ApiTokens",
         fields: "id name slug description token permissions"
-    }),
-    inject({
-        modules: [
-            "Form",
-            "FormData",
-            "OptionsData",
-            "FormError",
-            "View",
-            "Section",
-            {
-                AdminLayout: "Admin.Layout"
-            }
-        ]
     })
 )(ApiTokensForm);

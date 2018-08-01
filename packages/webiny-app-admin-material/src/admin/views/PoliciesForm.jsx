@@ -3,12 +3,13 @@ import * as React from "react";
 import { i18n, inject } from "webiny-app";
 import { withForm, withRouter } from "webiny-app/hoc";
 import { compose } from "recompose";
-
+import { Form } from "webiny-form";
 import { Elevation } from "webiny-ui-material/Elevation";
 import { Tabs, Tab } from "webiny-ui-material/Tabs";
 import { Grid, Cell } from "webiny-ui-material/Grid";
 import { Input } from "webiny-ui-material/Input";
 import { ButtonPrimary, ButtonSecondary } from "webiny-ui-material/Button";
+import AdminLayout from "webiny-app-admin-material/components/Layouts/AdminLayout";
 
 import EntitiesList from "./PoliciesForm/EntitiesList";
 import ApiAccess from "./PoliciesForm/ApiAccess";
@@ -17,8 +18,6 @@ const t = i18n.namespace("Security.PoliciesForm");
 
 class PoliciesForm extends React.Component {
     render() {
-        const { AdminLayout, Form } = this.props.modules;
-
         const { SecurityPolicyForm, router } = this.props;
 
         return (
@@ -128,18 +127,5 @@ export default compose(
         name: "SecurityPolicyForm",
         type: "Security.Policies",
         fields: "id name slug description permissions"
-    }),
-    inject({
-        modules: [
-            "Form",
-            "FormData",
-            "OptionsData",
-            "FormError",
-            "View",
-            "Section",
-            {
-                AdminLayout: "Admin.Layout"
-            }
-        ]
     })
 )(PoliciesForm);

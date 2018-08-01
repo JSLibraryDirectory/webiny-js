@@ -11,10 +11,11 @@ import { EditIcon, DeleteIcon, CreateIcon } from "webiny-ui-material/List/DataLi
 import { withSnackbar } from "webiny-app-admin-material/hoc";
 import { DataList, List, ListItem, ListItemText, ListItemTextSecondary, ListItemMeta } from "webiny-ui-material/List";
 
+import AdminLayout from "webiny-app-admin-material/components/Layouts/AdminLayout";
+
 const t = i18n.namespace("Security.ApiTokensList");
 
 const ApiTokensList = props => {
-    const { AdminLayout } = props.modules;
     const { ApiTokensList, router } = props;
 
     return (
@@ -115,12 +116,5 @@ export default compose(
         name: "ApiTokensList",
         type: "Security.ApiTokens",
         fields: "id name slug createdOn"
-    }),
-    inject({
-        modules: [
-            {
-                AdminLayout: "Admin.Layout"
-            }
-        ]
     })
 )(ApiTokensList);

@@ -10,11 +10,11 @@ import { ConfirmationDialog } from "webiny-ui-material/ConfirmationDialog";
 import { DataList, List, ListItem, ListItemText, ListItemTextSecondary, ListItemMeta } from "webiny-ui-material/List";
 import { EditIcon, DeleteIcon } from "webiny-ui-material/List/DataList/icons";
 import { withSnackbar } from "webiny-app-admin-material/hoc";
+import AdminLayout from "webiny-app-admin-material/components/Layouts/AdminLayout";
 
 const t = i18n.namespace("Security.PoliciesList");
 
 const PoliciesList = props => {
-    const { AdminLayout } = props.modules;
     const { PoliciesList, router } = props;
 
     return (
